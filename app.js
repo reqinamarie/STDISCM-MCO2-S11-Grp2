@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('hbs');
-const socket = require('socket.io')
 
 const routes = require('./routes/routes.js');
 
@@ -25,7 +24,8 @@ const server = app.listen(port, function() {
     console.log('App listening at port ' + port)
 })
 
-const io = socket(server);
+const socket = require('socket.io');
+const io = socket(server, {'transports': ['websocket', 'polling']});
 require('./utils/socket')(io);
 
 module.exports = app;
