@@ -41,7 +41,7 @@ socket.on('end-auction', (data) => {
 
 	$(".with-auction").hide();
 
-	$("#auction-message").text('No auctions ongoing')
+	$(".auction-message").text('No auctions ongoing')
 	$(".without-auction").show();
 })
 
@@ -51,7 +51,7 @@ socket.on('start-auction', (data) => {
 
 	
 	$(".with-auction").hide();
-	$("#auction-message").text('Auction currently ongoing. Please wait until end.')
+	$(".auction-message").text('Auction currently ongoing. Please wait for the next auction.')
 	$(".without-auction").show();
 })
 
