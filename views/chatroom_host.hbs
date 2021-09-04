@@ -15,13 +15,36 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <script src="/js/chatroom.js"></script>
 
+
+    <script>
+    // Set the date we're counting down to
+    function startBid() {
+        document.getElementById("startTime").disabled = true;
+
+        var timeleft = {{bidTime}}*60;
+        var downloadTimer = setInterval(function(){
+          if(timeleft <= 0){
+            clearInterval(downloadTimer);
+            document.getElementById("duration").innerHTML = "Auction Closed";
+          } else {
+            if(timeleft > 60) {
+                document.getElementById("duration").innerHTML = Math.floor(timeleft/60) + " minutes and " + timeleft%60 + " seconds remaining";
+            } else
+                document.getElementById("duration").innerHTML = timeleft + " seconds remaining";
+          }
+          timeleft -= 1;
+        }, 1000);
+    }
+</script>
 
 </head>
 <body class="d-flex align-items-center justify-content-center vh-100">
     <div class="card container-md d-flex flex-column " style="height: 95vh">
-        <center><h2 class="room-message my-2"> Online Auction </h2> <b style="color:#DC143C; "> 5 mins left! </b></center> 
+        <center><h2 class="room-message my-2"> Online Auction </h2> <b id="duration" style="color:#DC143C; "> {{bidTime}} minutes and 0 seconds remaining </b></center> 
         <div class="window row p-3 mb-2 bg-light text-dark flex-fill d-flex flex-row">
             <div class="col-8 d-flex flex-column flex-fill" >
                 <!-- <div class="chat-message" style="overflow-y: scroll; height: 554px;"> -->
@@ -69,25 +92,13 @@
                                 <b>Bidding Time:</b> <span id="bidTime">{{bidTime}} minutes</span></p>
 
                                 <p class="mb-0"><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
-                        </div>
-                    </div>
-            <!--    <div class="online">
-                    <p class="users-online">Users Online</p>
-                    <div class="users">
-                    </div>
-                </div>
-                -->
-                    <div class="" style="">
-                        <div class="row my-3">
-                            <div class='fields col-8'>
-                                <input type="number" class="form-control " id="bid" placeholder="Enter bid" min={{startPrice}} max={{autobuyPrice}}>
+
+                                <br>
+                            <div class=" btn-group special center">
+                                <form action="http://www.google.fr">
+                                    <button type="button" class="btn btn-warning" id="startTime" onclick="startBid()">Start Bidding Time</button>
+                                </form>
                             </div>
-                            <div class="col-4 btn-group special">
-                                <button type="button" class="btn btn-primary" id="bidBtn">Bid</button>
-                            </div>
-                        </div>
-                        <div class=" btn-group special center">
-                            <button type="button" class="btn btn-success" id="autobuyBtn">Autobuy</button>
                         </div>
                     </div>
             </div>     
