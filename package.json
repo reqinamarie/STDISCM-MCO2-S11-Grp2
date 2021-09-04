@@ -21,8 +21,9 @@
     "node": "14.15.1"
   },
   "dependencies": {
-    "express": "*",
     "body-parser": "*",
+    "express": "*",
+    "hbs": "^4.1.2",
     "socket.io": "*"
   }
 }
