@@ -30,8 +30,21 @@ const homeController = {
 
     newRoom: function(req, res) {
     	res.render('createRoom');
-    }
+    },
 
+    getChatroomHost: function(req,res) {
+    	var item = {
+			itemName: "ITEM",
+			itemDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.",
+			startPrice: 100.00,
+			autobuyPrice: 1000.00,
+			bidTime: 15,
+			maxPeople: 10
+		}
+
+
+        res.render('chatroom_host', item);
+    }
 }
 
 module.exports = homeController
