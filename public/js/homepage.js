@@ -57,10 +57,10 @@ socket.on('start-auction', (data) => {
 
 //Displaying online users
 socket.on('online-users', (data) =>{
+    console.log(data)
 	if (data >= max_people) {
 		$("#joinBtn").prop('disabled', true);
 	}
 
-    console.log(data)
     $('#currPeople').text(data)
 })

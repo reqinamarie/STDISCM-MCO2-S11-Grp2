@@ -51,17 +51,17 @@ function socket(io) {
             if (roomName == 'home') {
                 io.to('home').emit('start-auction', {})
                 return;
+            } else {
+                var rooms = Array.from(socket.rooms);
+                var socketId = rooms[0];
+
+                removeUser(socketId);
+        
+                //Send online users count
+                io.emit('online-users', getUserCount())
+
+                io.to('home').emit('end-auction', {})
             }
-
-            var rooms = Array.from(socket.rooms);
-            var socketId = rooms[0];
-
-            removeUser(socketId);
-    
-            //Send online users count
-            io.emit('online-users', getUserCount())
-
-            io.to('home').emit('end-auction', {})
         })
     })
 }
