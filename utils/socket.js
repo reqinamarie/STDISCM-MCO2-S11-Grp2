@@ -2,14 +2,17 @@ const {getUsers, addUser, removeUser, getUserCount} = require('./socketUser');
 
 //Socket connection
 function socket(io) {
-    io.on('connection', (socket, roomName) => {
-        console.log("connected to " + roomName);
-        
+    io.on('connection', (socket) => {
+        console.log("connected to server");
+        var roomnName;
+
         socket.on('joined-user', (data) =>{
             //Storing users connected in a room in memory
             var user = {};
             user[socket.id] = data.email;            
             addUser(user);
+
+            roomName = data.roomName;
             
             //Joining the Socket Room
             socket.join(roomName);
@@ -25,6 +28,8 @@ function socket(io) {
 
         socket.on('joined-homepage', (data) => {
             console.log("JOINED HOMEPAGE")
+            roomName = data.roomName;
+
             socket.join(roomName);
         })
     

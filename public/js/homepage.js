@@ -1,8 +1,9 @@
 
 //Socket server URL
-const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/', 'home');
+const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
+console.log(socket)
 
-socket.emit('joined-homepage', {})
+socket.emit('joined-homepage', {roomName: 'home'});
 
 socket.on('new-auction', (data) => {
 	console.log(data);
