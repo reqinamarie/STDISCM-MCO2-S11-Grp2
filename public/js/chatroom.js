@@ -18,7 +18,8 @@ console.log(fName, lName, email);
 //Emitting username and roomname of newly joined user to server
 socket.emit('joined-user', {
     name: fName + " " + lName,
-    email: email
+    email: email,
+    roomnName: 'auction-room'
 })
 
 //Sending data when user clicks send

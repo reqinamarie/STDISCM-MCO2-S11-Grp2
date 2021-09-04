@@ -2,15 +2,17 @@ const {getUsers, addUser, removeUser, getUserCount} = require('./socketUser');
 
 //Socket connection
 function socket(io) {
-    var roomName = 'auction-room'
-
     io.on('connection', (socket) => {
+        console.log("connected to server");
+        var roomName;
+
         socket.on('joined-user', (data) =>{
-            console.log("new user: " + data.email)
             //Storing users connected in a room in memory
             var user = {};
             user[socket.id] = data.email;            
             addUser(user);
+
+            roomName = data.roomName;
             
             //Joining the Socket Room
             socket.join(roomName);
@@ -18,8 +20,18 @@ function socket(io) {
             //Emitting New name to Clients
             io.to(roomName).emit('joined-user', {name: data.name});
     
-            //Send online users count
-            io.to(roomName).emit('online-users', getUserCount())
+            //Send online users count to both home and auction chatroom
+            io.emit('online-users', getUserCount());
+        })
+
+        socket.on('joined-homepage', (data) => {
+            console.log("JOINED HOMEPAGE")
+            roomName = data.roomName;
+
+            socket.join(roomName);
+
+            //Send online users count to home
+            io.to('home').emit('online-users', getUserCount());
         })
     
         //Emitting messages to Clients
@@ -34,15 +46,15 @@ function socket(io) {
     
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
-            var rooms = Array.from(socket.rooms);
-            var socketId = rooms[0];
+            if (roomName != 'home') {
+                var rooms = Array.from(socket.rooms);
+                var socketId = rooms[0];
 
-            console.log("DISCONNECTING: " + socketId)
-            // var roomname = rooms[1];
-            removeUser(socketId);
-    
-            //Send online users count
-            io.to(roomName).emit('online-users', getUserCount())
+                removeUser(socketId);
+        
+                //Send online users count to both home and auction chatroom
+                io.emit('online-users', getUserCount())
+            }
         })
     })
 }
