@@ -1,12 +1,14 @@
-const {getUsers, addUser, removeUser} = require('./socketUser');
+const {getUsers, addUser, removeUser, getUserCount} = require('./socketUser');
 
 //Socket connection
 function socket(io) {
     var roomName = 'auction-room'
 
     io.on('connection', (socket) => {
+        console.log("CONNECTED")
 
         socket.on('joined-user', (data) =>{
+            console.log(data.email)
             //Storing users connected in a room in memory
             var user = {};
             user[socket.id] = data.email;            
@@ -41,7 +43,7 @@ function socket(io) {
             removeUser(socketId);
     
             //Send online users array
-            io.to(roomname).emit('online-users', getUsers())
+            io.to(roomname).emit('online-users', getUserCount())
         })
     })
 }

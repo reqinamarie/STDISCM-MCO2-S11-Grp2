@@ -26,4 +26,8 @@ function removeUser(socketId) {
 	});
 }
 
-module.exports = {getUsers, addUser, removeUser};
+function getUserCount() {
+	return Object.keys(users).length
+}
+
+module.exports = {getUsers, addUser, removeUser, getUserCount};
