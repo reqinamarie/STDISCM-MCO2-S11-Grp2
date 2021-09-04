@@ -7,18 +7,24 @@
 }
 
 .card-margin {
-	margin-bottom:15px;
-	margin-right: 10px;
+	/*margin-bottom:15px;*/
+	/*margin-right: 10px;*/
+	margin-left:0px;
 }
 
 .per-message {
-	margin-left: 10px;
-	margin-top: 12px;
-	margin-right: 10px;
+	/*margin-left: 10px;
+	margin-top: 12px;*/
+	/*margin-right: 10px;*/
+	margin-bottom: 0px;
 }
 
 .center {
 	align-content: center;
+}
+
+.item-details {
+	font-size: 0.8rem;
 }
 
 /* width */
