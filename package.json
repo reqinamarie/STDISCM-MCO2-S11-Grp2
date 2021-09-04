@@ -1,0 +1,19 @@
+{
+  "name": "stdiscm-mco2-s11-grp2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reqinamarie/STDISCM-MCO2-S11-Grp2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reqinamarie/STDISCM-MCO2-S11-Grp2/issues"
+  },
+  "homepage": "https://github.com/reqinamarie/STDISCM-MCO2-S11-Grp2#readme"
+}
