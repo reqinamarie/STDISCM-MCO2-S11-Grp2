@@ -18,7 +18,7 @@
 <div class="container d-flex align-items-center min-vh-100 justify-content-center">
     <div class="row align-items-center w-75">
       <div class="col-sm-6">
-        <div class="card">
+        <!-- <div class="card">
             <img class="card-img-top img-fluid" src="/images/placeholder.jpeg" style="max-height: 12rem; object-fit: cover">
           <div class="card-body">
             <p class="card-text">
@@ -36,8 +36,34 @@
 
             </p>
           </div>
+        </div> -->
+
+        <div class="card flex-fill d-flex flex-column" style="height: 75vh">
+            <div class="flex-fill with-auction" style="position: relative; display: {{withAuction}}">
+                <img class="img-fluid w-100 mh-100" src="/images/placeholder.jpeg" style="object-fit: cover; position: absolute">
+            </div> 
+            <div class="d-inline-flex flex-column p-3 with-auction h-100 justify-content-center">
+                <div class="with-auction" style="display: {{withAuction}}">
+                    <h5 id="itemName">{{itemName}}</h5>
+
+                    <p id="itemDescription h-50 overflow-auto flex-fill" style="overflow-y: scroll; height: 15vh;">{{itemDesc}}</p>
+                    
+                    <p><b>Starting Price:</b> <span id="startingPrice">PHP {{startPrice}}</span>    <br>
+                    <b>Autobuy Price:</b> <span id="autobuyPrice">PHP {{autobuyPrice}}</span>    <br>
+                    <b>Bidding Time:</b> <span id="bidTime">{{bidTime}} minutes</span></p>
+
+                    <p class="mb-0"><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
+                </div>
+
+                <div class="without-auction d-flex flex-column align-items-center" style="display: {{with-auction}};">
+                    <h5 class="m-3">No auctions ongoing</h5>
+
+                    <button type="submit" class="btn btn-primary" id="createRoom">Start an Auction</button>
+                </div>
+            </div>
         </div>
       </div>
+
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
