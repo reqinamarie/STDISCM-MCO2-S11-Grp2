@@ -5,10 +5,8 @@ function socket(io) {
     var roomName = 'auction-room'
 
     io.on('connection', (socket) => {
-        console.log("CONNECTED")
-
         socket.on('joined-user', (data) =>{
-            console.log(data.email)
+            console.log("new user: " + data.email)
             //Storing users connected in a room in memory
             var user = {};
             user[socket.id] = data.email;            
@@ -36,9 +34,6 @@ function socket(io) {
     
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
-            console.log(socket.rooms);
-            console.log(Array.from(socket.rooms));
-
             var rooms = Array.from(socket.rooms);
             var socketId = rooms[0];
 
@@ -49,10 +44,6 @@ function socket(io) {
             //Send online users count
             io.to(roomName).emit('online-users', getUserCount())
         })
-
-        socket.on('disconnect', () => {
-            console.log(socket.rooms);
-          });
     })
 }
 
