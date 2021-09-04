@@ -47,6 +47,10 @@ function socket(io) {
             //Send online users count
             io.to(roomName).emit('online-users', getUserCount())
         })
+
+        socket.on('disconnect', () => {
+            console.log(socket.rooms + " | " + Object.keys(socket.rooms));
+          });
     })
 }
 
