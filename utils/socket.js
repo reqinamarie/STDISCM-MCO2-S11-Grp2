@@ -22,7 +22,7 @@ function socket(io) {
             io.to('home').emit('new-auction', {itemName: "ITEM NAME", itemDesc: "Lorem ipsum blaaa", startPrice: 10, autobuyPrice:1000, maxPeople:10, bidTime:10})
         })
 
-        socket.on('joined-homepage', () => {
+        socket.on('joined-homepage', (data) => {
             console.log("JOINED HOMEPAGE")
             socket.join(roomName);
         })
