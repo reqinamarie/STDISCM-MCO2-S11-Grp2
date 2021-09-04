@@ -16,7 +16,7 @@
         margin-bottom: 20px;"> Online Auction </h2></center>
         <div class="window row p-3 mb-2 bg-light text-dark">
             <div class="col-8" >
-                <div class="chat-message" style="overflow-y: scroll; height: 500px;">
+                <div class="chat-message" style="overflow-y: scroll; height: 554px;">
                     <div id="output">
                         <p> -> <strong><em> user1 </strong>has joined the room.</em></p>
                         <div class="card card-margin"><p class="per-message"><strong> user1</strong>: sample data message </p></div>
@@ -36,21 +36,21 @@
                     <div class='fields mb-3 col-10'>
                         <input type="text" class="form-control " id="message" placeholder="Enter message">
                     </div>
-                    <div class="col-2 btn-group special">
+                    <div class="col-2 btn-group special" style="  margin-bottom:17px;">
                         <button type="button" class="btn btn-primary" id="send">Send</button>
                     </div>
                 </div>
             </div>
             <div class="col-4" >
                 <div class="card">
-                    <div class="card" style="height: 560px;">
+                    <div class="card" style="height: 610px;">
                         <img class="card-img-top img-fluid" src="/images/placeholder.jpeg" style="max-height: 12rem; object-fit: cover">
                         <div class="card-body">
                             <p class="card-text">
                                 <h5 id="itemName">{{itemName}}</h5>
 
-                                <p id="itemDescription">{{itemDesc}}</p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.
+                                <p id="itemDescription" style="overflow-y: scroll; height: 100px;">{{itemDesc}} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.</p>
+                                
                                 <p><b>Starting Price:</b> <span id="startingPrice">PHP {{startPrice}}</span>    <br>
                                 <b>Autobuy Price:</b> <span id="autobuyPrice">PHP {{autobuyPrice}}</span>    <br>
                                 <b>Bidding Time:</b> <span id="bidTime">{{bidTime}} minutes</span></p>
@@ -58,6 +58,14 @@
 
                                 <p><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
 
+                                <div class="row " style="margin-top: 20px;">
+                                    <div class='fields mb-3 col-8'>
+                                        <input type="text" class="form-control " id="bid" placeholder="Enter bid">
+                                    </div>
+                                    <div class="col-4 mb-3 btn-group special">
+                                        <button type="button" class="btn btn-primary" id="bidBtn">Place Bid</button>
+                                    </div>
+                                </div>
                                 <div class=" btn-group special center">
                                     <button type="button" class="btn btn-success" id="autobuyBtn">Autobuy</button>
                                 </div>
