@@ -43,7 +43,7 @@ function socket(io) {
             removeUser(socketId);
     
             //Send online users array
-            io.to(roomname).emit('online-users', getUserCount())
+            io.to(roomName).emit('online-users', getUserCount())
         })
     })
 }
