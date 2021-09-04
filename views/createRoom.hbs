@@ -1,0 +1,99 @@
+<html>
+<head>
+    <title>Home</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <!-- JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+<div class="container d-flex flex-column align-items-center min-vh-100 justify-content-center">
+    <h2>Create New Auction Room</h2>
+
+    <form name="createRoomForm" method="get" action="/chatroom" id="createRoomForm" class="d-flex flex-column align-items-center">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Item Name</span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Item Name" aria-label="Item Name" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Item Photo</span>
+                    </div>
+                    
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                        <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Item <br>Description</span>
+                  </div>
+                  <textarea class="form-control" aria-label="With textarea"></textarea>
+                </div>
+
+
+                <div class="d-flex mb-3">
+                    <div class="input-group pr-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Starting</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Starting Price" aria-label="Starting Price" aria-describedby="basic-addon1" min=1>
+
+                    </div>
+
+                    <div class="input-group">
+
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Autobuy</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Autobuy Price" aria-label="Autobuy Price" aria-describedby="basic-addon1"  min=1>
+                    </div>
+                </div>
+
+
+                <div class="d-flex">
+                    <div class="input-group pr-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Max Bidders</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=1 min=1>
+
+                    </div>
+
+                    <div class="input-group ">
+
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Bidding Timer</span>
+                      </div>
+                      <input type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=5 min=5 max=30>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-primary m-2 w-25" id="createBtn">Create Room</button>
+    </form>
+
+</div>
+
+
+</body>
+</html>

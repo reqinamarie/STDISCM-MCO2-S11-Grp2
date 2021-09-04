@@ -28,6 +28,10 @@ const homeController = {
         res.render('chatroom', item);
     },
 
+    newRoom: function(req, res) {
+    	res.render('createRoom');
+    }
+
 }
 
 module.exports = homeController
