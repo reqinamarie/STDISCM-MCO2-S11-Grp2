@@ -1,7 +1,8 @@
 
 //Socket server URL
 const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
-console.log(socket)
+
+var max_people = 999999999999999999999999;
 
 socket.emit('joined-homepage', {roomName: 'home'});
 
@@ -13,14 +14,17 @@ socket.on('new-auction', (data) => {
 	$("#loginForm").prop("action", "/chatroom");
 
 	$("#itemName").text(data.itemName)
-	$("#itemDesc").text(data.itemDesc)
+	$("#itemDescription").text(data.itemDesc)
 	$("#startPrice").text(data.startPrice)
 	$("#autobuyPrice").text(data.autobuyPrice)
 	$("#bidTime").text(data.bidTime)
 	$("#maxPeople").text(data.maxPeople)
 
+	max_people = data.maxPeople;
+
 	$(".with-auction").show();
 	$(".without-auction").hide();
+
 })
 
 socket.on('end-auction', (data) => {
@@ -51,3 +55,12 @@ socket.on('start-auction', (data) => {
 	$(".without-auction").show();
 })
 
+//Displaying online users
+socket.on('online-users', (data) =>{
+	if (data >= max_people) {
+		$("#joinBtn").prop('disabled', true);
+	}
+
+    console.log(data)
+    $('#currPeople').text(data)
+})

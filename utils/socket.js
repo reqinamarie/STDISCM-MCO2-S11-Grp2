@@ -31,6 +31,9 @@ function socket(io) {
             roomName = data.roomName;
 
             socket.join(roomName);
+
+            //Send online users count
+            io.emit('online-users', getUserCount());
         })
     
         //Emitting messages to Clients
@@ -45,8 +48,10 @@ function socket(io) {
     
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
-            if (roomName == 'chat')
+            if (roomName == 'home') {
+                io.to('home').emit('start-auction', {})
                 return;
+            }
 
             var rooms = Array.from(socket.rooms);
             var socketId = rooms[0];
@@ -54,7 +59,9 @@ function socket(io) {
             removeUser(socketId);
     
             //Send online users count
-            io.to(roomName).emit('online-users', getUserCount())
+            io.emit('online-users', getUserCount())
+
+            io.to('home').emit('end-auction', {})
         })
     })
 }
