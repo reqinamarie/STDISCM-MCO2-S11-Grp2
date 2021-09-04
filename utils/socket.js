@@ -4,7 +4,7 @@ const {getUsers, addUser, removeUser, getUserCount} = require('./socketUser');
 function socket(io) {
     io.on('connection', (socket) => {
         console.log("connected to server");
-        var roomnName;
+        var roomName;
 
         socket.on('joined-user', (data) =>{
             //Storing users connected in a room in memory
