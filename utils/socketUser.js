@@ -19,6 +19,8 @@ function addUser(user) {
 
 // remove user from object
 function removeUser(socketId) {
+	console.log("DISCONNECTING: " + socketId)
+
 	users.forEach((user, index) => {
         if(user[socketId]){
             users.splice(index, 1)
@@ -27,6 +29,7 @@ function removeUser(socketId) {
 }
 
 function getUserCount() {
+	console.log(users.length)
 	return users.length
 }
 

@@ -39,7 +39,6 @@ function socket(io) {
             var rooms = Object.keys(socket.rooms);
             var socketId = rooms[0];
             // var roomname = rooms[1];
-
             removeUser(socketId);
     
             //Send online users array
