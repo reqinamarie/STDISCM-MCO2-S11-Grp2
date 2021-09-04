@@ -18,6 +18,11 @@
   },
   "homepage": "https://github.com/reqinamarie/STDISCM-MCO2-S11-Grp2#readme",
   "engines": {
-   "node": "14.15.1"
-   }
+    "node": "14.15.1"
+  },
+  "dependencies": {
+    "express":"*",
+    "body-parser":"*",
+    "socket.io":"*"
+ }
 }
