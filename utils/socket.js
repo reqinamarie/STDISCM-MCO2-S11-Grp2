@@ -37,9 +37,9 @@ function socket(io) {
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
             console.log(socket.rooms);
-            console.log(Object.keys(socket.rooms));
+            console.log(Array.from(socket.rooms));
 
-            var rooms = Object.keys(socket.rooms);
+            var rooms = Array.from(socket.rooms);
             var socketId = rooms[0];
 
             console.log("DISCONNECTING: " + socketId)
