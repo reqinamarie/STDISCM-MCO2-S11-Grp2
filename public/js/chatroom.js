@@ -4,7 +4,7 @@ const userCount = $('#currPeople');
 // const users = document.querySelector('.users');
 
 //Socket server URL
-const socket = io.connect('https://a-chatting-app.herokuapp.com/');
+const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
 console.log(socket)
 
 //Fetch URL Params from URL
