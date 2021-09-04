@@ -1,5 +1,5 @@
 //Store connected Users
-var users = {}
+var users = []
 
 // get online users
 function getUsers(){
@@ -19,15 +19,18 @@ function addUser(user) {
 
 // remove user from object
 function removeUser(socketId) {
+	console.log("DISCONNECTING: " + socketId)
+
 	users.forEach((user, index) => {
-	    if(user[socketId]){
-	        users.splice(index, 1)
-	    }
-	});
+        if(user[socketId]){
+            users.splice(index, 1)
+        }
+    });
 }
 
 function getUserCount() {
-	return Object.keys(users).length
+	console.log(users.length)
+	return users.length
 }
 
 module.exports = {getUsers, addUser, removeUser, getUserCount};
