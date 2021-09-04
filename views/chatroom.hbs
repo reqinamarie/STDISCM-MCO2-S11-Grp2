@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat APP</title>
+    <link rel="stylesheet" href="/css/chatroom.css">
+    
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="card container-md" style="margin-top: 20px;">
+        <center><h2 class="room-message" style="margin-top: 10px;
+        margin-bottom: 20px;"> Online Auction </h2></center>
+        <div class="window row p-3 mb-2 bg-light text-dark">
+            <div class="col-8" >
+                <div class="chat-message" style="overflow-y: scroll; height: 500px;">
+                    <div id="output">
+                        <p> -> <strong><em> user1 </strong>has joined the room.</em></p>
+                        <div class="card card-margin"><p class="per-message"><strong> user1</strong>: sample data message </p></div>
+                        <div class="card card-margin"><p class="per-message"><strong> user1</strong>: sample data message </p></div>
+                        <p> -> <strong><em> user2 </strong>has joined the room.</em></p>
+                        <div class="card card-margin"><p class="per-message"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
+
+
+                        <div class="card card-margin"><p class="per-message"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
+                        <div class="card card-margin"><p class="per-message"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
+                        <div class="card card-margin"><p class="per-message"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
+                        <div class="card card-margin"><p class="per-message"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
+                    </div>
+                    <div id="feedback"></div>
+                </div>
+                <div class="row " style="margin-top: 20px;">
+                    <div class='fields mb-3 col-10'>
+                        <input type="text" class="form-control " id="message" placeholder="Enter message">
+                    </div>
+                    <div class="col-2 btn-group special">
+                        <button type="button" class="btn btn-primary" id="send">Send</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4" >
+                <div class="card">
+                    <div class="card" style="height: 560px;">
+                        <img class="card-img-top img-fluid" src="/images/placeholder.jpeg" style="max-height: 12rem; object-fit: cover">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <h5 id="itemName">{{itemName}}</h5>
+
+                                <p id="itemDescription">{{itemDesc}}</p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.
+                                <p><b>Starting Price:</b> <span id="startingPrice">PHP {{startPrice}}</span>    <br>
+                                <b>Autobuy Price:</b> <span id="autobuyPrice">PHP {{autobuyPrice}}</span>    <br>
+                                <b>Bidding Time:</b> <span id="bidTime">{{bidTime}} minutes</span></p>
+
+
+                                <p><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
+
+                                <div class=" btn-group special center">
+                                    <button type="button" class="btn btn-success" id="autobuyBtn">Autobuy</button>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+            <!--    <div class="online">
+                    <p class="users-online">Users Online</p>
+                    <div class="users">
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="/chat.js"></script>
+</body>
+</html>

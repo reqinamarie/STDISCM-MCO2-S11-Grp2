@@ -41,10 +41,10 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <form>
+            <form name="loginForm" method="get" action="/chatroom" id="loginForm">
               <div class="form-group">
                 <label for="inputEmail">Email address</label>
-                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="E-mail Address">
+                <input type="email" class="form-control" id="inputEmail" name="inputEmail" aria-describedby="emailHelp" placeholder="E-mail Address">
               </div>
 
               <div class="form-group">
@@ -53,7 +53,7 @@
                 <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
               </div>
 
-              <button type="submit" class="btn btn-primary">Join as Bidder</button>
+              <button type="submit" class="btn btn-primary" id="joinBtn">Join as Bidder</button>
             </form>
           </div>
         </div>
