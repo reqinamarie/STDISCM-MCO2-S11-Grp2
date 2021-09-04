@@ -23,6 +23,7 @@ function socket(io) {
         })
 
         socket.on('joined-homepage', () => {
+            console.log("JOINED HOMEPAGE")
             socket.join(roomName);
         })
     
@@ -38,11 +39,12 @@ function socket(io) {
     
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
+            if (roomName == 'chat')
+                return;
+
             var rooms = Array.from(socket.rooms);
             var socketId = rooms[0];
 
-            console.log("DISCONNECTING: " + socketId)
-            // var roomname = rooms[1];
             removeUser(socketId);
     
             //Send online users count
