@@ -2,6 +2,8 @@
 //Socket server URL
 const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/', 'home');
 
+socket.emit('joined-homepage')
+
 socket.on('new-auction', (data) => {
 	$("#joinBtn").prop('disabled', false);
 	$("#createRoomBtn").prop('disabled', true);

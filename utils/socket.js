@@ -19,7 +19,11 @@ function socket(io) {
             //Send online users count
             io.to(roomName).emit('online-users', getUserCount());
 
-            socket.emit
+            io.to('home').emit('new-auction', {itemName: "ITEM NAME", itemDesc: "Lorem ipsum blaaa", startPrice: 10, autobuyPrice:1000, maxPeople:10, bidTime:10})
+        })
+
+        socket.on('joined-homepage', () => {
+            socket.join(roomName);
         })
     
         //Emitting messages to Clients
