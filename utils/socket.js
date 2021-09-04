@@ -20,10 +20,8 @@ function socket(io) {
             //Emitting New name to Clients
             io.to(roomName).emit('joined-user', {name: data.name});
     
-            //Send online users count
+            //Send online users count to both home and auction chatroom
             io.emit('online-users', getUserCount());
-
-            io.to('home').emit('new-auction', {itemName: "ITEM NAME", itemDesc: "Lorem ipsum blaaa", startPrice: 10, autobuyPrice:1000, maxPeople:10, bidTime:10})
         })
 
         socket.on('joined-homepage', (data) => {
@@ -32,8 +30,8 @@ function socket(io) {
 
             socket.join(roomName);
 
-            //Send online users count
-            io.emit('online-users', getUserCount());
+            //Send online users count to home
+            io.to('home').emit('online-users', getUserCount());
         })
     
         //Emitting messages to Clients
@@ -48,19 +46,14 @@ function socket(io) {
     
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
-            if (roomName == 'home') {
-                io.to('home').emit('start-auction', {})
-                return;
-            } else {
+            if (roomName != 'home') {
                 var rooms = Array.from(socket.rooms);
                 var socketId = rooms[0];
 
                 removeUser(socketId);
         
-                //Send online users count
+                //Send online users count to both home and auction chatroom
                 io.emit('online-users', getUserCount())
-
-                io.to('home').emit('end-auction', {})
             }
         })
     })
