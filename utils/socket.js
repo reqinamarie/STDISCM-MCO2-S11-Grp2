@@ -2,9 +2,7 @@ const {getUsers, addUser, removeUser, getUserCount} = require('./socketUser');
 
 //Socket connection
 function socket(io) {
-    var roomName = 'auction-room'
-
-    io.on('connection', (socket) => {
+    io.on('connection', (socket, roomName) => {
         socket.on('joined-user', (data) =>{
             console.log("new user: " + data.email)
             //Storing users connected in a room in memory
@@ -19,7 +17,9 @@ function socket(io) {
             io.to(roomName).emit('joined-user', {name: data.name});
     
             //Send online users count
-            io.to(roomName).emit('online-users', getUserCount())
+            io.to(roomName).emit('online-users', getUserCount());
+
+            socket.emit
         })
     
         //Emitting messages to Clients

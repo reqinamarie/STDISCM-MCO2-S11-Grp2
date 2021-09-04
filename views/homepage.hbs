@@ -12,31 +12,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
+    <script src="/js/homepage.js"></script>
+
 </head>
 <body>
 
 <div class="container d-flex align-items-center min-vh-100 justify-content-center">
     <div class="row align-items-center w-75">
       <div class="col-sm-6">
-        <!-- <div class="card">
-            <img class="card-img-top img-fluid" src="/images/placeholder.jpeg" style="max-height: 12rem; object-fit: cover">
-          <div class="card-body">
-            <p class="card-text">
-                <h5 id="itemName">{{itemName}}</h5>
-
-                <p id="itemDescription">{{itemDesc}}</p>
-
-                <p><b>Starting Price:</b> <span id="startingPrice">PHP {{startPrice}}</span>    <br>
-                    <b>Autobuy Price:</b> <span id="autobuyPrice">PHP {{autobuyPrice}}</span>    <br>
-                    <b>Bidding Time:</b> <span id="bidTime">{{bidTime}} minutes</span></p>
-
-
-                <p><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
-
-
-            </p>
-          </div>
-        </div> -->
 
         <div class="card flex-fill d-flex flex-column" style="height: 75vh">
             <div class="flex-fill with-auction" style="position: relative; display: {{withAuction}}">
@@ -48,17 +31,16 @@
 
                     <p id="itemDescription h-50 overflow-auto flex-fill" style="overflow-y: scroll; height: 15vh;">{{itemDesc}}</p>
                     
-                    <p><b>Starting Price:</b> <span id="startingPrice">PHP {{startPrice}}</span>    <br>
-                    <b>Autobuy Price:</b> <span id="autobuyPrice">PHP {{autobuyPrice}}</span>    <br>
-                    <b>Bidding Time:</b> <span id="bidTime">{{bidTime}} minutes</span></p>
+                    <p><b>Starting Price:</b> PHP <span id="startingPrice">{{startPrice}}</span>    <br>
+                    <b>Autobuy Price:</b> PHP <span id="autobuyPrice">{{autobuyPrice}}</span>    <br>
+                    <b>Bidding Time:</b> <span id="bidTime">{{bidTime}}</span> minutes</p>
 
                     <p class="mb-0"><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
                 </div>
 
                 <div class="without-auction d-flex flex-column align-items-center" style="display: {{with-auction}};">
-                    <h5 class="m-3">No auctions ongoing</h5>
+                    <h5 class="m-3 auction-message">No auctions ongoing</h5>
 
-                    <a type="button" href="/createRoom" class="btn btn-primary" id="createRoom">Start an Auction</a>
                 </div>
             </div>
         </div>
@@ -67,19 +49,22 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <form name="loginForm" method="get" action="/chatroom" id="loginForm">
+            <form name="loginForm" method="get" id="loginForm">
               <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="E-mail Address">
+                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="E-mail Address" required>
               </div>
 
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="fName" name="fName" placeholder="First Name">
-                <input type="text" class="form-control" id="lName" name="lName" placeholder="Last Name">
+                <input type="text" class="form-control" id="fName" name="fName" placeholder="First Name" required pattern="\s*\S+.*" oninvalid="this.setCustomValidity('Field cannot be empty or whitespace only')" oninput="this.setCustomValidity('')">
+                <input type="text" class="form-control" id="lName" name="lName" placeholder="Last Name" required pattern="\s*\S+.*" oninvalid="this.setCustomValidity('Field cannot be empty or whitespace only')" oninput="this.setCustomValidity('')">
               </div>
 
-              <button type="submit" class="btn btn-primary" id="joinBtn">Join as Bidder</button>
+              <div class="d-flex w-100">
+                <button type="submit" class="btn btn-primary flex-fill mr-2" id="joinBtn" disabled=true>Join as Bidder</button>
+                <button type="submit" class="btn btn-primary flex-fill" id="createRoomBtn" disabled=true>Start an Auction</button>
+              </div>
             </form>
           </div>
         </div>
