@@ -19,11 +19,7 @@ function addUser(user) {
 
 // remove user from object
 function removeUser(socketId) {
-	users.forEach((user, index) => {
-	    if(user[socketId]){
-	        users.splice(index, 1)
-	    }
-	});
+	delete users.socketId
 }
 
 function getUserCount() {
