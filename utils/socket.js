@@ -20,8 +20,8 @@ function socket(io) {
             //Emitting New name to Clients
             io.to(roomName).emit('joined-user', {name: data.name});
     
-            //Send online users array
-            io.to(roomName).emit('online-users', getUsers())
+            //Send online users count
+            io.to(roomName).emit('online-users', getUserCount())
         })
     
         //Emitting messages to Clients
@@ -36,12 +36,15 @@ function socket(io) {
     
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
+            console.log(socket.rooms);
             var rooms = Object.keys(socket.rooms);
             var socketId = rooms[0];
+
+            console.log("DISCONNECTING: " + socketId)
             // var roomname = rooms[1];
             removeUser(socketId);
     
-            //Send online users array
+            //Send online users count
             io.to(roomName).emit('online-users', getUserCount())
         })
     })

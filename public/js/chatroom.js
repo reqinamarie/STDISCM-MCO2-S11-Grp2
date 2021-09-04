@@ -67,5 +67,5 @@ socket.on('typing', (user) => {
 //Displaying online users
 socket.on('online-users', (data) =>{
     console.log(data)
-    $('#currPeople').val(data)
+    $('#currPeople').text(data)
 })
