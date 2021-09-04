@@ -47,12 +47,13 @@ $('#message').on('keypress', () => {
 
 //Displaying if new user has joined the room
 socket.on('joined-user', (data)=>{
-    $('#output').append('<p>--> <strong><em>' + data.name + ' </strong>has Joined the Room</em></p>');
+    $('#output').append('<p> -> <em><strong>' + data.name + ' </strong>has joined the room.</em></p>');
 })
 
 //Displaying the message sent from user
 socket.on('chat', (data) => {
-    $('#output').append('<p><strong>' + data.name + '</strong>: ' + data.message + '</p>');
+    console.log(data)
+    $('#output').append('<div class="card my-3 card-margin"><p class="per-message p-2"><strong>' + data.name + '</strong>: ' + data.message + '</p></div>');
     $('#feedback').val('');
     document.querySelector('.chat-message').scrollTop = document.querySelector('.chat-message').scrollHeight
 
