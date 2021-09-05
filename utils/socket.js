@@ -67,7 +67,8 @@ function socket(io) {
             console.log(data.item);
             newAuction(data);
 
-            io.to(data.roomName).emit('createchat', getAuction())
+            // emit to clients waiting for auction to open
+            io.to('home').emit('new-auction', getAuction())
         })
     })
 }
