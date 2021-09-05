@@ -50,6 +50,7 @@ function socket(io) {
                 var rooms = Array.from(socket.rooms);
                 var socketId = rooms[0];
 
+                console.log(socketId);
                 removeUser(socketId);
         
                 //Send online users count to both home and auction chatroom

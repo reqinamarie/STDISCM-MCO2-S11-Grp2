@@ -23,6 +23,8 @@ function removeUser(socketId) {
 
 	users.forEach((user, index) => {
         if(user[socketId]){
+            console.log('disconnected')
+            console.log(users)
             users.splice(index, 1)
         }
     });
