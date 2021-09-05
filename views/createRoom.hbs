@@ -26,7 +26,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="basic-addon1">Item Name</span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Item Name" aria-label="Item Name" aria-describedby="basic-addon1">
+                  <input type="text" class="form-control" id="itemName" placeholder="Item Name" aria-label="Item Name" aria-describedby="basic-addon1">
                 </div>
 
                 <div class="input-group mb-3">
@@ -44,7 +44,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text">Item <br>Description</span>
                   </div>
-                  <textarea class="form-control" aria-label="With textarea"></textarea>
+                  <textarea class="form-control" aria-label="With textarea" id="itemDesc"></textarea>
                 </div>
 
 
@@ -53,7 +53,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Starting</span>
                       </div>
-                      <input type="number" class="form-control" placeholder="Starting Price" aria-label="Starting Price" aria-describedby="basic-addon1" min=1>
+                      <input id="startPrice" type="number" class="form-control" placeholder="Starting Price" aria-label="Starting Price" aria-describedby="basic-addon1" min=1>
 
                     </div>
 
@@ -62,7 +62,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Autobuy</span>
                       </div>
-                      <input type="number" class="form-control" placeholder="Autobuy Price" aria-label="Autobuy Price" aria-describedby="basic-addon1"  min=1>
+                      <input id="buyPrice" type="number" class="form-control" placeholder="Autobuy Price" aria-label="Autobuy Price" aria-describedby="basic-addon1"  min=1>
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Max Bidders</span>
                       </div>
-                      <input type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=1 min=1>
+                      <input id="maxBidders" type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=1 min=1>
 
                     </div>
 
@@ -81,7 +81,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Bidding Timer</span>
                       </div>
-                      <input type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=5 min=5 max=30>
+                      <input id="bidTime" type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=5 min=5 max=30>
                     </div>
                 </div>
 
@@ -89,7 +89,7 @@
         </div>
 
 
-        <button type="submit" class="btn btn-primary m-2 w-25" id="createBtn">Create Room</button>
+        <button type="submit" class="btn btn-primary m-2 w-25" id="createBtn" onclick="createRoom()">Create Room</button>
     </form>
 
 </div>

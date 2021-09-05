@@ -70,3 +70,15 @@ socket.on('online-users', (data) =>{
     console.log(data)
     $('#currPeople').text(data)
 })
+
+//Displaying item details on chatroom
+socket.on('createchat', (data) => {
+    console.log(data.item);
+    $('#itemName').text(data.item);
+    $('#itemDescription').text(data.desc);
+    $('#startingPrice').text(data.startPrice);
+    $('#autobuyPrice').text(data.buyPrice);
+    $('#maxPeople').text(data.maxBidders);
+    $('#bidTime').text(data.bidTime);
+
+})

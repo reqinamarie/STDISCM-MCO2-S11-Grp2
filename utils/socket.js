@@ -57,6 +57,19 @@ function socket(io) {
                 io.emit('online-users', getUserCount())
             }
         })
+
+        //pass item details to chatroom
+        socket.on('createchat', (data) => {
+            console.log(data.item);
+            io.to(data.roomName).emit('createchat', {
+                item: data.item,
+                photo: data.photo,
+                desc: data.desc,
+                startPrice: data.startPrice,
+                buyPrice: data.buyPrice,
+                maxBidders: data.maxBidders,
+                bidTime: data.bidTime});
+        })
     })
 }
 

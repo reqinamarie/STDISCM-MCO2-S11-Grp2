@@ -49,7 +49,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <form name="loginForm" method="get" id="loginForm">
+            <form name="loginForm" method="get" action="/createRoom" id="loginForm">
               <div class="form-group">
                 <label for="email">Email address</label>
                 <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="E-mail Address" required>
@@ -64,7 +64,7 @@
               <div class="d-flex w-100">
                 <!-- change disabled=false to true for joinBtn later -->
                 <button type="submit" class="btn btn-primary flex-fill mr-2" id="joinBtn" disabled=false>Join as Bidder</button>
-                <button type="submit" class="btn btn-primary flex-fill" id="createRoomBtn" disabled=true>Start an Auction</button>
+                <button type="submit" class="btn btn-primary flex-fill" id="createRoomBtn">Start an Auction</button>
               </div>
             </form>
           </div>
