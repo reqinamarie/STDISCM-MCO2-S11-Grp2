@@ -19,7 +19,7 @@ console.log(fName, lName, email);
 socket.emit('joined-user', {
     name: fName + " " + lName,
     email: email,
-    roomnName: 'auction-room'
+    roomName: 'auction-room'
 })
 
 //Sending data when user clicks send
