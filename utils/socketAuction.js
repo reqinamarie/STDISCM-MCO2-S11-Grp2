@@ -12,4 +12,8 @@ function getAuction() {
 	return auction
 }
 
+function startAuction() {
+	auction.start = true
+}
+
 module.exports = {newAuction, deleteAuction, getAuction}

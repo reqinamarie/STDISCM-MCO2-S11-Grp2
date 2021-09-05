@@ -62,13 +62,13 @@ function socket(io) {
             }
         })
 
-        //pass item details to chatroom
+        //pass item details to homepage
         socket.on('createchat', (data) => {
-            console.log(data.item);
+            data.start = false
             newAuction(data);
 
             // emit to clients waiting for auction to open
-            io.to('home').emit('new-auction', getAuction())
+            io.to('home').emit('get-auction', getAuction())
         })
     })
 }

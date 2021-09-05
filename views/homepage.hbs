@@ -23,24 +23,24 @@
       <div class="col-sm-6">
 
         <div class="card flex-fill d-flex flex-column" style="height: 75vh">
-            <div class="flex-fill with-auction" style="position: relative; display: {{withAuction}}">
-                <img class="img-fluid w-100 mh-100" src="/images/placeholder.jpeg" style="object-fit: cover; position: absolute">
+            <div class="flex-fill with-auction" style="position: relative; display: none">
+                <img class="img-fluid w-100 mh-100" src="/images/placeholder.jpeg" style="object-fit: cover; position: absolute;">
             </div> 
-            <div class="d-inline-flex flex-column p-3 with-auction h-100 justify-content-center">
-                <div class="with-auction" style="display: {{withAuction}}">
-                    <h5 id="itemName">{{itemName}}</h5>
+            <div class="d-inline-flex flex-column p-3 with-auction justify-content-center">
+                <div class="with-auction" style="display: none">
+                    <h5 id="itemName"></h5>
 
-                    <p id="itemDescription h-50 overflow-auto flex-fill" style="overflow-y: scroll; height: 15vh;">{{itemDesc}}</p>
+                    <p id="itemDescription" class="overflow-auto flex-fill" style="overflow-y: scroll; max-height: 15vh">{{itemDesc}}</p>
                     
-                    <p><b>Starting Price:</b> PHP <span id="startingPrice">{{startPrice}}</span>    <br>
-                    <b>Autobuy Price:</b> PHP <span id="autobuyPrice">{{autobuyPrice}}</span>    <br>
-                    <b>Bidding Time:</b> <span id="bidTime">{{bidTime}}</span> minutes</p>
+                    <p><b>Starting Price:</b> PHP <span id="startingPrice"></span>    <br>
+                    <b>Autobuy Price:</b> PHP <span id="autobuyPrice"></span>    <br>
+                    <b>Bidding Time:</b> <span id="bidTime"></span> minutes</p>
 
                     <p class="mb-0"><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
                 </div>
 
                 <div class="without-auction d-flex flex-column align-items-center">
-                    <h5 class="without-auction m-3 auction-message">No auctions ongoing</h5>
+                    <h5 class="without-auction m-3 auction-message">Checking for auctions...</h5>
                 </div>
             </div>
         </div>
@@ -63,8 +63,8 @@
 
               <div class="d-flex w-100">
                 <!-- change disabled=false to true for joinBtn later -->
-                <button type="submit" class="btn btn-primary flex-fill mr-2" id="joinBtn" disabled=false>Join as Bidder</button>
-                <button type="submit" class="btn btn-primary flex-fill" id="createRoomBtn">Start an Auction</button>
+                <button type="submit" class="btn btn-primary flex-fill mr-2" id="joinBtn" disabled>Join as Bidder</button>
+                <button type="submit" class="btn btn-primary flex-fill" id="createRoomBtn" disabled>Start an Auction</button>
               </div>
             </form>
           </div>

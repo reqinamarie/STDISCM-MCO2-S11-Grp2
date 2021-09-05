@@ -6,54 +6,62 @@ var max_people = 999999999999999999999999;
 
 socket.emit('joined-homepage', {roomName: 'home'});
 
-socket.on('new-auction', (data) => {
-	console.log(data);
+socket.on('get-auction', (data) => {
+	if (data.start == null) 
+		endAuction()
+	else if (data.start == false)
+		loadAuction(data)
+	else
+		ongoingAuction(data)
+})
+
+
+function loadAuction(data) {
+	console.log("load")
 
 	$("#joinBtn").prop('disabled', false);
 	$("#createRoomBtn").prop('disabled', true);
 	$("#loginForm").prop("action", "/chatroom");
 
-	$("#itemName").text(data.itemName)
-	$("#itemDescription").text(data.itemDesc)
-	$("#startPrice").text(data.startPrice)
-	$("#autobuyPrice").text(data.autobuyPrice)
-	$("#bidTime").text(data.bidTime)
-	$("#maxPeople").text(data.maxPeople)
+    $('#itemName').text(data.item);
+    $('#itemDescription').text(data.desc);
+    $('#startingPrice').text(data.startPrice);
+    $('#autobuyPrice').text(data.buyPrice);
+    $('#maxPeople').text(data.maxBidders);
+    $('#bidTime').text(data.bidTime);
 
 	max_people = data.maxPeople;
 
-	$(".with-auction").show();
 	$(".without-auction").hide();
+	$(".with-auction").show();
 
-})
+}
 
-socket.on('end-auction', (data) => {
+function endAuction() {
 	$("#joinBtn").prop('disabled', true);
 	$("#createRoomBtn").prop('disabled', false);
 	$("#loginForm").prop("action", "/createRoom");
 	
+	$(".auction-message").text('No auctions ongoing')
+	$(".with-auction").hide();
+	$(".without-auction").show();
+
 	$("#itemName").text('')
-	$("#itemDesc").text('')
+	$("#itemDescription").text('')
 	$("#startPrice").text('')
 	$("#autobuyPrice").text('')
 	$("#bidTime").text('')
 	$("#maxPeople").text('')
+}
 
-	$(".with-auction").hide();
-
-	$(".auction-message").text('No auctions ongoing')
-	$(".without-auction").show();
-})
-
-socket.on('start-auction', (data) => {
+function ongoingAuction(data) {
 	$("#joinBtn").prop('disabled', true);
 	$("#createRoomBtn").prop('disabled', true);
 
-	
-	$(".with-auction").hide();
 	$(".auction-message").text('Auction currently ongoing. Please wait for the next auction.')
+	$(".with-auction").hide();
 	$(".without-auction").show();
-})
+}
 
 //Displaying online users
 socket.on('online-users', (data) =>{
