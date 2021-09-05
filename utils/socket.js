@@ -70,7 +70,7 @@ function socket(io) {
             console.log(getAuction());
 
             // emit to clients waiting for auction to open
-            io.to('home').emit('new-auction', getAuction())
+            io.to('home').emit('get-auction', getAuction())
         })
     })
 }
