@@ -1,4 +1,5 @@
 const {getUsers, addUser, removeUser, getUserCount} = require('./socketUser');
+const {newAuction, deleteAuction, getAuction} = require('./socketAuction');
 
 //Socket connection
 function socket(io) {
@@ -16,7 +17,10 @@ function socket(io) {
             
             //Joining the Socket Room
             socket.join(roomName);
-    
+
+            //Emit auction to sender
+            io.to(socket.id).emit('get-auction', getAuction());
+
             //Emitting New name to Clients
             io.to(roomName).emit('joined-user', {name: data.name});
     
@@ -61,15 +65,9 @@ function socket(io) {
         //pass item details to chatroom
         socket.on('createchat', (data) => {
             console.log(data.item);
-            io.to(data.roomName).emit('createchat', {
-                item: data.item,
-                photo: data.photo,
-                desc: data.desc,
-                startPrice: data.startPrice,
-                buyPrice: data.buyPrice,
-                maxBidders: data.maxBidders,
-                bidTime: data.bidTime});
-        })
+            newAuction(data);
+
+            io.to(data.roomName).emit('createchat', getAuction())
     })
 }
 

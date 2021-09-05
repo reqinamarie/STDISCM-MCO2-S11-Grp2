@@ -72,7 +72,7 @@ socket.on('online-users', (data) =>{
 })
 
 //Displaying item details on chatroom
-socket.on('createchat', (data) => {
+socket.on('get-auction', (data) => {
     console.log(data.item);
     $('#itemName').text(data.item);
     $('#itemDescription').text(data.desc);
