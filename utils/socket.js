@@ -68,7 +68,8 @@ function socket(io) {
             newAuction(data);
 
             io.to(data.roomName).emit('createchat', getAuction())
-    })
+        })
+    }
 }
 
 module.exports = socket;
