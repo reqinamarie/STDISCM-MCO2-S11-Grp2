@@ -1,4 +1,5 @@
 const {getUsers, addUser, removeUser, getUserCount} = require('./socketUser');
+const {newAuction, deleteAuction, getAuction} = require('./socketAuction');
 
 //Socket connection
 function socket(io) {
@@ -16,7 +17,10 @@ function socket(io) {
             
             //Joining the Socket Room
             socket.join(roomName);
-    
+
+            //Emit auction to sender
+            io.to(socket.id).emit('get-auction', getAuction());
+
             //Emitting New name to Clients
             io.to(roomName).emit('joined-user', {name: data.name});
     
@@ -32,6 +36,9 @@ function socket(io) {
 
             //Send online users count to home
             io.to('home').emit('online-users', getUserCount());
+
+            //Emit auction to sender
+            io.to(socket.id).emit('get-auction', getAuction());
         })
     
         //Emitting messages to Clients
@@ -47,10 +54,8 @@ function socket(io) {
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
             if (roomName != 'home') {
-                var rooms = Array.from(socket.rooms);
-                var socketId = rooms[0];
-
-                removeUser(socketId);
+                console.log(socket.id);
+                removeUser(socket.id);
         
                 //Send online users count to both home and auction chatroom
                 io.emit('online-users', getUserCount())
@@ -60,14 +65,10 @@ function socket(io) {
         //pass item details to chatroom
         socket.on('createchat', (data) => {
             console.log(data.item);
-            io.to('home').emit('new-auction', {
-                item: data.item,
-                photo: data.photo,
-                desc: data.desc,
-                startPrice: data.startPrice,
-                buyPrice: data.buyPrice,
-                maxBidders: data.maxBidders,
-                bidTime: data.bidTime});
+            newAuction(data);
+
+            // emit to clients waiting for auction to open
+            io.to('home').emit('new-auction', getAuction())
         })
     })
 }

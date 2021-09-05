@@ -9,7 +9,7 @@ console.log(socket)
 
 function createRoom() {
     item = $('#itemName').val();
-    photo = $('#inputGroupFile02').input();
+    photo = $('#inputGroupFile02').val();
     desc = $('#itemDesc').val();
     startPrice = $("#startPrice").val();
     buyPrice = $('#buyPrice').val();
@@ -28,7 +28,7 @@ function createRoom() {
     })
 
     $('#itemName').val('');
-    $('#inputGroupFile02').input('');
+    $('#inputGroupFile02').val('');
     $('#itemDesc').val('');
     $("#startPrice").val('');
     $('#buyPrice').val('');
