@@ -36,6 +36,9 @@ function socket(io) {
 
             //Send online users count to home
             io.to('home').emit('online-users', getUserCount());
+
+            //Emit auction to sender
+            io.to(socket.id).emit('get-auction', getAuction());
         })
     
         //Emitting messages to Clients
@@ -51,11 +54,8 @@ function socket(io) {
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
             if (roomName != 'home') {
-                var rooms = Array.from(socket.rooms);
-                var socketId = rooms[0];
-
-                console.log(socketId);
-                removeUser(socketId);
+                console.log(socket.id);
+                removeUser(socket.id);
         
                 //Send online users count to both home and auction chatroom
                 io.emit('online-users', getUserCount())
