@@ -67,8 +67,6 @@ function socket(io) {
             data.start = false
             newAuction(data);
 
-            console.log(getAuction());
-
             // emit to clients waiting for auction to open
             io.to('home').emit('get-auction', getAuction())
         })
