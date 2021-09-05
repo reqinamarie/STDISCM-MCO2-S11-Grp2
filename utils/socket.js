@@ -38,7 +38,7 @@ function socket(io) {
             io.to('home').emit('online-users', getUserCount());
 
             //Emit auction to sender
-            io.to(socket.id).emit('get-auction', getAuction());
+            io.to(socket.id).emit('new-auction', getAuction());
         })
     
         //Emitting messages to Clients
