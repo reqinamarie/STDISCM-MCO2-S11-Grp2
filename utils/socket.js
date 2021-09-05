@@ -61,7 +61,7 @@ function socket(io) {
         //pass item details to chatroom
         socket.on('createchat', (data) => {
             console.log(data.item);
-            io.to(data.roomName).emit('createchat', {
+            io.to('home').emit('new-auction', {
                 item: data.item,
                 photo: data.photo,
                 desc: data.desc,
