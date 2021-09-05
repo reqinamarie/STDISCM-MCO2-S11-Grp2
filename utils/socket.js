@@ -38,7 +38,7 @@ function socket(io) {
             io.to('home').emit('online-users', getUserCount());
 
             //Emit auction to sender
-            io.to(socket.id).emit('new-auction', getAuction());
+            io.to(socket.id).emit('get-auction', getAuction());
         })
     
         //Emitting messages to Clients
@@ -62,10 +62,12 @@ function socket(io) {
             }
         })
 
-        //pass item details to chatroom
+        //pass item details to homepage
         socket.on('createchat', (data) => {
-            console.log(data.item);
+            data.start = false
             newAuction(data);
+
+            console.log(getAuction());
 
             // emit to clients waiting for auction to open
             io.to('home').emit('new-auction', getAuction())
