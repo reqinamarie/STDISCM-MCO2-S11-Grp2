@@ -57,16 +57,16 @@
 
                     <div class="card flex-fill d-flex flex-column">
                         <div class="flex-fill" style="position: relative">
-                            <img class="img-fluid w-100 mh-100" src="/images/placeholder.jpeg" style="object-fit: cover; position: absolute">
+                            <img class="img-fluid w-100 mh-100" src="/images/placeholder.jpeg" style="object-fit: cover; position: absolute;">
                         </div> 
                         <div class="d-inline-flex flex-column p-3 item-details">
-                                <h5 id="itemName">{{itemName}}</h5>
+                                <h5 id="itemName"></h5>
 
-                                <p id="itemDescription h-50 overflow-auto flex-fill" style="overflow-y: scroll; max-height: 10vh;">{{itemDesc}} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.</p>
+                                <p id="itemDescription" class="overflow-auto flex-fill" style="overflow-y: scroll; max-height: 10vh">{{itemDesc}}</p>
                                 
-                                <p><b>Starting Price:</b> <span id="startingPrice">PHP {{startPrice}}</span>    <br>
-                                <b>Autobuy Price:</b> <span id="autobuyPrice">PHP {{autobuyPrice}}</span>    <br>
-                                <b>Bidding Time:</b> <span id="bidTime">{{bidTime}} minutes</span></p>
+                                <p><b>Starting Price:</b> PHP <span id="startingPrice"></span>    <br>
+                                <b>Autobuy Price:</b> PHP <span id="autobuyPrice"></span>    <br>
+                                <b>Bidding Time:</b> <span id="bidTime"></span> minutes</p>
 
                                 <p class="mb-0"><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
                         </div>
