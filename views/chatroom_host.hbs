@@ -24,28 +24,14 @@
     // Set the date we're counting down to
     function startBid() {
         document.getElementById("startTime").disabled = true;
-
-        var timeleft = {{bidTime}} * 60;
-        var downloadTimer = setInterval(function(){
-          if(timeleft <= 0){
-            clearInterval(downloadTimer);
-            document.getElementById("duration").innerHTML = "Auction Closed";
-          } else {
-            if(timeleft > 60) {
-                document.getElementById("duration").innerHTML = Math.floor(timeleft/60) + " minutes and " + timeleft%60 + " seconds remaining";
-            } else {
-                document.getElementById("duration").innerHTML = timeleft + " seconds remaining";
-            }
-          }
-          timeleft -= 1;
-        }, 1000);
+        
     }
 </script>
 
 </head>
 <body class="d-flex align-items-center justify-content-center vh-100">
     <div class="card container-md d-flex flex-column " style="height: 95vh">
-        <center><h2 class="room-message my-2"> Online Auction </h2> <b id="duration" style="color:#DC143C; "> {{bidTime}} minutes and 0 seconds remaining </b></center> 
+        <center><h2 class="room-message my-2"> Online Auction </h2>  <b id="timer">Please wait for auction to start.</b></center> 
         <div class="window row p-3 mb-2 bg-light text-dark flex-fill d-flex flex-row">
             {{> chatUI}}
 

@@ -90,6 +90,7 @@ $(document).ready(function() {
 
 	$("#joinBtn").on('click', function() {
 		if (!document.getElementById("loginForm").checkValidity()) {
+			$("input").focusout()
 			return;
 		}
 
@@ -112,12 +113,13 @@ $(document).ready(function() {
 
 	$("#createRoomBtn").on('click', function() {
 		if (!document.getElementById("loginForm").checkValidity()) {
+			$("input").focusout()
 			return;
 		}
 
 		socket.emit('check-auction', (response) => {
 			console.log(response)
-			
+
 			if (response) {
 				submitForm('/createRoom')
 			} else {

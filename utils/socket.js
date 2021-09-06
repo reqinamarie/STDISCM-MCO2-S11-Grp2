@@ -1,5 +1,5 @@
 const {getUsers, addUser, removeUser, getUserCount, entryRequest} = require('./socketUser');
-const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders} = require('./socketAuction');
+const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime} = require('./socketAuction');
 
 //Socket connection
 function socket(io) {
@@ -35,6 +35,39 @@ function socket(io) {
                 callback(false)
         })
 
+
+        //  HOST CHATROOM
+
+        socket.on('start-auction', () => {
+            startAuction()
+
+            io.emit('get-auction', getAuction())
+            updateTimer()
+        })
+
+        function updateTimer() {
+            var time = getBidTime() * 60000     // minutes to seconds
+            var interval = 60000
+
+            if (time == 60000) {
+                interval = 1000                 // change to seconds update
+            }
+
+            setInterval(function() {
+                io.emit('update-timer', time)
+
+                time -= interval
+
+                if (time == 60000) {
+                    interval = 1000             // change to seconds update
+                }
+
+                if (counter == 0) {
+                    io.emit('')
+                    clearInterval()
+                }
+            }, interval)
+        }
 
         //  CHATROOM
 
