@@ -126,7 +126,11 @@ function socket(io) {
 
         socket.on('controller-auction-request', () => {
             console.log("CONTROLLER RQ")
-            io.emit('controller-auction', getAuction())
+            io.to(socket.id).emit('controller-auction', getAuction())
+        })
+
+        socket.on('controller-user-request', (email) => {
+            io.to(socket.id).emit('controller-permission', getPermittedUsers().includes(email))
         })
     })
 }

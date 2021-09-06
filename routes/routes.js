@@ -5,7 +5,8 @@ const homeController = require('../controllers/homeController')
 const app = express();
 
 app.get('/', homeController.home);
-app.post('/chatroom', homeController.getChatroom);
+app.post('/chatroom', homeController.postLogin);
+app.get('/chatroom', homeController.getChatroom);
 app.get('/createRoom', homeController.newRoom);
 app.get('/chatroomHost', homeController.getChatroomHost);
 

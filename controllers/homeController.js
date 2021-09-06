@@ -7,14 +7,31 @@ const homeController = {
 		res.render('homepage')
 	},
 
-	getChatroom: function(req,res) {
+	postLogin: function(req, res, next) {
 		console.log(req.body)
 
-		socket.emit('controller-auction-request')
-		socket.on('controller-auction', (auction) => {
-			console.log(auction)
-			res.render('chatroom', auction)
+		socket.emit('controller-user-request', req.body.email)
+		socket.on('controller-permission', (permit) => {
+			if (permit) {
+				socket.emit('controller-auction-request')
+				socket.on('controller-auction', (auction) => {
+					console.log(auction)
+					res.render('chatroom', auction)
+				})
+			} else {
+				res.redirect('/')
+			}
 		})
+		
+
+		// socket.on()
+	},
+
+	getChatroom: function(req,res) {
+		console.log("GET")
+
+		console.log(req.body)
+
     },
 
     newRoom: function(req, res) {
