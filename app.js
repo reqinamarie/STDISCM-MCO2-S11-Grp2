@@ -2,8 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const hbs = require('hbs');
 
-const routes = require('./routes/routes.js');
-
 const app = express()
 
 app.set('view engine', 'hbs')
@@ -16,7 +14,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.urlencoded({extended:true}))
 
 app.use(express.static('public'))
-app.use('/', routes)
 
 const port = process.env.PORT || 3000;
 
@@ -36,5 +33,7 @@ const io = socket(server, {
 });
 
 require('./utils/socket')(io);
+const routes = require('./routes/routes.js');
+app.use('/', routes)
 
 module.exports = app;

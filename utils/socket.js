@@ -1,4 +1,4 @@
-const {getUsers, addUser, removeUser, getUserCount, entryRequest} = require('./socketUser');
+const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers} = require('./socketUser');
 const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime} = require('./socketAuction');
 
 //Socket connection
@@ -53,9 +53,9 @@ function socket(io) {
                 interval = 1000                 // change to seconds update
             }
 
-            setInterval(function() {
+            var timer = setInterval(function() {
                 time -= interval
-                
+
                 io.emit('update-timer', time)
 
                 if (time == 60000) {
@@ -64,7 +64,7 @@ function socket(io) {
 
                 if (time <= 0) {
                     io.emit('end-auction')
-                    clearInterval()
+                    clearInterval(timer)
                 }
             }, interval)
         }
@@ -120,6 +120,17 @@ function socket(io) {
 
             // emit to clients waiting for auction to open
             io.to('home').emit('get-auction', getAuction())
+        })
+
+        //  CONTROLLER
+
+        socket.on('controller-auction-request', () => {
+            console.log("CONTROLLER RQ")
+            io.emit('controller-auction', getAuction())
+        })
+
+        socket.on('controller-user-request', () => {
+            io.emit('controller-permission', getPermittedUsers())
         })
     })
 }

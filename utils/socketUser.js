@@ -57,4 +57,8 @@ function entryRequest(email) {
     return false
 }
 
-module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest};
+function getPermittedUsers() {
+    return permittedUsers
+}
+
+module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers};

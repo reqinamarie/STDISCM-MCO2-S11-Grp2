@@ -3,9 +3,11 @@ const homeController = require('../controllers/homeController')
 //const loginController = require('../controllers/LoginController.js');
 
 const app = express();
-module.exports = app
 
 app.get('/', homeController.home);
-app.get('/chatroom', homeController.getChatroom);
-app.get('/createRoom', homeController.newRoom);
+app.post('/chatroom', homeController.postLogin);
+app.post('/createRoom', homeController.newRoom);
+app.get('/createRoom', homeController.newRoom);		//	delete after testing
 app.get('/chatroomHost', homeController.getChatroomHost);
+
+module.exports = app
