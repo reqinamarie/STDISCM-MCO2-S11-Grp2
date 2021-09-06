@@ -62,7 +62,7 @@ function socket(io) {
                     interval = 1000             // change to seconds update
                 }
 
-                if (counter == 0) {
+                if (time == 0) {
                     io.emit('')
                     clearInterval()
                 }

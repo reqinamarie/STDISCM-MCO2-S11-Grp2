@@ -74,7 +74,7 @@ socket.on('online-users', (data) =>{
 //Displaying item details on chatroom
 socket.on('get-auction', (data) => {
     if (data.start) {
-        startAuction(data.bidTime)
+        updateTime(data.bidTime * 60000)
         return;
     }
 
@@ -88,13 +88,9 @@ socket.on('get-auction', (data) => {
 
 })
 
-//Start timer
-startAuction(bidTime) {
-    updateTime(bidTime * 60000)
+function updateTime(milliseconds) {
     $("#timer").css('color', '#DC143C')
-}
 
-updateTime(milliseconds) {
     if (milliseconds > 60000) {
         $("#timer").text((milliseconds / 60000) + " minutes left")
     } else {
@@ -104,8 +100,7 @@ updateTime(milliseconds) {
 
 //Update timer
 socket.on('update-timer', (data) => {
-    updateTime(milliseconds)
+    updateTime(data)
 })
 
-module.exports = socket
 

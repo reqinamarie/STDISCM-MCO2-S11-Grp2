@@ -18,20 +18,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <script src="/js/chatroom.js"></script>
-
-
-    <script>
-    // Set the date we're counting down to
-    function startBid() {
-        document.getElementById("startTime").disabled = true;
-        
-    }
-</script>
+    <script src="/js/hostChatroom.js"></script>
 
 </head>
 <body class="d-flex align-items-center justify-content-center vh-100">
     <div class="card container-md d-flex flex-column " style="height: 95vh">
-        <center><h2 class="room-message my-2"> Online Auction </h2>  <b id="timer">Please wait for auction to start.</b></center> 
+        <center><h2 class="room-message my-2"> Online Auction </h2>  <b id="timer">Press "Begin Auction" button to start.</b></center> 
         <div class="window row p-3 mb-2 bg-light text-dark flex-fill d-flex flex-row">
             {{> chatUI}}
 
@@ -44,16 +36,7 @@
                             <img class="img-fluid w-100 mh-100" src="/images/placeholder.jpeg" style="object-fit: cover; position: absolute">
                         </div> 
                         <div class="d-inline-flex flex-column p-3 item-details">
-                                <h5 id="itemName">{{itemName}}</h5>
-
-                                <p id="h-50 overflow-auto flex-fill" style="overflow-y: scroll; max-height: 10vh;"><span id="itemDescription"> {{itemDesc}} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.</span></p>
-                                
-                                <p><b>Starting Price:</b> <span id="startingPrice">PHP {{startPrice}}</span>    <br>
-                                <b>Autobuy Price:</b> <span id="autobuyPrice">PHP {{autobuyPrice}}</span>    <br>
-                                <b>Bidding Time:</b> <span id="bidTime">{{bidTime}} minutes</span></p>
-
-                                <p class="mb-0"><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
-
+                                {{> itemCard}}
                                 <br>
                             <div class=" btn-group special center w-100">
                                 <button type="button" class="btn btn-warning w-100" id="startTime" onclick="startBid()">Begin Auction</button>
