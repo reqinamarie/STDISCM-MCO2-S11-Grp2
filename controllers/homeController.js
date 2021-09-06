@@ -11,8 +11,10 @@ const homeController = {
 		console.log(req.body)
 
 		socket.emit('controller-user-request', req.body.email)
-		socket.on('controller-permission', (permit) => {
-			if (permit) {
+		socket.on('controller-permission', (allowedUsers) => {
+			console.log(allowedUsers)
+			
+			if (allowedUsers.includes(permit)) {
 				socket.emit('controller-auction-request')
 				socket.on('controller-auction', (auction) => {
 					console.log(auction)
