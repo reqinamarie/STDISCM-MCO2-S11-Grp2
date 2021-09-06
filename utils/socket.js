@@ -1,11 +1,33 @@
-const {getUsers, addUser, removeUser, getUserCount} = require('./socketUser');
-const {newAuction, deleteAuction, getAuction} = require('./socketAuction');
+const {getUsers, addUser, removeUser, getUserCount, entryRequest} = require('./socketUser');
+const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders} = require('./socketAuction');
 
 //Socket connection
 function socket(io) {
     io.on('connection', (socket) => {
         console.log("connected to server");
         var roomName;
+
+        //  HOMEPAGE
+
+        socket.on('joined-homepage', (data) => {
+            console.log("JOINED HOMEPAGE")
+            roomName = data.roomName;
+
+            socket.join(roomName);
+
+            //Send online users count to home
+            io.to('home').emit('online-users', getUserCount());
+
+            //Emit auction to sender
+            io.to(socket.id).emit('get-auction', getAuction());
+        })
+
+        socket.on('entry-request', (callback) => {
+            callback(entryRequest());
+        })
+
+
+        //  CHATROOM
 
         socket.on('joined-user', (data) =>{
             //Storing users connected in a room in memory
@@ -26,19 +48,6 @@ function socket(io) {
     
             //Send online users count to both home and auction chatroom
             io.emit('online-users', getUserCount());
-        })
-
-        socket.on('joined-homepage', (data) => {
-            console.log("JOINED HOMEPAGE")
-            roomName = data.roomName;
-
-            socket.join(roomName);
-
-            //Send online users count to home
-            io.to('home').emit('online-users', getUserCount());
-
-            //Emit auction to sender
-            io.to(socket.id).emit('get-auction', getAuction());
         })
     
         //Emitting messages to Clients

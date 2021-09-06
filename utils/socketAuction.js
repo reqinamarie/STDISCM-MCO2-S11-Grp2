@@ -16,4 +16,12 @@ function startAuction() {
 	auction.start = true
 }
 
-module.exports = {newAuction, deleteAuction, getAuction}
+function getMaxBidders() {
+	if (auction) {
+		return auction.maxBidders;
+	}
+
+	return -1;
+}
+
+module.exports = {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders}

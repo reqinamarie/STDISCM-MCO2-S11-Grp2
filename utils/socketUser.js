@@ -1,5 +1,8 @@
+const {getMaxBidders} = require('./socketAuction').getMaxBidders;
+
 //Store connected Users
 var users = []
+var userCount = 0
 
 // get online users
 function getUsers(){
@@ -28,6 +31,8 @@ function removeUser(socketId) {
             users.splice(index, 1)
         }
     });
+
+    userCount -= 1
 }
 
 function getUserCount() {
@@ -35,4 +40,15 @@ function getUserCount() {
 	return users.length
 }
 
-module.exports = {getUsers, addUser, removeUser, getUserCount};
+function entryRequest() {
+    console.log("BEFORE ENTRY: ", userCount)
+
+    if (userCount < getMaxBidders()) {
+        userCount += 1
+        return true
+    }
+
+    return false
+}
+
+module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest};

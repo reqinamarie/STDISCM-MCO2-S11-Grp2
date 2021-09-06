@@ -72,3 +72,24 @@ socket.on('online-users', (data) =>{
 
     $('#currPeople').text(data)
 })
+
+
+$(".toast").toast();
+
+
+$("#joinBtn").click(function(event) {
+	$("#joinAuctionRoomToast").show();
+
+	socket.emit('entry-request', (response) => {
+		console.log(response)
+
+		if (response) {
+			$("#joinSuccessToast").show()
+			return;
+		} else {
+			$("#joinFailToast").show()
+			event.preventDefault();
+			return(false);
+		}
+	})
+})
