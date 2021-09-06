@@ -15,6 +15,10 @@ socket.on('get-auction', (data) => {
 		ongoingAuction(data)
 })
 
+socket.on('end-auction', () => {
+	endAuction()    
+})
+
 
 function loadAuction(data) {
 	console.log("load")
