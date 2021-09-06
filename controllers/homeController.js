@@ -6,7 +6,8 @@ module.exports = function(io) {
 		},
 
 		getChatroom: function(req,res) {
-			io.emit('controller-auction', (auction) => {
+			io.emit('controller-auction-request')
+			io.on('controller-auction', (auction) => {
 				console.log(auction)
 				res.render('chatroom', auction)
 			})

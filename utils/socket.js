@@ -124,8 +124,8 @@ function socket(io) {
 
         //  CONTROLLER
 
-        socket.on('controller-auction', (callback) => {
-            callback(getAuction())
+        socket.on('controller-auction-request', () => {
+            io.to(socket.id).emit('controller-auction', getAuction())
         })
     })
 }
