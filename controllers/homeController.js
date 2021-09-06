@@ -1,31 +1,14 @@
-const homeController = {
-	home: function(req,res) {
-		var dummyData = {
-			itemName: "ITEM",
-			itemDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.",
-			startPrice: 100.00,
-			autobuyPrice: 1000.00,
-			bidTime: 15,
-			maxPeople: 10,
-			withAuction: "none",
-			withoutAuction: ""
-		}
 
-		res.render('homepage', dummyData)
+const homeController = function(io) {
+	home: function(req,res) {
+		res.render('homepage')
 	},
 
 	getChatroom: function(req,res) {
-		var item = {
-			itemName: "ITEM",
-			itemDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.",
-			startPrice: 100.00,
-			autobuyPrice: 1000.00,
-			bidTime: 15,
-			maxPeople: 10
-		}
-
-
-        res.render('chatroom', item);
+		io.emit('controller-auction', (auction) => {
+			console.log(auction)
+			res.render('chatroom', auction)
+		})
     },
 
     newRoom: function(req, res) {
@@ -33,17 +16,8 @@ const homeController = {
     },
 
     getChatroomHost: function(req,res) {
-    	var item = {
-			itemName: "ITEM",
-			itemDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.",
-			startPrice: 100.00,
-			autobuyPrice: 1000.00,
-			bidTime: 15,
-			maxPeople: 10
-		}
-
-
-        res.render('chatroom_host', item);
+		console.log(socket.getAuction())
+        res.render('chatroom_host', socket.getAuction());
     }
 }
 
