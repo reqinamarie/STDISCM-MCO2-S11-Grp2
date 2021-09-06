@@ -24,5 +24,3 @@ module.exports = function(io){
         res.render('chatroom_host', getAuction());
     }
 }}
-
-module.exports = homeController
