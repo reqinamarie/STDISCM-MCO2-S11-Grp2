@@ -27,7 +27,7 @@ const server = app.listen(port, function() {
 const socket = require('socket.io');
 const io = socket(server, {
     cors: {
-        origins: ["http://localhost:3000", "http://discm-auction-chatroom.herokuapp.com/"],
+        origin: ["http://localhost:3000", "http://discm-auction-chatroom.herokuapp.com/"],
         methods: ["GET", "POST"],
         transports: ['websocket', 'polling'],
         credentials: true
