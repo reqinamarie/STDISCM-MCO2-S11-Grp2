@@ -116,6 +116,8 @@ $(document).ready(function() {
 		}
 
 		socket.emit('check-auction', (response) => {
+			console.log(response)
+			
 			if (response) {
 				submitForm('/createRoom')
 			} else {

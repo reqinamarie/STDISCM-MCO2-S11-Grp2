@@ -27,6 +27,7 @@ function socket(io) {
         })
 
         socket.on('check-auction', (callback) => {
+            console.log(getAuction())
 
             // if an auction exists, reject entry
             if (getAuction())
