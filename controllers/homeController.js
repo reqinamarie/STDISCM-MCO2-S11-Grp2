@@ -8,11 +8,13 @@ const homeController = {
 	},
 
 	getChatroom: function(req,res) {
+		console.log(req.body)
+
 		socket.emit('controller-auction-request')
 		socket.on('controller-auction', (auction) => {
 			console.log(auction)
 			res.render('chatroom', auction)
-	})
+		})
     },
 
     newRoom: function(req, res) {
@@ -20,8 +22,11 @@ const homeController = {
     },
 
     getChatroomHost: function(req,res) {
-		console.log(getAuction())
-        res.render('chatroom_host', getAuction());
+		socket.emit('controller-auction-request')
+		socket.on('controller-auction', (auction) => {
+			console.log(auction)
+			res.render('chatroom', auction)
+		})
     }
 }
 

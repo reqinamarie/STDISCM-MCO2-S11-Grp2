@@ -19,6 +19,11 @@ socket.on('end-auction', () => {
 	endAuction()    
 })
 
+socket.on('controller-auction-request', ()=>
+{
+	console.log("CONTROLLER")
+})
+
 
 function loadAuction(data) {
 	console.log("load")
