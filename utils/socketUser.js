@@ -2,7 +2,7 @@ const getMaxBidders = require('./socketAuction').getMaxBidders;
 
 //Store connected Users
 var users = []
-var userCount = 0
+var permittedUsers = []
 
 // get online users
 function getUsers(){
@@ -29,11 +29,15 @@ function removeUser(socketId) {
             console.log('disconnected')
             console.log(users)
             users.splice(index, 1)
+
+            var i = permittedUsers.indexOf(user[socketId]);
+            if (i > -1) {
+                permittedUsers.splice(i, 1)
+            }
         }
     });
 
-    userCount -= 1
-    console.log("AFTER EXIT: ", userCount)
+    console.log("AFTER EXIT: ", permittedUsers.length)
 }
 
 function getUserCount() {
@@ -41,12 +45,12 @@ function getUserCount() {
 	return users.length
 }
 
-function entryRequest() {
-    console.log("BEFORE ENTRY: ", userCount)
+function entryRequest(email) {
+    console.log("BEFORE ENTRY: ", permittedUsers.length, " ", email)
 
-    if (userCount < getMaxBidders()) {
-        userCount += 1
-        console.log("AFTER ENTRY: ", userCount)
+    if (permittedUsers.length < getMaxBidders()) {
+        permittedUsers.push(email)
+        console.log("AFTER ENTRY: ", permittedUsers.length)
         return true
     }
 

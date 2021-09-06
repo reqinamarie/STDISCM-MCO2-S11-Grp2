@@ -74,22 +74,34 @@ socket.on('online-users', (data) =>{
 })
 
 
-$(".toast").toast();
+function submitForm(action) {
+	$("#loginForm").prop('action', action)
+	$("#loginForm").submit()
+}
 
 
-$("#joinBtn").click(function(event) {
-	$("#joinAuctionRoomToast").show();
+	var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+	var toastList = toastElList.map(function (toastEl) {
+	  return new bootstrap.Toast(toastEl, option)
+	})
 
-	socket.emit('entry-request', (response) => {
-		console.log(response)
+$(document).ready(function() {
 
-		if (response) {
-			$("#joinSuccessToast").show()
-			return;
-		} else {
-			$("#joinFailToast").show()
-			event.preventDefault();
-			return(false);
-		}
+	$("#joinBtn").on('click', function() {
+		console.log("JOINING....")
+		$("#joinAuctionRoomToast").show();
+
+		email = $("#email").val()
+
+		socket.emit('entry-request', email, (response) => {
+			console.log(response)
+
+			if (response) {
+				$("#joinSuccessToast").show()
+				submitForm('/chatroom')
+			} else {
+				$("#joinFailToast").show()
+			}
+		})
 	})
 })

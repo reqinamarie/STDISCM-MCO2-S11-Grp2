@@ -22,8 +22,8 @@ function socket(io) {
             io.to(socket.id).emit('get-auction', getAuction());
         })
 
-        socket.on('entry-request', (callback) => {
-            callback(entryRequest());
+        socket.on('entry-request', (email, callback) => {
+            callback(entryRequest(email));
         })
 
 
