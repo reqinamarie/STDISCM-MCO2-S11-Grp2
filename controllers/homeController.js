@@ -7,6 +7,7 @@ const homeController = {
 	},
 
 	getChatroom: function(req,res) {
+		console.log(getAuction())
         res.render('chatroom', getAuction());
     },
 
@@ -15,6 +16,7 @@ const homeController = {
     },
 
     getChatroomHost: function(req,res) {
+		console.log(getAuction())
         res.render('chatroom_host', getAuction());
     }
 }
