@@ -27,7 +27,7 @@ const server = app.listen(port, function() {
 const socket = require('socket.io');
 const io = socket(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "http://localhost:" + port,
         methods: ["GET", "POST"],
         transports: ['websocket', 'polling'],
         credentials: true
