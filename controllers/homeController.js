@@ -1,15 +1,31 @@
-const getPermittedUsers =  require('./../utils/socketUser').getPermittedUsers;
-const getAuction = require('./../utils/socketAuction').getAuction;
-const socket = require('./../utils/socket');
-
 const homeController = {
 	home: function(req,res) {
-		res.render('homepage')
+		var dummyData = {
+			itemName: "ITEM",
+			itemDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.",
+			startPrice: 100.00,
+			autobuyPrice: 1000.00,
+			bidTime: 15,
+			maxPeople: 10,
+			withAuction: "none",
+			withoutAuction: ""
+		}
+
+		res.render('homepage', dummyData)
 	},
 
 	getChatroom: function(req,res) {
-		console.log(socket.getAuction())
-        res.render('chatroom', socket.getAuction());
+		var item = {
+			itemName: "ITEM",
+			itemDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.",
+			startPrice: 100.00,
+			autobuyPrice: 1000.00,
+			bidTime: 15,
+			maxPeople: 10
+		}
+
+
+        res.render('chatroom', item);
     },
 
     newRoom: function(req, res) {
@@ -17,8 +33,17 @@ const homeController = {
     },
 
     getChatroomHost: function(req,res) {
-		console.log(socket.getAuction())
-        res.render('chatroom_host', socket.getAuction());
+    	var item = {
+			itemName: "ITEM",
+			itemDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.",
+			startPrice: 100.00,
+			autobuyPrice: 1000.00,
+			bidTime: 15,
+			maxPeople: 10
+		}
+
+
+        res.render('chatroom_host', item);
     }
 }
 

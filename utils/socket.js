@@ -121,16 +121,7 @@ function socket(io) {
             // emit to clients waiting for auction to open
             io.to('home').emit('get-auction', getAuction())
         })
-    }),
-
-    function getAuctionRoom() {
-        return getAuction()
-    },
-
-    function getAllowedUsers() {
-        return getPermittedUsers()
-    }
-
+    })
 }
 
 module.exports = socket;
