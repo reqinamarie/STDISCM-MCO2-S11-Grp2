@@ -1,4 +1,4 @@
-const {getUsers, addUser, removeUser, getUserCount, entryRequest} = require('./socketUser');
+const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers} = require('./socketUser');
 const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime} = require('./socketAuction');
 
 //Socket connection
