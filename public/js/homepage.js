@@ -72,3 +72,33 @@ socket.on('online-users', (data) =>{
 
     $('#currPeople').text(data)
 })
+
+
+function submitForm(action) {
+	$("#loginForm").prop('action', action)
+	$("#loginForm").submit()
+}
+
+$(document).ready(function() {
+	$("#joinBtn").on('click', function() {
+		if (!document.getElementById("loginForm").checkValidity())
+			return;
+
+		$("#joinAuctionRoomToast").toast('show');
+
+		email = $("#email").val()
+
+		socket.emit('entry-request', email, (response) => {
+			console.log(response)
+
+			if (response) {
+				$("#joinSuccessToast").toast('show')
+				submitForm('/chatroom')
+			} else {
+				$("#joinFailToast").toast('show')
+			}
+
+
+		})
+	})
+})
