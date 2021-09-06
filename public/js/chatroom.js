@@ -73,6 +73,12 @@ socket.on('online-users', (data) =>{
 
 //Displaying item details on chatroom
 socket.on('get-auction', (data) => {
+    if (data.start) {
+        $("#timer").css('color', '#DC143C')
+        updateTime(data.bidTime * 60000, "timer", " left")
+        return;
+    }
+
     console.log(data.item);
     $('#itemName').text(data.item);
     $('#itemDescription').text(data.desc);
@@ -81,4 +87,36 @@ socket.on('get-auction', (data) => {
     $('#maxPeople').text(data.maxBidders);
     $('#bidTime').text(data.bidTime);
 
+})
+
+
+socket.on('end-auction', (data) => {
+    $("#winner").text(data)
+    $(".modal").modal("show")
+
+    var time = 10000
+
+    setInterval(function() {
+        updateTime(time, "end-timer", "")
+
+        time -= 1000
+
+        if (time < 0) {
+            document.location.href="/";
+        }
+    }, 1000)
+})
+
+
+function updateTime(milliseconds, id, text) {
+    if (milliseconds > 60000) {
+        $("#" + id).text((milliseconds / 60000) + " minutes")
+    } else {
+        $("#" + id).text((milliseconds / 1000) + " seconds")
+    }
+}
+
+//Update timer
+socket.on('update-timer', (data) => {
+    updateTime(data, "timer", " left")
 })

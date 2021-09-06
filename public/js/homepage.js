@@ -15,6 +15,10 @@ socket.on('get-auction', (data) => {
 		ongoingAuction(data)
 })
 
+socket.on('end-auction', () => {
+	endAuction()    
+})
+
 
 function loadAuction(data) {
 	console.log("load")
@@ -80,9 +84,19 @@ function submitForm(action) {
 }
 
 $(document).ready(function() {
+
+	$("input").on('focusout', function() {
+		if (this.checkValidity())
+			$(this).css('border-color', 'darkgrey')
+		else
+			$(this).css('border-color', 'red')
+	})
+
 	$("#joinBtn").on('click', function() {
-		if (!document.getElementById("loginForm").checkValidity())
+		if (!document.getElementById("loginForm").checkValidity()) {
+			$("input").focusout()
 			return;
+		}
 
 		$("#joinAuctionRoomToast").toast('show');
 
@@ -98,6 +112,23 @@ $(document).ready(function() {
 				$("#joinFailToast").toast('show')
 			}
 
+		})
+	})
+
+	$("#createRoomBtn").on('click', function() {
+		if (!document.getElementById("loginForm").checkValidity()) {
+			$("input").focusout()
+			return;
+		}
+
+		socket.emit('check-auction', (response) => {
+			console.log(response)
+
+			if (response) {
+				submitForm('/createRoom')
+			} else {
+				$("#createFailToast").toast("show")
+			}
 
 		})
 	})

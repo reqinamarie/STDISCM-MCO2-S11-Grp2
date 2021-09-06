@@ -17,11 +17,15 @@ function startAuction() {
 }
 
 function getMaxBidders() {
-	if (auction) {
+	if (Object.keys(auction).length != 0) {
 		return auction.maxBidders;
 	}
 
 	return -1;
 }
 
-module.exports = {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders}
+function getBidTime() {
+	return auction.bidTime
+}
+
+module.exports = {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime}
