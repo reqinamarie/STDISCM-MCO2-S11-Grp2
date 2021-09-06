@@ -91,28 +91,20 @@ socket.on('get-auction', (data) => {
 
 
 socket.on('end-auction', (data) => {
-    $("#winner").text(data)
-    $(".modal").modal("show")
+    var t = setTimeout(function (){
+        $("#winner").text(data)
+        endAuction()
 
-    var time = 10000
+        clearInterval(t)
+    }, 5000);
 
-    setInterval(function() {
-        updateTime(time, "end-timer", "")
-
-        time -= 1000
-
-        if (time < 0) {
-            document.location.href="/";
-        }
-    }, 1000)
 })
-
 
 function updateTime(milliseconds, id, text) {
     if (milliseconds > 60000) {
-        $("#" + id).text((milliseconds / 60000) + " minutes")
+        $("#" + id).text((milliseconds / 60000) + " minutes" + text)
     } else {
-        $("#" + id).text((milliseconds / 1000) + " seconds")
+        $("#" + id).text((milliseconds / 1000) + " seconds" + text)
     }
 }
 
@@ -120,3 +112,19 @@ function updateTime(milliseconds, id, text) {
 socket.on('update-timer', (data) => {
     updateTime(data, "timer", " left")
 })
+
+function endAuction() {
+    $(".modal").modal("show")
+
+    var time = 10000
+
+    setInterval(function() {
+        time -= 1000
+
+        updateTime(time, "end-timer", "")
+
+        if (time < 0) {
+            document.location.href="/";
+        }
+    }, 1000)
+}
