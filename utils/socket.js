@@ -27,14 +27,12 @@ function socket(io) {
         })
 
         socket.on('check-auction', (callback) => {
-            console.log(getAuction())
-
-            // if an auction exists, reject entry
-            if (getAuction())
-                callback(false)
+            // if there is no auction, allow entry
+            if (getMaxBidders() == -1)
+                callback(true)
 
             else
-                callback(true)
+                callback(false)
         })
 
 

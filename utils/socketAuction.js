@@ -17,7 +17,7 @@ function startAuction() {
 }
 
 function getMaxBidders() {
-	if (auction) {
+	if (Object.keys(auction).length) {
 		return auction.maxBidders;
 	}
 
