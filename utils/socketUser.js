@@ -61,4 +61,4 @@ function getPermittedUsers() {
     return permittedUsers
 }
 
-module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest};
+module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers};
