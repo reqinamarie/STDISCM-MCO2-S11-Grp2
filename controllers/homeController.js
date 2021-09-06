@@ -1,5 +1,5 @@
 const getPermittedUsers =  require('./../utils/socketUser').getPermittedUsers;
-const getAuction =  = require('./../utils/socketAuction').getAuction;
+const getAuction = require('./../utils/socketAuction').getAuction;
 
 const homeController = {
 	home: function(req,res) {
