@@ -26,6 +26,16 @@ function socket(io) {
             callback(entryRequest(email));
         })
 
+        socket.on('check-auction', (callback) => {
+
+            // if an auction exists, reject entry
+            if (getAuction())
+                callback(false)
+
+            else
+                callback(true)
+        })
+
 
         //  CHATROOM
 

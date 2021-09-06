@@ -98,6 +98,19 @@ $(document).ready(function() {
 				$("#joinFailToast").toast('show')
 			}
 
+		})
+	})
+
+	$("#createRoomBtn").on('click', function() {
+		if (!document.getElementById("loginForm").checkValidity())
+			return;
+
+		socket.emit('check-auction', (response) => {
+			if (response) {
+				submitForm('/createRoom')
+			} else {
+				$("#createFailToast").toast("show")
+			}
 
 		})
 	})

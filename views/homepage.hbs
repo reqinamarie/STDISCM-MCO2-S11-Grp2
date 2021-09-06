@@ -27,6 +27,8 @@
   <!-- Position it -->
     <div style="position: absolute; top: 0; right: 0;">
 
+      <!-- JOIN AS BIDDER TOASTS -->
+
       <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="joinAuctionRoomToast" data-delay=3000>
           <div class="d-flex">
               <div class="toast-body"> Joining auction room... </div>
@@ -42,6 +44,14 @@
       <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="joinSuccessToast"  data-delay=10000>
           <div class="d-flex">
             <div class="toast-body"> Entering the auction room. You will be redirected shortly. </div>
+          </div>
+      </div>
+
+      <!-- CREATE AUCTION ROOM TOASTS -->
+      
+      <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="createFailToast"  data-delay=10000>
+          <div class="d-flex">
+            <div class="toast-body"> Sorry! There is already an existing auction. Please wait until the current session ends. </div>
           </div>
       </div>
 
