@@ -53,9 +53,9 @@ function socket(io) {
                 interval = 1000                 // change to seconds update
             }
 
-            setInterval(function() {
+            var timer = setInterval(function() {
                 time -= interval
-                
+
                 io.emit('update-timer', time)
 
                 if (time == 60000) {
@@ -64,7 +64,7 @@ function socket(io) {
 
                 if (time <= 0) {
                     io.emit('end-auction')
-                    clearInterval()
+                    clearInterval(timer)
                 }
             }, interval)
         }
