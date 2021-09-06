@@ -33,6 +33,7 @@ function removeUser(socketId) {
     });
 
     userCount -= 1
+    console.log("AFTER EXIT: ", userCount)
 }
 
 function getUserCount() {
@@ -45,6 +46,7 @@ function entryRequest() {
 
     if (userCount < getMaxBidders()) {
         userCount += 1
+        console.log("AFTER ENTRY: ", userCount)
         return true
     }
 
