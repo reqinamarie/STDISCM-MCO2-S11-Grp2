@@ -79,17 +79,12 @@ function submitForm(action) {
 	$("#loginForm").submit()
 }
 
-
-	var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-	var toastList = toastElList.map(function (toastEl) {
-	  return new bootstrap.Toast(toastEl, option)
-	})
-
 $(document).ready(function() {
-
 	$("#joinBtn").on('click', function() {
-		console.log("JOINING....")
-		$("#joinAuctionRoomToast").show();
+		if (!document.getElementById("loginForm").checkValidity())
+			return;
+
+		$("#joinAuctionRoomToast").toast('show');
 
 		email = $("#email").val()
 
@@ -97,11 +92,13 @@ $(document).ready(function() {
 			console.log(response)
 
 			if (response) {
-				$("#joinSuccessToast").show()
+				$("#joinSuccessToast").toast('show')
 				submitForm('/chatroom')
 			} else {
-				$("#joinFailToast").show()
+				$("#joinFailToast").toast('show')
 			}
+
+
 		})
 	})
 })
