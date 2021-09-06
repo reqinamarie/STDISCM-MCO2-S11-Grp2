@@ -80,9 +80,18 @@ function submitForm(action) {
 }
 
 $(document).ready(function() {
+
+	$("input").on('focusout', function() {
+		if (this.checkValidity())
+			$(this).css('border-color', 'darkgrey')
+		else
+			$(this).css('border-color', 'red')
+	})
+
 	$("#joinBtn").on('click', function() {
-		if (!document.getElementById("loginForm").checkValidity())
+		if (!document.getElementById("loginForm").checkValidity()) {
 			return;
+		}
 
 		$("#joinAuctionRoomToast").toast('show');
 
@@ -102,8 +111,9 @@ $(document).ready(function() {
 	})
 
 	$("#createRoomBtn").on('click', function() {
-		if (!document.getElementById("loginForm").checkValidity())
+		if (!document.getElementById("loginForm").checkValidity()) {
 			return;
+		}
 
 		socket.emit('check-auction', (response) => {
 			if (response) {
