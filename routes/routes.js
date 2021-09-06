@@ -1,9 +1,9 @@
-module.exports = function (io) {
+module.exports = function (app, io) {
 	const express = require('express')
 	const homeController = require('../controllers/homeController')(io)
 
-	const app = express();
-	module.exports = app
+	// const app = express();
+	// module.exports = app
 
 	app.get('/', homeController.home);
 	app.get('/chatroom', homeController.getChatroom);
