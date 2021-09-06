@@ -1,25 +1,28 @@
+module.exports = function(io){ 
 
-module.exports = function(io) {
 	return {
-		home: function(req,res) {
-			res.render('homepage')
-		},
+	home: function(req,res) {
+		res.render('homepage')
+	},
 
-		getChatroom: function(req,res) {
-			io.emit('controller-auction-request')
-			io.on('controller-auction', (auction) => {
-				console.log(auction)
-				res.render('chatroom', auction)
-			})
-	    },
+	getChatroom: function(req,res) {
+		const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
 
-	    newRoom: function(req, res) {
-	    	res.render('createRoom');
-	    },
+		socket.emit('controller-auction-request')
+		socket.on('controller-auction', (auction) => {
+			console.log(auction)
+			res.render('chatroom', auction)
+	})
+    },
 
-	    getChatroomHost: function(req,res) {
-			console.log(socket.getAuction())
-	        res.render('chatroom_host', socket.getAuction());
-	    }
-	}	
-}
+    newRoom: function(req, res) {
+    	res.render('createRoom');
+    },
+
+    getChatroomHost: function(req,res) {
+		console.log(getAuction())
+        res.render('chatroom_host', getAuction());
+    }
+}}
+
+module.exports = homeController
