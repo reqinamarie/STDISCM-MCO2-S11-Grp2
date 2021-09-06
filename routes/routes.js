@@ -6,8 +6,8 @@ const app = express();
 
 app.get('/', homeController.home);
 app.post('/chatroom', homeController.postLogin);
-app.get('/chatroom', homeController.getChatroom);
-app.get('/createRoom', homeController.newRoom);
+app.post('/createRoom', homeController.newRoom);
+app.get('/createRoom', homeController.newRoom);		//	delete after testing
 app.get('/chatroomHost', homeController.getChatroomHost);
 
 module.exports = app

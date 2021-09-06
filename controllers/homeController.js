@@ -13,10 +13,14 @@ const homeController = {
 		socket.emit('controller-user-request', req.body.email)
 		socket.on('controller-permission', (allowedUsers) => {
 			console.log(allowedUsers)
-			
-			if (allowedUsers.includes(permit)) {
+
+			if (allowedUsers.includes(req.body.email)) {
 				socket.emit('controller-auction-request')
 				socket.on('controller-auction', (auction) => {
+					auction.fName = req.body.fName 
+					auction.lName = req.body.lName
+					auction.email = req.body.email
+
 					console.log(auction)
 					res.render('chatroom', auction)
 				})
@@ -25,19 +29,10 @@ const homeController = {
 			}
 		})
 		
-
-		// socket.on()
 	},
 
-	getChatroom: function(req,res) {
-		console.log("GET")
-
-		console.log(req.body)
-
-    },
-
     newRoom: function(req, res) {
-    	res.render('createRoom');
+    	res.render('createRoom', req.body);
     },
 
     getChatroomHost: function(req,res) {

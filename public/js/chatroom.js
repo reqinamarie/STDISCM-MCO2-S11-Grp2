@@ -1,18 +1,7 @@
-const output = $('#output');
-const feedback = $('#feedback');
-const userCount = $('#currPeople');
-// const users = document.querySelector('.users');
-
 //Socket server URL
 const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
 console.log(socket)
 
-//Fetch URL Params from URL
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const fName = urlParams.get('fName');
-const lName = urlParams.get('lName');
-const email = urlParams.get('email');
 console.log(fName, lName, email);
 
 //Emitting username and roomname of newly joined user to server
