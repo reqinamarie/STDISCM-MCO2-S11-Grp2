@@ -1,6 +1,5 @@
-module.exports = function(io){ 
+const homeController = {
 
-	return {
 	home: function(req,res) {
 		res.render('homepage')
 	},
@@ -23,4 +22,6 @@ module.exports = function(io){
 		console.log(getAuction())
         res.render('chatroom_host', getAuction());
     }
-}}
+}
+
+module.exports = homeController

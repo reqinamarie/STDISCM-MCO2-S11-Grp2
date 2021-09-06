@@ -33,7 +33,7 @@ const io = socket(server, {
 });
 
 require('./utils/socket')(io);
-require('./routes/routes.js')(app, io);
-// app.use('/', routes)
+const routes = require('./routes/routes.js');
+app.use('/', routes)
 
 module.exports = app;
