@@ -8,7 +8,7 @@ const app = express()
 
 app.set('view engine', 'hbs')
 app.use(express.static(__dirname + '/views'))
-// hbs.registerPartials(__dirname + '/views/partials')
+hbs.registerPartials(__dirname + '/views/partials')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
