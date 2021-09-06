@@ -1,4 +1,4 @@
-function routes(io) {
+module.exports = function (io) {
 	const express = require('express')
 	const homeController = require('../controllers/homeController')(io)
 
