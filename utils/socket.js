@@ -121,6 +121,12 @@ function socket(io) {
             // emit to clients waiting for auction to open
             io.to('home').emit('get-auction', getAuction())
         })
+
+        //  CONTROLLER
+
+        socket.on('controller-auction', (callback) => {
+            callback(getAuction())
+        })
     })
 }
 
