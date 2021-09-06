@@ -125,7 +125,8 @@ function socket(io) {
         //  CONTROLLER
 
         socket.on('controller-auction-request', () => {
-            io.to(socket.id).emit('controller-auction', getAuction())
+            console.log("CONTROLLER RQ")
+            io.emit('controller-auction', getAuction())
         })
     })
 }
