@@ -1,3 +1,6 @@
+const io = require("socket.io-client");
+const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
+
 const homeController = {
 
 	home: function(req,res) {
@@ -5,8 +8,6 @@ const homeController = {
 	},
 
 	getChatroom: function(req,res) {
-		const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
-
 		socket.emit('controller-auction-request')
 		socket.on('controller-auction', (auction) => {
 			console.log(auction)
