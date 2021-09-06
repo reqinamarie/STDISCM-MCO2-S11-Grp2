@@ -1,4 +1,4 @@
-const {getMaxBidders} = require('./socketAuction').getMaxBidders;
+const getMaxBidders = require('./socketAuction').getMaxBidders;
 
 //Store connected Users
 var users = []
