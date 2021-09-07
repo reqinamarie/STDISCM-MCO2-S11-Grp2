@@ -59,6 +59,7 @@ function socket(io) {
             }
 
             timer = setInterval(function() {
+                console.log("remaining time " + timer)
                 time -= interval
 
                 io.emit('update-timer', time)
