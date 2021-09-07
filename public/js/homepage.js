@@ -2,7 +2,12 @@
 //Socket server URL
 const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
 
-var max_people = 999999999999999999999999;
+var joinRoomMsg = " Joining auction room... ",
+	fullRoomMsg = " Sorry! The auction room is full. Please wait for the next auction to start. ",
+	createFailMsg = " Sorry! There is already an existing auction. Please wait until the current session ends. ",
+	joinSuccessMsg = " Entering the auction room. You will be redirected shortly. ";
+
+var max_people = 99999999999;
 
 socket.emit('joined-homepage', {roomName: 'home'});
 
@@ -93,6 +98,19 @@ function submitForm(action) {
 	$("#loginForm").submit()
 }
 
+function changeToast(id, message) {
+    $("#toast-" + id).toast('dispose')
+
+    var t = setTimeout(function (){
+        $(".toast-body-" + id).text(message)
+        $("#toast-" + id).toast('show')
+
+        clearInterval(t)
+    }, 100);
+
+    console.log(message)
+}
+
 $(document).ready(function() {
 
 	$("input").on('focusout', function() {
@@ -108,7 +126,8 @@ $(document).ready(function() {
 			return;
 		}
 
-		$("#joinAuctionRoomToast").toast('show');
+		// $("#joinAuctionRoomToast").toast('show');
+		changeToast(1, joinRoomMsg)
 
 		email = $("#email").val()
 
@@ -116,10 +135,12 @@ $(document).ready(function() {
 			console.log(response)
 
 			if (response) {
-				$("#joinSuccessToast").toast('show')
+				// $("#joinSuccessToast").toast('show')
+				changeToast(2, joinSuccessMsg);
 				submitForm('/chatroom')
 			} else {
-				$("#joinFailToast").toast('show')
+				changeToast(2, fullRoomMsg);
+				// $("#joinFailToast").toast('show')
 			}
 
 		})
@@ -137,7 +158,8 @@ $(document).ready(function() {
 			if (response) {
 				submitForm('/createRoom')
 			} else {
-				$("#createFailToast").toast("show")
+				// $("#createFailToast").toast("show")
+				changeToast(1, createFailMsg)
 			}
 
 		})
