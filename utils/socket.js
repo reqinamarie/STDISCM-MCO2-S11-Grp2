@@ -158,17 +158,21 @@ function socket(io) {
 
         //  CONTROLLER
 
-        socket.on('controller-auction-request', () => {
+        socket.on('controller-auction-request', (callback) => {
             console.log("CONTROLLER RQ")
-            io.emit('controller-auction', getAuction())
+            callback(getAuction())
+
+            // io.emit('controller-auction', getAuction())
         })
 
-        socket.on('controller-user-request', () => {
-            io.emit('controller-permission', getPermittedUsers())
+        socket.on('controller-user-request', (callback) => {
+            callback(getPermittedUsers())
+            // io.emit('controller-permission', getPermittedUsers())
         })
 
-        socket.on('controller-host-request', () => {
-            io.emit('controller-host', getHost())
+        socket.on('controller-host-request', (callback) => {
+            callback(getHost())
+            // io.emit('controller-host', getHost())
         })
 
         //  BIDDING

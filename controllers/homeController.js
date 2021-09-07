@@ -15,15 +15,13 @@ const homeController = {
 		// IF USER IS HOST
 		else if (req.body.host) {
 			console.log('host ', req.body.email)
-			socket.emit('controller-host-request')
-	    	socket.on('controller-host', (host) => {
+			socket.emit('controller-host-request', (host) => {
 	    		console.log("HOSTTT")
 
 				if (req.body.email != host.email) {
 	    			res.redirect('/')
 				} else {    			
-					socket.emit('controller-auction-request')
-					socket.on('controller-auction', (auction) => {
+					socket.emit('controller-auction-request', (auction) => {
 						console.log("REDIRECTING")
 						auction.fName = req.body.fName 
 						auction.lName = req.body.lName
@@ -31,6 +29,7 @@ const homeController = {
 						auction.host = true
 
 						res.render('chatroom_host', auction)
+
 					})
 				}
 
@@ -40,13 +39,11 @@ const homeController = {
 		// IF USER IS BIDDER
 		else {
 			console.log('bidder ', req.body.email)
-			socket.emit('controller-user-request', req.body.email)
-			socket.on('controller-permission', (allowedUsers) => {
+			socket.emit('controller-user-request', (allowedUsers) => {
 				console.log(allowedUsers)
 
 				if (allowedUsers.includes(req.body.email)) {
-					socket.emit('controller-auction-request')
-					socket.on('controller-auction', (auction) => {
+					socket.emit('controller-auction-request', (auction) => {
 						console.log("REDIRECTINGGG")
 						auction.fName = req.body.fName 
 						auction.lName = req.body.lName
