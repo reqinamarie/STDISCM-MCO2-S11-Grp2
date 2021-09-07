@@ -9,11 +9,15 @@
 
     <!-- JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>    
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
     <script src="/js/createroom.js"></script>
+
 
 </head>
 <body>
@@ -31,17 +35,25 @@
                   </div>
                   <input type="text" class="form-control" id="itemName" placeholder="Item Name" aria-label="Item Name" aria-describedby="basic-addon1">
                 </div>
-
+<!--
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Item Photo</span>
                     </div>
                     
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile02">
+                       <input type="file" accept="image/*" name="image"   class="custom-file-input" id="inputGroupFile02" > 
                         <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+
+                       <input type="file" class="custom-file-input" id="exampleFormControlFile1">
+
+                        <p><input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;"></p>
+                        <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+                        <p><img id="output" width="200" /></p>
+                      
                     </div>
                 </div>
+              -->
 
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
@@ -88,12 +100,29 @@
                     </div>
                 </div>
 
+                
             </div>
+            <center>
+              <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+              <label class="btn btn-secondary" for="file" style="cursor: pointer;">Upload Image</label><br>
+              <img id="output" width="200" style="margin-bottom: 10px;"/>
+            </center>
         </div>
 
+        
 
         <button type="button" class="btn btn-primary m-2 w-25" id="createBtn" onclick="createRoom()">Create Room</button>
     </form>
+
+    
+
+    
+
+
+<!--
+<div class="filebutton">Send Image<input type="file" id="send_media" onchange="myFunction()" accept="image/*"></div>
+-->
+
 
 </div>
 

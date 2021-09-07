@@ -81,4 +81,7 @@ socket.on('get-auction', (data) => {
     $('#maxPeople').text(data.maxBidders);
     $('#bidTime').text(data.bidTime);
 
+    var image = document.getElementById('imageItem');
+    image.src = data.photo;
+
 })

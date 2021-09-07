@@ -25,6 +25,11 @@ function loadAuction(data) {
 
     $('#itemName').text(data.item);
     $('#itemDescription').text(data.desc);
+
+
+    var imgItem = document.getElementById('itemImage');
+	imgItem.src = data.photo;
+    console.log("data.photo", data.photo);
     $('#startingPrice').text(data.startPrice);
     $('#autobuyPrice').text(data.buyPrice);
     $('#maxPeople').text(data.maxBidders);
