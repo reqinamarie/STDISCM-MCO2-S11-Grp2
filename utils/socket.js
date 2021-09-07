@@ -113,13 +113,13 @@ function socket(io) {
             }
         })
 
-        //pass item details to homepage
+        //pass item details 
         socket.on('createchat', (data) => {
             data.start = false
             newAuction(data);
 
             // emit to clients waiting for auction to open
-            io.to('home').emit('get-auction', getAuction())
+            io.to('online-users').emit('get-auction', getAuction())
         })
 
         //  CONTROLLER
