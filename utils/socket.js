@@ -180,7 +180,7 @@ function socket(io) {
         socket.on('bid', (bid, user) => {
             var res = setBid(bid, user)
 
-            if (res.equals('autobuy')) {
+            if (res == null) {
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
                 io.emit('end-auction', getBid())
