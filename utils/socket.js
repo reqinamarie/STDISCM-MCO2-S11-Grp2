@@ -68,8 +68,10 @@ function socket(io) {
                 }
 
                 if (time <= 0) {
-                    io.emit('end-auction')
+                    io.emit('end-auction', getBid())
                     clearInterval(timer)
+
+                    restartAuction()
                 }
             }, interval)
         }
@@ -189,9 +191,18 @@ function socket(io) {
             if (setBid(bid, user)) {
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
-                io.to('auction-room').emit('end-auction')
+                io.emit('end-auction', getBid())
+                restartAuction()
             }
         })
+
+        // delay before letting others create a new auction again
+        function restartAuction() {
+            timer = setInterval(function() {
+                deleteAuction()
+                clearInterval(timer)
+            }, 10000)
+        }
     })
 }
 

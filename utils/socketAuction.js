@@ -33,6 +33,14 @@ function getBidTime() {
 }
 
 function setBid(bid, user) {
+	if (auction.start == null)
+		return;
+
+	if (bid >= auction.buyPrice) {
+		auction.start = null
+		console.log("autobuy")
+	}
+	
 	if (bid > currBid.bid) {
 		console.log(bid, user, "success")
 		currBid.bid = bid

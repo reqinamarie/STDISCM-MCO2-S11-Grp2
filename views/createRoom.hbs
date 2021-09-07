@@ -42,12 +42,13 @@
 <div class="container d-flex flex-column align-items-center min-vh-100 justify-content-center">
     <h2>Create New Auction Room</h2>
 
-    <form name="createRoomForm" method="get" id="createRoomForm" class="d-flex flex-column align-items-center">
+    <form name="createRoomForm" method="post" id="createRoomForm" action='/chatroom' class="d-flex flex-column align-items-center">
         <div class="card">
             <div class="card-body">
                 <input type="hidden" id="fName" name="fName" value="{{fName}}">
                 <input type="hidden" id="lName" name="lName" value="{{lName}}">
                 <input type="hidden" id="email" name="email" value="{{email}}">
+                <input type="hidden" id="host" name="host" value="true">
 
                 <div class="d-flex mb-3 flex-fill flex-grow-1">
                   <div class="mr-3" style="width:70%">
