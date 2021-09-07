@@ -36,10 +36,11 @@ function setBid(bid, user) {
 	bid = parseInt(bid)
 
 	if (auction.start == null)
-		return;
+		return null;
 
 	if (bid >= parseInt(auction.buyPrice)) {
 		auction.start = null
+		return null;
 		console.log("autobuy", bid, auction.buyPrice, bid >= auction.buyPrice)
 	}
 	

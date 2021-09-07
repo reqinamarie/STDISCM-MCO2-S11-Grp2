@@ -20,6 +20,7 @@ $(document).ready(function() {
 			var bid = $("#bid").val()
 
 			socket.emit('bid', bid, user)
+			$("#bid").val('')
 		}
 	})
 

@@ -181,7 +181,14 @@ function socket(io) {
         //  BIDDING
 
         socket.on('bid', (bid, user) => {
-            if (setBid(bid, user)) {
+            var res = setBid(bid, user)
+
+            if (res == null) {
+                io.to('auction-room').emit('autobuy', bid, user)
+                clearInterval(timer)
+                io.emit('end-auction', getBid())
+                restartAuction()
+            } else if (res) {
                 io.to('auction-room').emit('new-bid', bid, user)
             }
         })
@@ -190,7 +197,6 @@ function socket(io) {
             bid = getAuction().buyPrice;
 
             if (setBid(bid, user)) {
-                console.log("AUTOBUY???")
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
                 io.emit('end-auction', getBid())
