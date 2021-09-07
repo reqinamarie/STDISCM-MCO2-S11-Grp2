@@ -5,6 +5,7 @@ console.log(socket);
 
 var x = 0;
 var received;
+var src;
 
 var createRoomMsg = " Creating auction room... ",
     createErrorMsg = " Something went wrong. Please try again. ",
@@ -20,6 +21,7 @@ $(document).ready(function() {
           reader.onload = function (evt) {
 
                 var msg = {};
+                src = evt.target.result;
                 msg.file = evt.target.result;
                 msg.fileName = data.name;
                 socket.emit("image-upload", msg);
@@ -43,13 +45,13 @@ function changeToast(message) {
 }
 
 function createRoom() {
-    changeToast(createRoomMsg)
-
     if (!received) {
         console.log('not yet received')
         changeToast(createErrorMsg)
         return;
     }
+
+    changeToast(createRoomMsg)
 
     item = $('#itemName').val();
     desc = $('#itemDesc').val();
@@ -66,12 +68,27 @@ function createRoom() {
         maxBidders: maxBidders,
         bidTime:bidTime,
         roomName: 'auction-room'
+    }, {fName: fName, 
+        lName: lName, 
+        email: email
     })
 
 }
 
 socket.on('image-received', () => {
     received = true;
+    console.log('received!')
+    $("#output").prop('src', src)
+})
+
+socket.on('create-auction', (success) => {
+    console.log('CREATE ', success)
+
+    if (success) {
+        $("#createRoomForm").submit()
+    } else {
+        changeToast(createFailMsg)
+    }
 })
 
 

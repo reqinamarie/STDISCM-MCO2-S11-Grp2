@@ -3,6 +3,7 @@ const getMaxBidders = require('./socketAuction').getMaxBidders;
 //Store connected Users
 var users = []
 var permittedUsers = []
+var host = {}
 
 // get online users
 function getUsers(){
@@ -71,4 +72,16 @@ function clearPermittedUsers() {
     permittedUsers = []
 }
 
-module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers};
+function setHost(data) {
+    host = data
+}
+
+function getHost() {
+    return host
+}
+
+function clearHost() {
+    host = {}
+}
+
+module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers, setHost, getHost, clearHost};

@@ -8,7 +8,8 @@ console.log(fName, lName, email);
 socket.emit('joined-user', {
     name: fName + " " + lName,
     email: email,
-    roomName: 'auction-room'
+    roomName: 'auction-room',
+    host: host
 })
 
 //Sending data when user clicks send
@@ -78,10 +79,20 @@ socket.on('online-users', (data) =>{
 
 // })
 
+socket.on('start-auction', (bidTime) => {
+    $("#timer").css('color', '#DC143C')
+    updateTime(bidTime * 60000, "timer", " left")    
+    $(".bid").prop('disabled', false)
+})
+
 
 socket.on('end-auction', (data) => {
+    var name = data.user.fName + " " + data.user.lName + " (" + data.user.email + ")"
+
+    $("#timer").text("Auction ended. Congratulations to " + name + "!")
+
     var t = setTimeout(function (){
-        $("#winner").text(data)
+        $("#winner").text(name)
         endAuction()
 
         clearInterval(t)

@@ -1,5 +1,6 @@
-const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers} = require('./socketUser');
-const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime} = require('./socketAuction');
+const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers, setHost, getHost, clearHost} = require('./socketUser');
+
+const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime, setBid, getBid} = require('./socketAuction');
 
 //Socket connection
 function socket(io) {
@@ -7,12 +8,13 @@ function socket(io) {
         console.log("connected to server");
         var roomName;
         var image = {};
+        var timer;
 
         //  HOMEPAGE
 
         socket.on('joined-homepage', (data) => {
             console.log("JOINED HOMEPAGE")
-            roomName = data.roomName;
+            roomName = 'home';
 
             socket.join(roomName);
 
@@ -41,8 +43,10 @@ function socket(io) {
 
         socket.on('start-auction', () => {
             startAuction()
+            var auction = getAuction();
 
-            io.emit('get-auction', getAuction())
+            io.emit('get-auction', auction)
+            io.to('auction-room').emit('start-auction', auction.bidTime)
             updateTimer()
         })
 
@@ -54,7 +58,8 @@ function socket(io) {
                 interval = 1000                 // change to seconds update
             }
 
-            var timer = setInterval(function() {
+            timer = setInterval(function() {
+                console.log("remaining time " + timer)
                 time -= interval
 
                 io.emit('update-timer', time)
@@ -64,8 +69,10 @@ function socket(io) {
                 }
 
                 if (time <= 0) {
-                    io.emit('end-auction')
+                    io.emit('end-auction', getBid())
                     clearInterval(timer)
+
+                    restartAuction()
                 }
             }, interval)
         }
@@ -75,10 +82,13 @@ function socket(io) {
         socket.on('joined-user', (data) =>{
             //Storing users connected in a room in memory
             var user = {};
-            user[socket.id] = data.email;            
-            addUser(user);
+            user[socket.id] = data.email;      
 
-            roomName = data.roomName;
+            if (!data.host) {
+                addUser(user);                
+            }      
+
+            roomName = 'auction-room';
             
             //Joining the Socket Room
             socket.join(roomName);
@@ -117,17 +127,31 @@ function socket(io) {
         //  CREATE ROOM PAGE
 
         //pass item details 
-        socket.on('createchat', (data) => {
-            clearPermittedUsers()
-            data.start = false
+        socket.on('createchat', (auction, host) => {
 
-            if (image.file != null) {
-                data.photo = image.file
+            // if there is already an auction, reject create chatroom
+            if (Object.keys(getAuction()).length != 0) {
+                io.to(socket.id).emit('create-auction', false)
+                return;
             }
 
-            newAuction(data);
+            console.log("CREATING ROOM")
+
+            // otherwise, proceed
+            clearPermittedUsers()
+            auction.start = false
+
+            if (image.file != null) {
+                auction.photo = image.file
+            }
+
+            newAuction(auction);
             // emit to clients waiting for auction to open
-            io.to('online-users').emit('get-auction', getAuction())
+            io.emit('get-auction', getAuction())
+
+            setHost(host)
+
+            io.to(socket.id).emit('create-auction', true)
         })
 
         socket.on('image-upload', (data) => {
@@ -137,14 +161,56 @@ function socket(io) {
 
         //  CONTROLLER
 
-        socket.on('controller-auction-request', () => {
+        socket.on('controller-auction-request', (callback) => {
             console.log("CONTROLLER RQ")
-            io.emit('controller-auction', getAuction())
+            callback(getAuction())
+
+            // io.emit('controller-auction', getAuction())
         })
 
-        socket.on('controller-user-request', () => {
-            io.emit('controller-permission', getPermittedUsers())
+        socket.on('controller-user-request', (callback) => {
+            callback(getPermittedUsers())
+            // io.emit('controller-permission', getPermittedUsers())
         })
+
+        socket.on('controller-host-request', (callback) => {
+            callback(getHost())
+            // io.emit('controller-host', getHost())
+        })
+
+        //  BIDDING
+
+        socket.on('bid', (bid, user) => {
+            var res = setBid(bid, user)
+
+            if (res == null) {
+                io.to('auction-room').emit('autobuy', bid, user)
+                clearInterval(timer)
+                io.emit('end-auction', getBid())
+                restartAuction()
+            } else if (res) {
+                io.to('auction-room').emit('new-bid', bid, user)
+            }
+        })
+
+        socket.on('autobuy', (user) => {
+            bid = getAuction().buyPrice;
+
+            if (setBid(bid, user)) {
+                io.to('auction-room').emit('autobuy', bid, user)
+                clearInterval(timer)
+                io.emit('end-auction', getBid())
+                restartAuction()
+            }
+        })
+
+        // delay before letting others create a new auction again
+        function restartAuction() {
+            timer = setInterval(function() {
+                deleteAuction()
+                clearInterval(timer)
+            }, 10000)
+        }
     })
 }
 
