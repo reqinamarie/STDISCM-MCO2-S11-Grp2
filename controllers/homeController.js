@@ -17,12 +17,14 @@ const homeController = {
 			console.log('host ', req.body.email)
 			socket.emit('controller-host-request')
 	    	socket.on('controller-host', (host) => {
+	    		console.log("HOSTTT")
 
 				if (req.body.email != host.email) {
 	    			res.redirect('/')
 				} else {    			
 					socket.emit('controller-auction-request')
 					socket.on('controller-auction', (auction) => {
+						console.log("REDIRECTING")
 						auction.fName = req.body.fName 
 						auction.lName = req.body.lName
 						auction.email = req.body.email
@@ -45,6 +47,7 @@ const homeController = {
 				if (allowedUsers.includes(req.body.email)) {
 					socket.emit('controller-auction-request')
 					socket.on('controller-auction', (auction) => {
+						console.log("REDIRECTINGGG")
 						auction.fName = req.body.fName 
 						auction.lName = req.body.lName
 						auction.email = req.body.email
