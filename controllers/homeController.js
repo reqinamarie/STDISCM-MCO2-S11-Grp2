@@ -10,11 +10,10 @@ const homeController = {
 	postLogin: function(req, res, next) {
 		if (req.body.email == null) {
 			res.redirect('/')
-			return;
 		}
 
 		// IF USER IS HOST
-		if (req.body.host) {
+		else if (req.body.host) {
 			console.log('host ', req.body.email)
 			socket.emit('controller-host-request')
 	    	socket.on('controller-host', (host) => {
