@@ -53,7 +53,7 @@ function socket(io) {
         function updateTimer() {
             var time = getBidTime() * 60000     // minutes to seconds
             var minute = 60000
-            var interval - 1000
+            var interval = 1000
 
             timer = setInterval(function() {
                 time -= interval
