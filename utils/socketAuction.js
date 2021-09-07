@@ -33,10 +33,12 @@ function getBidTime() {
 }
 
 function setBid(bid, user) {
+	bid = parseInt(bid)
+
 	if (auction.start == null)
 		return;
 
-	if (bid >= auction.buyPrice) {
+	if (bid >= parseInt(auction.buyPrice)) {
 		auction.start = null
 		console.log("autobuy", bid, auction.buyPrice, bid >= auction.buyPrice)
 	}
