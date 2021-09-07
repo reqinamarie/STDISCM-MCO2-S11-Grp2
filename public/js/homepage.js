@@ -5,7 +5,8 @@ const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
 var joinRoomMsg = " Joining auction room... ",
 	fullRoomMsg = " Sorry! The auction room is full. Please wait for the next auction to start. ",
 	createFailMsg = " Sorry! There is already an existing auction. Please wait until the current session ends. ",
-	joinSuccessMsg = " Entering the auction room. You will be redirected shortly. ";
+	joinSuccessMsg = " Entering the auction room. You will be redirected shortly. ",
+	userExistsMsg = "Email already in use.";
 
 var max_people = 99999999999;
 
@@ -134,7 +135,9 @@ $(document).ready(function() {
 		socket.emit('entry-request', email, (response) => {
 			console.log(response)
 
-			if (response) {
+			if (response == null) {
+				changeToast(2, userExistsMsg);
+			} else if (response) {
 				// $("#joinSuccessToast").toast('show')
 				changeToast(2, joinSuccessMsg);
 				submitForm('/chatroom')
