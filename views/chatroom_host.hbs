@@ -15,64 +15,16 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <script src="/js/chatroom.js"></script>
-
-
-    <script>
-    // Set the date we're counting down to
-    function startBid() {
-        document.getElementById("startTime").disabled = true;
-
-        var timeleft = {{bidTime}}*60;
-        var downloadTimer = setInterval(function(){
-          if(timeleft <= 0){
-            clearInterval(downloadTimer);
-            document.getElementById("duration").innerHTML = "Auction Closed";
-          } else {
-            if(timeleft > 60) {
-                document.getElementById("duration").innerHTML = Math.floor(timeleft/60) + " minutes and " + timeleft%60 + " seconds remaining";
-            } else
-                document.getElementById("duration").innerHTML = timeleft + " seconds remaining";
-          }
-          timeleft -= 1;
-        }, 1000);
-    }
-</script>
+    <script src="/js/hostChatroom.js"></script>
 
 </head>
 <body class="d-flex align-items-center justify-content-center vh-100">
     <div class="card container-md d-flex flex-column " style="height: 95vh">
-        <center><h2 class="room-message my-2"> Online Auction </h2> <b id="duration" style="color:#DC143C; "> {{bidTime}} minutes and 0 seconds remaining </b></center> 
+        <center><h2 class="room-message my-2"> Online Auction </h2>  <b id="timer">Press "Begin Auction" button to start.</b></center> 
         <div class="window row p-3 mb-2 bg-light text-dark flex-fill d-flex flex-row">
-            <div class="col-8 d-flex flex-column flex-fill" >
-                <!-- <div class="chat-message" style="overflow-y: scroll; height: 554px;"> -->
-                <div class="chat-message flex-fill" style="overflow-y: scroll; height: 70vh">
-                    <div id="output mr-2">
-                        <p> -> <em><strong> user1 </strong>has joined the room.</em></p>
-                        <div class="card my-3 card-margin"><p class="per-message p-2"><strong> user1</strong>: sample data message </p></div>
-                        <div class="card my-3 card-margin"><p class="per-message p-2"><strong> user1</strong>: sample data message </p></div>
-                        <p> -> <em><strong> user2 </strong>has joined the room.</em></p>
-                        <div class="card my-3 card-margin"><p class="per-message p-2"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
-
-
-                        <div class="card my-3 card-margin"><p class="per-message p-2"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
-                        <div class="card my-3 card-margin"><p class="per-message p-2"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
-                        <div class="card my-3 card-margin"><p class="per-message p-2"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
-                        <div class="card my-3 card-margin"><p class="per-message p-2"><strong> user2</strong>: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Ut a posuere turpis. Etiam pretium egestas ante, quis malesuada mauris tempus sollicitudin.</p></div>
-                    </div>
-                    <div id="feedback"></div>
-                </div>
-                <div class="row mt-3">
-                    <div class='fields col-10'>
-                        <input type="text" class="form-control " id="message" placeholder="Enter message">
-                    </div>
-                    <div class="col-2 btn-group special">
-                        <button type="button" class="btn btn-primary" id="send" onclick="sendMessage()">Send</button>
-                    </div>
-                </div>
-            </div>
+            {{> chatUI}}
 
 
             <div class="col-4 flex-fill d-flex flex-column" style="height: 100%">
@@ -83,21 +35,10 @@
                             <img class="img-fluid w-100 mh-100" src="/images/placeholder.jpeg" style="object-fit: cover; position: absolute">
                         </div> 
                         <div class="d-inline-flex flex-column p-3 item-details">
-                                <h5 id="itemName">{{itemName}}</h5>
-
-                                <p id="h-50 overflow-auto flex-fill" style="overflow-y: scroll; max-height: 10vh;"><span id="itemDescription"> {{itemDesc}} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer et iaculis nibh. Donec sit amet tincidunt turpis, sit amet accumsan arcu.</span></p>
-                                
-                                <p><b>Starting Price:</b> <span id="startingPrice">PHP {{startPrice}}</span>    <br>
-                                <b>Autobuy Price:</b> <span id="autobuyPrice">PHP {{autobuyPrice}}</span>    <br>
-                                <b>Bidding Time:</b> <span id="bidTime">{{bidTime}} minutes</span></p>
-
-                                <p class="mb-0"><b>Bidders:</b> <span id="currPeople">0</span>/<span id="maxPeople">{{maxPeople}}</span></p>
-
+                                {{> itemCard}}
                                 <br>
-                            <div class=" btn-group special center">
-                                <form action="http://www.google.fr">
-                                    <button type="button" class="btn btn-warning" id="startTime" onclick="startBid()">Start Bidding Time</button>
-                                </form>
+                            <div class=" btn-group special center w-100">
+                                <button type="button" class="btn btn-warning w-100" id="startTime" onclick="startBid()">Begin Auction</button>
                             </div>
                         </div>
                     </div>
@@ -106,5 +47,7 @@
         </div>
     </div>
     
+    {{> endAuction}}
+
 </body>
 </html>

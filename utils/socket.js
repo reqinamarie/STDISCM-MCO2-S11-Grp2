@@ -1,11 +1,75 @@
-const {getUsers, addUser, removeUser, getUserCount} = require('./socketUser');
-const {newAuction, deleteAuction, getAuction} = require('./socketAuction');
+const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers} = require('./socketUser');
+const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime} = require('./socketAuction');
 
 //Socket connection
 function socket(io) {
     io.on('connection', (socket) => {
         console.log("connected to server");
         var roomName;
+
+        //  HOMEPAGE
+
+        socket.on('joined-homepage', (data) => {
+            console.log("JOINED HOMEPAGE")
+            roomName = data.roomName;
+
+            socket.join(roomName);
+
+            //Send online users count to home
+            io.to('home').emit('online-users', getUserCount());
+
+            //Emit auction to sender
+            io.to(socket.id).emit('get-auction', getAuction());
+        })
+
+        socket.on('entry-request', (email, callback) => {
+            callback(entryRequest(email));
+        })
+
+        socket.on('check-auction', (callback) => {
+            // if there is no auction, allow entry
+            if (getMaxBidders() == -1)
+                callback(true)
+
+            else
+                callback(false)
+        })
+
+
+        //  HOST CHATROOM
+
+        socket.on('start-auction', () => {
+            startAuction()
+
+            io.emit('get-auction', getAuction())
+            updateTimer()
+        })
+
+        function updateTimer() {
+            var time = getBidTime() * 60000     // minutes to seconds
+            var interval = 60000
+
+            if (time == 60000) {
+                interval = 1000                 // change to seconds update
+            }
+
+            var timer = setInterval(function() {
+                time -= interval
+
+                io.emit('update-timer', time)
+
+                if (time == 60000) {
+                    interval = 1000             // change to seconds update
+                }
+
+                if (time <= 0) {
+                    io.emit('end-auction')
+                    clearInterval(timer)
+                }
+            }, interval)
+        }
+
+        //  CHATROOM
 
         socket.on('joined-user', (data) =>{
             //Storing users connected in a room in memory
@@ -26,19 +90,6 @@ function socket(io) {
     
             //Send online users count to both home and auction chatroom
             io.emit('online-users', getUserCount());
-        })
-
-        socket.on('joined-homepage', (data) => {
-            console.log("JOINED HOMEPAGE")
-            roomName = data.roomName;
-
-            socket.join(roomName);
-
-            //Send online users count to home
-            io.to('home').emit('online-users', getUserCount());
-
-            //Emit auction to sender
-            io.to(socket.id).emit('get-auction', getAuction());
         })
     
         //Emitting messages to Clients
@@ -69,6 +120,17 @@ function socket(io) {
 
             // emit to clients waiting for auction to open
             io.to('home').emit('get-auction', getAuction())
+        })
+
+        //  CONTROLLER
+
+        socket.on('controller-auction-request', () => {
+            console.log("CONTROLLER RQ")
+            io.emit('controller-auction', getAuction())
+        })
+
+        socket.on('controller-user-request', () => {
+            io.emit('controller-permission', getPermittedUsers())
         })
     })
 }
