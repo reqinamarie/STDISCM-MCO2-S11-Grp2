@@ -6,6 +6,7 @@ function socket(io) {
     io.on('connection', (socket) => {
         console.log("connected to server");
         var roomName;
+        var image = {};
 
         //  HOMEPAGE
 
@@ -113,13 +114,24 @@ function socket(io) {
             }
         })
 
+        //  CREATE ROOM PAGE
+
         //pass item details 
         socket.on('createchat', (data) => {
             data.start = false
-            newAuction(data);
 
+            if (image.file != null) {
+                data.photo = image.file
+            }
+
+            newAuction(data);
             // emit to clients waiting for auction to open
             io.to('online-users').emit('get-auction', getAuction())
+        })
+
+        socket.on('image-upload', (data) => {
+            image = data
+            io.to(socket.id).emit('image-received')
         })
 
         //  CONTROLLER
