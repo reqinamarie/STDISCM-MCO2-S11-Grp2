@@ -38,7 +38,7 @@ function setBid(bid, user) {
 
 	if (bid >= auction.buyPrice) {
 		auction.start = null
-		console.log("autobuy", bid, auction.buyPrice)
+		console.log("autobuy", bid, auction.buyPrice, bid >= auction.buyPrice)
 	}
 	
 	if (bid > currBid.bid) {
