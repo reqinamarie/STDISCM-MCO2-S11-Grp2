@@ -29,7 +29,7 @@ const homeController = {
 						auction.email = req.body.email
 						auction.host = true
 
-						res.render('hostChatroom', auction)
+						res.render('chatroom_host', auction)
 					})
 				}
 
