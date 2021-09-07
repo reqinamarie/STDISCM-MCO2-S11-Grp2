@@ -2,7 +2,13 @@
 //Socket server URL
 const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
 
-var max_people = 999999999999999999999999;
+var joinRoomMsg = " Joining auction room... ",
+	fullRoomMsg = " Sorry! The auction room is full. Please wait for the next auction to start. ",
+	createFailMsg = " Sorry! There is already an existing auction. Please wait until the current session ends. ",
+	joinSuccessMsg = " Entering the auction room. You will be redirected shortly. ",
+	userExistsMsg = "Email already in use.";
+
+var max_people = 99999999999;
 
 socket.emit('joined-homepage', {roomName: 'home'});
 
@@ -19,12 +25,6 @@ socket.on('end-auction', () => {
 	endAuction()    
 })
 
-socket.on('controller-auction-request', ()=>
-{
-	console.log("CONTROLLER")
-})
-
-
 function loadAuction(data) {
 	console.log("load")
 
@@ -38,7 +38,6 @@ function loadAuction(data) {
 
     var imgItem = document.getElementById('itemImage');
 	imgItem.src = data.photo;
-    console.log("data.photo", data.photo);
     $('#startingPrice').text(data.startPrice);
     $('#autobuyPrice').text(data.buyPrice);
     $('#maxPeople').text(data.maxBidders);
@@ -93,6 +92,23 @@ function submitForm(action) {
 	$("#loginForm").submit()
 }
 
+function changeToast(id, message) {
+	var toastId = "#toast-" + id,
+		toastBodyId = "#toast-msg-" + id
+
+	console.log($(toastId))
+    $(toastId).toast('dispose')
+
+    var t = setTimeout(function (){
+        $(toastBodyId).text(message)
+        $(toastId).toast('show')
+
+        clearInterval(t)
+    }, 100);
+
+    console.log(message)
+}
+
 $(document).ready(function() {
 
 	$("input").on('focusout', function() {
@@ -108,18 +124,23 @@ $(document).ready(function() {
 			return;
 		}
 
-		$("#joinAuctionRoomToast").toast('show');
+		// $("#joinAuctionRoomToast").toast('show');
+		changeToast(1, joinRoomMsg)
 
 		email = $("#email").val()
 
 		socket.emit('entry-request', email, (response) => {
 			console.log(response)
 
-			if (response) {
-				$("#joinSuccessToast").toast('show')
+			if (response == null) {
+				changeToast(2, userExistsMsg);
+			} else if (response) {
+				// $("#joinSuccessToast").toast('show')
+				changeToast(2, joinSuccessMsg);
 				submitForm('/chatroom')
 			} else {
-				$("#joinFailToast").toast('show')
+				changeToast(2, fullRoomMsg);
+				// $("#joinFailToast").toast('show')
 			}
 
 		})
@@ -137,7 +158,8 @@ $(document).ready(function() {
 			if (response) {
 				submitForm('/createRoom')
 			} else {
-				$("#createFailToast").toast("show")
+				// $("#createFailToast").toast("show")
+				changeToast(1, createFailMsg)
 			}
 
 		})

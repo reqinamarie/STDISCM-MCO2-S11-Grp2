@@ -49,6 +49,12 @@ function entryRequest(email) {
     console.log("BEFORE ENTRY: ", permittedUsers.length, " ", email)
 
     if (permittedUsers.length < getMaxBidders()) {
+        // user already exists
+        if (permittedUsers.indexOf(email) > -1) {
+            return null;
+        }
+
+        // new user
         permittedUsers.push(email)
         console.log("AFTER ENTRY: ", permittedUsers.length)
         return true
@@ -59,6 +65,10 @@ function entryRequest(email) {
 
 function getPermittedUsers() {
     return permittedUsers
+}
+
+function clearPermittedUsers() {
+    permittedUsers = []
 }
 
 module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers};

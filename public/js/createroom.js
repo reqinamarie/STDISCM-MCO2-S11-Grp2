@@ -1,7 +1,3 @@
-//const output = $('#output');
-//const feedback = $('#feedback');
-////const userCount = $('#currPeople');
-// const users = document.querySelector('.users');
 
 //Socket server URL
 const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
@@ -10,17 +6,9 @@ console.log(socket);
 var x = 0;
 var received;
 
-//=================================
-// var loadFile = function(event) {
-//     console.log("test");
-
-//     var image = document.getElementById('output');
-//     image.src = URL.createObjectURL(event.target.files[0]);
-//     console.log("target.files: ", event.target.files[0]);
-//     console.log("image.src: ", image.src);
-//     x=2;
-//     uploaded = image.src;
-// };
+var createRoomMsg = " Creating auction room... ",
+    createErrorMsg = " Something went wrong. Please try again. ",
+    createFailMsg = " Sorry! An auction is already ongoing. Please wait until the current session ends before trying again. ";
 
 $(document).ready(function() {
     $("#file").on('change', function(e) {
@@ -41,16 +29,25 @@ $(document).ready(function() {
     })
 })
 
-// function fileChange(elem, callback) {
-//     console.log(elem)
-// }
+function changeToast(message) {
+    $("#toast").toast('dispose')
+
+    var t = setTimeout(function (){
+        $(".toast-body").text(message)
+        $("#toast").toast('show')
+
+        clearInterval(t)
+    }, 200);
+
+    console.log(message)
+}
 
 function createRoom() {
-    $("#createToast").toast('show')
+    changeToast(createRoomMsg)
 
     if (!received) {
         console.log('not yet received')
-        $("#createErrorToast").toast('show')
+        changeToast(createErrorMsg)
         return;
     }
 
@@ -71,23 +68,6 @@ function createRoom() {
         roomName: 'auction-room'
     })
 
-
-    // fileChange($('#file'), function(photo) {
-    //     console.log("photo: ", photo);
-    //     console.log(item);
-    //     socket.emit('createchat', {
-    //         item: item,
-    //         photo: photo,
-    //         desc: desc,
-    //         startPrice: startPrice,
-    //         buyPrice:buyPrice,
-    //         maxBidders: maxBidders,
-    //         bidTime:bidTime,
-    //         roomName: 'auction-room'
-    //     })
-    // })
-
-    // fileChange($('#file'), function(){})
 }
 
 socket.on('image-received', () => {

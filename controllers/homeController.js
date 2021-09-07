@@ -8,8 +8,6 @@ const homeController = {
 	},
 
 	postLogin: function(req, res, next) {
-		console.log(req.body)
-
 		socket.emit('controller-user-request', req.body.email)
 		socket.on('controller-permission', (allowedUsers) => {
 			console.log(allowedUsers)
@@ -39,6 +37,10 @@ const homeController = {
 		socket.on('controller-auction', (auction) => {
 			res.render('chatroom', auction)
 		})
+    },
+
+    redirectHome: function(req, res) {
+    	res.redirect('/')
     }
 }
 
