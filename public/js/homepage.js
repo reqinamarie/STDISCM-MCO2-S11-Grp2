@@ -15,6 +15,15 @@ socket.on('get-auction', (data) => {
 		ongoingAuction(data)
 })
 
+socket.on('end-auction', () => {
+	endAuction()    
+})
+
+socket.on('controller-auction-request', ()=>
+{
+	console.log("CONTROLLER")
+})
+
 
 function loadAuction(data) {
 	console.log("load")
@@ -76,4 +85,61 @@ socket.on('online-users', (data) =>{
 	}
 
     $('#currPeople').text(data)
+})
+
+
+function submitForm(action) {
+	$("#loginForm").prop('action', action)
+	$("#loginForm").submit()
+}
+
+$(document).ready(function() {
+
+	$("input").on('focusout', function() {
+		if (this.checkValidity())
+			$(this).css('border-color', 'darkgrey')
+		else
+			$(this).css('border-color', 'red')
+	})
+
+	$("#joinBtn").on('click', function() {
+		if (!document.getElementById("loginForm").checkValidity()) {
+			$("input").focusout()
+			return;
+		}
+
+		$("#joinAuctionRoomToast").toast('show');
+
+		email = $("#email").val()
+
+		socket.emit('entry-request', email, (response) => {
+			console.log(response)
+
+			if (response) {
+				$("#joinSuccessToast").toast('show')
+				submitForm('/chatroom')
+			} else {
+				$("#joinFailToast").toast('show')
+			}
+
+		})
+	})
+
+	$("#createRoomBtn").on('click', function() {
+		if (!document.getElementById("loginForm").checkValidity()) {
+			$("input").focusout()
+			return;
+		}
+
+		socket.emit('check-auction', (response) => {
+			console.log(response)
+
+			if (response) {
+				submitForm('/createRoom')
+			} else {
+				$("#createFailToast").toast("show")
+			}
+
+		})
+	})
 })

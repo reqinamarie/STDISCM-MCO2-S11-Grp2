@@ -1,18 +1,7 @@
-const output = $('#output');
-const feedback = $('#feedback');
-const userCount = $('#currPeople');
-// const users = document.querySelector('.users');
-
 //Socket server URL
 const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
 console.log(socket)
 
-//Fetch URL Params from URL
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const fName = urlParams.get('fName');
-const lName = urlParams.get('lName');
-const email = urlParams.get('email');
 console.log(fName, lName, email);
 
 //Emitting username and roomname of newly joined user to server
@@ -72,16 +61,59 @@ socket.on('online-users', (data) =>{
 })
 
 //Displaying item details on chatroom
-socket.on('get-auction', (data) => {
-    console.log(data.item);
-    $('#itemName').text(data.item);
-    $('#itemDescription').text(data.desc);
-    $('#startingPrice').text(data.startPrice);
-    $('#autobuyPrice').text(data.buyPrice);
-    $('#maxPeople').text(data.maxBidders);
-    $('#bidTime').text(data.bidTime);
+// socket.on('get-auction', (data) => {
+//     if (data.start) {
+//         $("#timer").css('color', '#DC143C')
+//         updateTime(data.bidTime * 60000, "timer", " left")
+//         return;
+//     }
 
-    var image = document.getElementById('imageItem');
-    image.src = data.photo;
+//     console.log(data.item);
+//     $('#itemName').text(data.item);
+//     $('#itemDescription').text(data.desc);
+//     $('#startingPrice').text(data.startPrice);
+//     $('#autobuyPrice').text(data.buyPrice);
+//     $('#maxPeople').text(data.maxBidders);
+//     $('#bidTime').text(data.bidTime);
+
+// })
+
+
+socket.on('end-auction', (data) => {
+    var t = setTimeout(function (){
+        $("#winner").text(data)
+        endAuction()
+
+        clearInterval(t)
+    }, 5000);
 
 })
+
+function updateTime(milliseconds, id, text) {
+    if (milliseconds > 60000) {
+        $("#" + id).text((milliseconds / 60000) + " minutes" + text)
+    } else {
+        $("#" + id).text((milliseconds / 1000) + " seconds" + text)
+    }
+}
+
+//Update timer
+socket.on('update-timer', (data) => {
+    updateTime(data, "timer", " left")
+})
+
+function endAuction() {
+    $(".modal").modal("show")
+
+    var time = 10000
+
+    setInterval(function() {
+        time -= 1000
+
+        updateTime(time, "end-timer", "")
+
+        if (time < 0) {
+            document.location.href="/";
+        }
+    }, 1000)
+}
