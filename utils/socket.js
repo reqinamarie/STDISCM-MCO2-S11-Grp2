@@ -190,6 +190,7 @@ function socket(io) {
             bid = getAuction().buyPrice;
 
             if (setBid(bid, user)) {
+                console.log("AUTOBUY???")
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
                 io.emit('end-auction', getBid())
