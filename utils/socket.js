@@ -147,7 +147,7 @@ function socket(io) {
 
             newAuction(auction);
             // emit to clients waiting for auction to open
-            io.to('online-users').emit('get-auction', getAuction())
+            io.emit('get-auction', getAuction())
 
             setHost(host)
 
