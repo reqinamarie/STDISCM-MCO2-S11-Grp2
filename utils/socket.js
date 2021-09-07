@@ -1,5 +1,4 @@
-const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, 
-        clearPermittedUsers, setHost, getHost, clearHost} = require('./socketUser');
+const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers, setHost, getHost, clearHost} = require('./socketUser');
 
 const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime} = require('./socketAuction');
 
@@ -129,6 +128,8 @@ function socket(io) {
                 io.to(socket.id).emit('create-auction', false)
                 return;
             }
+
+            console.log("CREATING ROOM")
 
             // otherwise, proceed
             clearPermittedUsers()

@@ -78,6 +78,8 @@ socket.on('image-received', () => {
 })
 
 socket.on('create-auction', (success) => {
+    console.log('CREATE ', success)
+
     if (success) {
         $.post('/chatroom', {fName: fName, lName: lName, email: email, host: true})
     } else {
