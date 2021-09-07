@@ -54,18 +54,19 @@ function socket(io) {
             var time = getBidTime() * 60000     // minutes to seconds
             var interval = 60000
 
-            if (time == 60000) {
+            if (time <= 60000) {
                 interval = 1000                 // change to seconds update
             }
 
             timer = setInterval(function() {
-                console.log("remaining time " + timer)
+                console.log("remaining time ", timer, interval)
                 time -= interval
 
                 io.emit('update-timer', time)
 
-                if (time == 60000) {
+                if (time <= 60000) {
                     interval = 1000             // change to seconds update
+                    console.log("changed interval from 1min to 1s")
                 }
 
                 if (time <= 0) {
