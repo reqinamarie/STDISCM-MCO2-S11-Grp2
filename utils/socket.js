@@ -62,7 +62,7 @@ function socket(io) {
                     console.log('minute passed')
                     io.emit('update-timer', time)
                 } else if (time < minute) {
-                    io.emit('update-timer')
+                    io.emit('update-timer', time)
                 }
 
                 if (time <= 0) {
