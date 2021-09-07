@@ -21,6 +21,32 @@
 
 </head>
 <body>
+  <!-- TOAST NOTIFICATIONS -->
+  <div aria-live="polite" aria-atomic="true" style="position: relative;" class="m-3">
+  <!-- Position it -->
+    <div style="position: absolute; top: 0; right: 0;">
+
+      <!-- JOIN AS BIDDER TOASTS -->
+
+      <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="createToast" data-delay=3000>
+          <div class="d-flex">
+              <div class="toast-body"> Creating auction room... </div>
+          </div>
+      </div>
+      
+      <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="createErrorToast"  data-delay=10000>
+          <div class="d-flex">
+              <div class="toast-body"> Something went wrong. Please try again. </div>
+          </div>
+      </div>
+      
+      <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="createFailToast"  data-delay=10000>
+          <div class="d-flex">
+            <div class="toast-body"> Sorry! An auction is already ongoing. Please wait until the current session ends before trying again. </div>
+          </div>
+      </div>
+  </div>
+</div>
 
 <div class="container d-flex flex-column align-items-center min-vh-100 justify-content-center">
     <h2>Create New Auction Room</h2>
@@ -106,7 +132,7 @@
                 
             </div>
             <center>
-              <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+              <input type="file"  accept="image/*" name="image" id="file" style="display: none;">
               <label class="btn btn-secondary" for="file" style="cursor: pointer;">Upload Image</label><br>
               <img id="output" width="200" style="margin-bottom: 10px;"/>
             </center>
