@@ -7,9 +7,7 @@ const homeController = {
 		res.render('homepage')
 	},
 
-	postLogin: function(req, res) {
-		console.log(req.body)
-
+	postLogin: function(req, res, next) {
 		socket.emit('controller-user-request', req.body.email)
 		socket.on('controller-permission', (allowedUsers) => {
 			console.log(allowedUsers)

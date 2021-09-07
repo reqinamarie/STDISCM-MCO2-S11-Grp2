@@ -67,4 +67,8 @@ function getPermittedUsers() {
     return permittedUsers
 }
 
+function clearPermittedUsers() {
+    permittedUsers = []
+}
+
 module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers};

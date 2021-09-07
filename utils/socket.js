@@ -1,4 +1,4 @@
-const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers} = require('./socketUser');
+const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers} = require('./socketUser');
 const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime} = require('./socketAuction');
 
 //Socket connection
@@ -118,6 +118,7 @@ function socket(io) {
 
         //pass item details 
         socket.on('createchat', (data) => {
+            clearPermittedUsers()
             data.start = false
 
             if (image.file != null) {

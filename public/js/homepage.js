@@ -25,12 +25,6 @@ socket.on('end-auction', () => {
 	endAuction()    
 })
 
-socket.on('controller-auction-request', ()=>
-{
-	console.log("CONTROLLER")
-})
-
-
 function loadAuction(data) {
 	console.log("load")
 
@@ -44,7 +38,6 @@ function loadAuction(data) {
 
     var imgItem = document.getElementById('itemImage');
 	imgItem.src = data.photo;
-    console.log("data.photo", data.photo);
     $('#startingPrice').text(data.startPrice);
     $('#autobuyPrice').text(data.buyPrice);
     $('#maxPeople').text(data.maxBidders);
@@ -100,11 +93,15 @@ function submitForm(action) {
 }
 
 function changeToast(id, message) {
-    $("#toast-" + id).toast('dispose')
+	var toastId = "#toast-" + id,
+		toastBodyId = "#toast-msg-" + id
+
+	console.log($(toastId))
+    $(toastId).toast('dispose')
 
     var t = setTimeout(function (){
-        $(".toast-body-" + id).text(message)
-        $("#toast-" + id).toast('show')
+        $(toastBodyId).text(message)
+        $(toastId).toast('show')
 
         clearInterval(t)
     }, 100);
