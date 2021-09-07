@@ -84,4 +84,4 @@ function clearHost() {
     host = {}
 }
 
-module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers};
+module.exports = {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers, setHosth, getHost, clearHost};
