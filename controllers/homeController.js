@@ -44,12 +44,16 @@ const homeController = {
 
 				if (allowedUsers.includes(req.body.email)) {
 					socket.emit('controller-auction-request', (auction) => {
-						console.log("REDIRECTINGGG")
-						auction.fName = req.body.fName 
-						auction.lName = req.body.lName
-						auction.email = req.body.email
+						if (auction.start)
+							res.redirect('/')
+						else {
+							console.log("REDIRECTINGGG")
+							auction.fName = req.body.fName 
+							auction.lName = req.body.lName
+							auction.email = req.body.email
 
-						res.render('chatroom', auction)
+							res.render('chatroom', auction)
+						}
 					})
 				} else {
 					res.redirect('/')
