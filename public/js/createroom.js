@@ -8,7 +8,6 @@ const socket = io.connect('https://discm-auction-chatroom.herokuapp.com/');
 console.log(socket);
 
 var x = 0;
-var photo = {};
 var received;
 
 //=================================
@@ -24,23 +23,18 @@ var received;
 // };
 
 $(document).ready(function() {
-    $("#file").on('change', function(e, callback) {
+    $("#file").on('change', function(e) {
         received = false;
-        console.log("CHANGED")
+
           var data = e.originalEvent.target.files[0];
           var reader = new FileReader();
 
-          console.log(e)
-          console.log(callback)
-
           reader.onload = function (evt) {
-                console.log("READER LOAD")
-                console.log(evt)
+
                 var msg = {};
                 msg.file = evt.target.result;
                 msg.fileName = data.name;
                 socket.emit("image-upload", msg);
-                console.log(msg)
           };
 
           reader.readAsDataURL(data);
@@ -59,8 +53,6 @@ function createRoom() {
         $("#createErrorToast").toast('show')
         return;
     }
-
-    console.log('button clicked');
 
     item = $('#itemName').val();
     desc = $('#itemDesc').val();

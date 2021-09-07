@@ -21,7 +21,6 @@ const homeController = {
 					auction.lName = req.body.lName
 					auction.email = req.body.email
 
-					console.log(auction)
 					res.render('chatroom', auction)
 				})
 			} else {
@@ -38,7 +37,6 @@ const homeController = {
     getChatroomHost: function(req,res) {
 		socket.emit('controller-auction-request')
 		socket.on('controller-auction', (auction) => {
-			console.log(auction)
 			res.render('chatroom', auction)
 		})
     }
