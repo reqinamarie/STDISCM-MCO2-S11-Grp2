@@ -8,23 +8,55 @@ const homeController = {
 	},
 
 	postLogin: function(req, res, next) {
-		socket.emit('controller-user-request', req.body.email)
-		socket.on('controller-permission', (allowedUsers) => {
-			console.log(allowedUsers)
+		if (req.body.email == null) {
+			res.redirect('/')
+			return;
+		}
 
-			if (allowedUsers.includes(req.body.email)) {
-				socket.emit('controller-auction-request')
-				socket.on('controller-auction', (auction) => {
-					auction.fName = req.body.fName 
-					auction.lName = req.body.lName
-					auction.email = req.body.email
+		// IF USER IS HOST
+		if (req.body.host) {
+			console.log('host ', req.body.email)
+			socket.emit('controller-host-request')
+	    	socket.on('controller-host', (host) => {
 
-					res.render('chatroom', auction)
-				})
-			} else {
-				res.redirect('/')
-			}
-		})
+				if (req.body.email != host.email) {
+	    			res.redirect('/')
+				} else {    			
+					socket.emit('controller-auction-request')
+					socket.on('controller-auction', (auction) => {
+						auction.fName = req.body.fName 
+						auction.lName = req.body.lName
+						auction.email = req.body.email
+						auction.host = true
+
+						res.render('hostChatroom', auction)
+					})
+				}
+
+	    	})
+		}
+
+		// IF USER IS BIDDER
+		else {
+			console.log('bidder ', req.body.email)
+			socket.emit('controller-user-request', req.body.email)
+			socket.on('controller-permission', (allowedUsers) => {
+				console.log(allowedUsers)
+
+				if (allowedUsers.includes(req.body.email)) {
+					socket.emit('controller-auction-request')
+					socket.on('controller-auction', (auction) => {
+						auction.fName = req.body.fName 
+						auction.lName = req.body.lName
+						auction.email = req.body.email
+
+						res.render('chatroom', auction)
+					})
+				} else {
+					res.redirect('/')
+				}
+			})
+		}
 		
 	},
 
@@ -33,10 +65,12 @@ const homeController = {
     },
 
     getChatroomHost: function(req,res) {
-		socket.emit('controller-auction-request')
-		socket.on('controller-auction', (auction) => {
-			res.render('chatroom', auction)
-		})
+		if (req.body.email == null) {
+			res.redirect('/')
+			return;
+		}
+
+    	
     },
 
     redirectHome: function(req, res) {

@@ -43,13 +43,13 @@ function changeToast(message) {
 }
 
 function createRoom() {
-    changeToast(createRoomMsg)
-
     if (!received) {
         console.log('not yet received')
         changeToast(createErrorMsg)
         return;
     }
+
+    changeToast(createRoomMsg)
 
     item = $('#itemName').val();
     desc = $('#itemDesc').val();
@@ -66,12 +66,23 @@ function createRoom() {
         maxBidders: maxBidders,
         bidTime:bidTime,
         roomName: 'auction-room'
+    }, {fName: fName, 
+        lName: lName, 
+        email: email
     })
 
 }
 
 socket.on('image-received', () => {
     received = true;
+})
+
+socket.on('create-auction', (success) => {
+    if (success) {
+        $.post('/chatroom', {fName: fName, lName: lName, email: email, host: true})
+    } else {
+        changeToast(createFailMsg)
+    }
 })
 
 

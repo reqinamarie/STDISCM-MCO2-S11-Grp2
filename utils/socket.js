@@ -1,4 +1,6 @@
-const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers} = require('./socketUser');
+const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, 
+        clearPermittedUsers, setHost, getHost, clearHost} = require('./socketUser');
+
 const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime} = require('./socketAuction');
 
 //Socket connection
@@ -75,8 +77,11 @@ function socket(io) {
         socket.on('joined-user', (data) =>{
             //Storing users connected in a room in memory
             var user = {};
-            user[socket.id] = data.email;            
-            addUser(user);
+            user[socket.id] = data.email;      
+
+            if (!data.host) {
+                addUser(user);                
+            }      
 
             roomName = data.roomName;
             
@@ -117,17 +122,29 @@ function socket(io) {
         //  CREATE ROOM PAGE
 
         //pass item details 
-        socket.on('createchat', (data) => {
-            clearPermittedUsers()
-            data.start = false
+        socket.on('createchat', (auction, host) => {
 
-            if (image.file != null) {
-                data.photo = image.file
+            // if there is already an auction, reject create chatroom
+            if (Object.keys(getAuction()).length != 0) {
+                io.to(socket.id).emit('create-auction', false)
+                return;
             }
 
-            newAuction(data);
+            // otherwise, proceed
+            clearPermittedUsers()
+            auction.start = false
+
+            if (image.file != null) {
+                auction.photo = image.file
+            }
+
+            newAuction(auction);
             // emit to clients waiting for auction to open
             io.to('online-users').emit('get-auction', getAuction())
+
+            setHost(host)
+
+            io.to(socket.id).emit('create-auction', true)
         })
 
         socket.on('image-upload', (data) => {
@@ -144,6 +161,10 @@ function socket(io) {
 
         socket.on('controller-user-request', () => {
             io.emit('controller-permission', getPermittedUsers())
+        })
+
+        socket.on('controller-host-request', () => {
+            io.emit('controller-host', getHost())
         })
     })
 }
