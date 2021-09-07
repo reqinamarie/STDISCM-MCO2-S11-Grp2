@@ -52,20 +52,17 @@ function socket(io) {
 
         function updateTimer() {
             var time = getBidTime() * 60000     // minutes to seconds
-            var interval = 60000
-
-            if (time == 60000) {
-                interval = 1000                 // change to seconds update
-            }
+            var minute = 60000
+            var interval = 1000
 
             timer = setInterval(function() {
-                console.log("remaining time " + timer)
                 time -= interval
 
-                io.emit('update-timer', time)
-
-                if (time == 60000) {
-                    interval = 1000             // change to seconds update
+                if (time >= minute && time % minute == 0) {
+                    console.log('minute passed')
+                    io.emit('update-timer', time)
+                } else if (time < minute) {
+                    io.emit('update-timer', time)
                 }
 
                 if (time <= 0) {
@@ -74,7 +71,7 @@ function socket(io) {
 
                     restartAuction()
                 }
-            }, interval)
+            }, 1000)
         }
 
         //  CHATROOM
