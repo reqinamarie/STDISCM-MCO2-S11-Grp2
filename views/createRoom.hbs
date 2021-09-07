@@ -44,7 +44,7 @@
 
     <form name="createRoomForm" method="post" id="createRoomForm" action='/chatroom' class="d-flex flex-column align-items-center">
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" id="inputBox">
                 <input type="hidden" id="fName" name="fName" value="{{fName}}">
                 <input type="hidden" id="lName" name="lName" value="{{lName}}">
                 <input type="hidden" id="email" name="email" value="{{email}}">
@@ -120,7 +120,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Max Bidders</span>
                       </div>
-                      <input id="maxBidders" type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=1 min=1>
+                      <input id="maxBidders" type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=2 min=2>
 
                     </div>
 
@@ -129,10 +129,10 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Bidding Timer</span>
                       </div>
-                      <input id="bidTime" type="number" class="form-control" placeholder="Bidding Time" aria-label="Bidding Time" aria-describedby="basic-addon1" value=5 min=5 max=30>
+                      <input id="bidTime" type="number" class="form-control" placeholder="Bidding Time" aria-label="Bidding Time" aria-describedby="basic-addon1" value=2 min=2 max=30>
                     </div>
                 </div>
-
+                <div id="errorMsg" style="margin-top:10px; text-align: center; color: red; font-size: 15px;"></div>
                 
             </div>
             <center>
