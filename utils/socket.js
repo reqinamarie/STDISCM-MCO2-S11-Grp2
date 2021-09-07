@@ -1,6 +1,6 @@
 const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers, setHost, getHost, clearHost} = require('./socketUser');
 
-const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime} = require('./socketAuction');
+const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime, setBid, getBid} = require('./socketAuction');
 
 //Socket connection
 function socket(io) {
@@ -8,12 +8,13 @@ function socket(io) {
         console.log("connected to server");
         var roomName;
         var image = {};
+        var timer;
 
         //  HOMEPAGE
 
         socket.on('joined-homepage', (data) => {
             console.log("JOINED HOMEPAGE")
-            roomName = data.roomName;
+            roomName = 'home';
 
             socket.join(roomName);
 
@@ -42,8 +43,10 @@ function socket(io) {
 
         socket.on('start-auction', () => {
             startAuction()
+            var auction = getAuction();
 
-            io.emit('get-auction', getAuction())
+            io.emit('get-auction', auction)
+            io.to('auction-room').emit('start-auction', auction.bidTime)
             updateTimer()
         })
 
@@ -55,7 +58,7 @@ function socket(io) {
                 interval = 1000                 // change to seconds update
             }
 
-            var timer = setInterval(function() {
+            timer = setInterval(function() {
                 time -= interval
 
                 io.emit('update-timer', time)
@@ -82,7 +85,7 @@ function socket(io) {
                 addUser(user);                
             }      
 
-            roomName = data.roomName;
+            roomName = 'auction-room';
             
             //Joining the Socket Room
             socket.join(roomName);
@@ -166,6 +169,24 @@ function socket(io) {
 
         socket.on('controller-host-request', () => {
             io.emit('controller-host', getHost())
+        })
+
+        //  BIDDING
+
+        socket.on('bid', (bid, user) => {
+            if (setBid(bid, user)) {
+                io.to('auction-room').emit('new-bid', bid, user)
+            }
+        })
+
+        socket.on('autobuy', (user) => {
+            bid = getAuction().buyPrice;
+
+            if (setBid(bid, user)) {
+                io.to('auction-room').emit('autobuy', bid, user)
+                clearInterval(timer)
+                io.to('auction-room').emit('end-auction')
+            }
         })
     })
 }

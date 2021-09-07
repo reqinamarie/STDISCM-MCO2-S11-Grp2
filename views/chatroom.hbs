@@ -17,7 +17,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-    <script>const fName = "{{fName}}"; const lName = "{{lName}}"; const email = "{{email}}"; const host = false;</script>
+    <script>
+        const fName = "{{fName}}"; const lName = "{{lName}}"; const email = "{{email}}"; const host = false;
+        const user = {fName: fName, lName: lName, email: email};
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
     <script src="/js/chatroom.js"></script>
@@ -50,15 +53,21 @@
                 -->
                     <div class="" style="">
                         <div class="row my-3">
-                            <div class='fields col-8'>
-                                <input type="number" class="form-control " id="bid" placeholder="Enter bid" min={{startPrice}} max={{autobuyPrice}}>
-                            </div>
-                            <div class="col-4 btn-group special">
-                                <button type="button" class="btn btn-primary" id="bidBtn">Bid</button>
-                            </div>
+                            <form >
+                                <div class='fields col-8'>
+                                    <input type="number" class="form-control " id="bid" placeholder="Enter bid" min={{startPrice}} max={{autobuyPrice}} disabled required>
+                                </div>
+                                <div class="col-4 btn-group special">
+                                    <button type="button" class="btn btn-primary" id="bidBtn" disabled>Bid</button>
+                                </div>
+                            </form>
                         </div>
+
                         <div class=" btn-group special center">
-                            <button type="button" class="btn btn-success" id="autobuyBtn">Autobuy</button>
+                            <form>
+                                <input type="hidden" class="form-control " id="autobid" placeholder="Enter bid" value={{autobuyPrice}} disabled required>
+                                <button type="button" class="btn btn-success" id="autobuyBtn" disabled>Autobuy</button>
+                            </form>
                         </div>
                     </div>
             </div>     

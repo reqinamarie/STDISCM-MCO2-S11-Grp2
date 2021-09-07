@@ -79,6 +79,11 @@ socket.on('online-users', (data) =>{
 
 // })
 
+socket.on('start-auction', (bidTime) = {
+    $("#timer").css('color', '#DC143C')
+    updateTime(bidTime * 60000, "timer", " left")
+})
+
 
 socket.on('end-auction', (data) => {
     var t = setTimeout(function (){

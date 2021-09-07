@@ -49,11 +49,31 @@
                 <input type="hidden" id="lName" name="lName" value="{{lName}}">
                 <input type="hidden" id="email" name="email" value="{{email}}">
 
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">Item Name</span>
+                <div class="d-flex mb-3 flex-fill flex-grow-1">
+                  <div class="mr-3" style="width:70%">
+                    <div class="input-group mb-3 ">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Item Name</span>
+                      </div>
+                      <input type="text" class="form-control" id="itemName" placeholder="Item Name" aria-label="Item Name" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Item <br>Description</span>
+                      </div>
+                      <textarea class="form-control" rows='4' aria-label="With textarea" id="itemDesc"></textarea>
+                    </div>
                   </div>
-                  <input type="text" class="form-control" id="itemName" placeholder="Item Name" aria-label="Item Name" aria-describedby="basic-addon1">
+
+                  <div class="w-25 d-flex flex-column flex-fill">
+
+                    <div class="flex-fill mb-3" style="position: relative">
+                      <img id="output" class="flex-grow-1 w-100 mh-100" style="object-fit: contain; position: absolute;"/>
+                    </div> 
+                    <input type="file"  accept="image/*" name="image" id="file" style="display: none;">
+                    <label class="btn btn-secondary w-100" for="file" style="cursor: pointer; margin: 0">Upload Image</label>
+                  </div>
                 </div>
 <!--
                 <div class="input-group mb-3">
@@ -74,14 +94,6 @@
                     </div>
                 </div>
               -->
-
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Item <br>Description</span>
-                  </div>
-                  <textarea class="form-control" aria-label="With textarea" id="itemDesc"></textarea>
-                </div>
-
 
                 <div class="d-flex mb-3">
                     <div class="input-group pr-3">
@@ -123,9 +135,7 @@
                 
             </div>
             <center>
-              <input type="file"  accept="image/*" name="image" id="file" style="display: none;">
-              <label class="btn btn-secondary" for="file" style="cursor: pointer;">Upload Image</label><br>
-              <img id="output" width="200" style="margin-bottom: 10px;"/>
+
             </center>
         </div>
 
