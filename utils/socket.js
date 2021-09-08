@@ -122,6 +122,7 @@ function socket(io) {
                 // if the host is disconnected, end the auction
                 if (getHost().socketId == socket.id) {
                     console.log(getHost().socketId, socket.id, "disconnected")
+                    clearHost()
                     clearInterval(timer)
                     io.emit('end-auction')
                     restartAuction()
