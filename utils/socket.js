@@ -95,11 +95,15 @@ function socket(io) {
             //Joining the Socket Room
             socket.join(roomName);
 
+            if (getMaxBidders() == -1) {
+                io.to(socket.id).emit('end-auction', null)
+            }
+
             //Emit auction to sender
-            io.to(socket.id).emit('get-auction', getAuction());
+            // io.to(socket.id).emit('get-auction', getAuction());
 
             //Emitting New name to Clients
-            io.to(roomName).emit('joined-user', {name: data.name});
+            // io.to(roomName).emit('joined-user', {name: data.name});
     
             //Send online users count to both home and auction chatroom
             io.emit('online-users', getUserCount());
