@@ -124,8 +124,8 @@ function socket(io) {
                     clearHost()
                     console.log(getHost().socketId, socket.id, "disconnected")
                     clearInterval(timer)
-                    io.emit('end-auction')
-                    restartAuction(0)
+                    io.emit('end-auction', null)
+                    restartAuction(10000)
                 }
 
                 console.log(socket.id);

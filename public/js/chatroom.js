@@ -93,6 +93,12 @@ socket.on('start-auction', (bidTime) => {
 
 
 socket.on('end-auction', (data) => {
+    if (data == null) {
+        $(".modal-msg").text("Host disconnected. Redirecting everyone to homepage in...")
+        endAuction()
+        return;
+    }
+
     var name = data.user.fName + " " + data.user.lName + " (" + data.user.email + ")"
 
     $("#timer").text("Auction ended. Congratulations to " + name + "!")

@@ -13,7 +13,7 @@ const homeController = {
 		}
 
 		// IF USER IS HOST
-		else if (req.body.host) {
+		else if (req.body.host == "true") {
 			console.log('host ', req.body.email)
 			socket.emit('controller-host-request', (host) => {
 	    		console.log("HOSTTT")
