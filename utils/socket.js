@@ -96,6 +96,7 @@ function socket(io) {
             socket.join(roomName);
 
             if (getMaxBidders() == -1) {
+
                 io.to(socket.id).emit('end-auction', null)
             }
 
@@ -125,6 +126,7 @@ function socket(io) {
 
                 // if the host is disconnected, end the auction
                 if (getHost().socketId == socket.id) {
+                    deleteAuction()
                     clearHost()
                     console.log(getHost().socketId, socket.id, "disconnected")
                     clearInterval(timer)
