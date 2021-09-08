@@ -214,6 +214,7 @@ function socket(io) {
 
         // delay before letting others create a new auction again
         function restartAuction() {
+            console.log("RESTARTING")
             timer = setInterval(function() {
                 deleteAuction()
                 clearInterval(timer)
