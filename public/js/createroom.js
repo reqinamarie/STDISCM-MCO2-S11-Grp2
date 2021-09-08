@@ -15,6 +15,7 @@ var createRoomMsg = " Creating auction room... ",
 $(document).ready(function() {
     $("#file").on('change', function(e) {
         received = false;
+        $("#output").css('opacity', 0)
 
           var data = e.originalEvent.target.files[0];
           var reader = new FileReader();
@@ -142,6 +143,7 @@ socket.on('image-received', () => {
     received = true;
     console.log('received!')
     $("#output").prop('src', src)
+    $("#output").css('opacity', 100)
 })
 
 socket.on('create-auction', (success) => {

@@ -26,7 +26,7 @@ function socket(io) {
         })
 
         socket.on('entry-request', (email, callback) => {
-            callback(entryRequest(email));
+            callback(entryRequest(email.toLowerCase()));
         })
 
         socket.on('check-auction', (callback) => {
@@ -69,7 +69,7 @@ function socket(io) {
                     io.emit('end-auction', getBid())
                     clearInterval(timer)
 
-                    restartAuction()
+                    restartAuction(10000)
                 }
             }, 1000)
         }
@@ -79,22 +79,32 @@ function socket(io) {
         socket.on('joined-user', (data) =>{
             //Storing users connected in a room in memory
             var user = {};
-            user[socket.id] = data.email;      
+            user[socket.id] = data.email.toLowerCase();      
 
             if (!data.host) {
                 addUser(user);                
-            }      
+            } else {
+                var host = getHost()
+                host.socketId = socket.id
+
+                setHost(host)
+            }
 
             roomName = 'auction-room';
             
             //Joining the Socket Room
             socket.join(roomName);
 
+            if (getMaxBidders() == -1) {
+
+                io.to(socket.id).emit('end-auction', null)
+            }
+
             //Emit auction to sender
-            io.to(socket.id).emit('get-auction', getAuction());
+            // io.to(socket.id).emit('get-auction', getAuction());
 
             //Emitting New name to Clients
-            io.to(roomName).emit('joined-user', {name: data.name});
+            // io.to(roomName).emit('joined-user', {name: data.name});
     
             //Send online users count to both home and auction chatroom
             io.emit('online-users', getUserCount());
@@ -113,6 +123,17 @@ function socket(io) {
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
             if (roomName != 'home') {
+
+                // if the host is disconnected, end the auction
+                if (getHost().socketId == socket.id) {
+                    deleteAuction()
+                    clearHost()
+                    console.log(getHost().socketId, socket.id, "disconnected")
+                    clearInterval(timer)
+                    io.emit('end-auction', null)
+                    restartAuction(10000)
+                }
+
                 console.log(socket.id);
                 removeUser(socket.id);
         
@@ -146,6 +167,7 @@ function socket(io) {
             // emit to clients waiting for auction to open
             io.emit('get-auction', getAuction())
 
+            host.email = host.email.toLowerCase()
             setHost(host)
 
             io.to(socket.id).emit('create-auction', true)
@@ -177,17 +199,19 @@ function socket(io) {
 
         //  BIDDING
 
-        socket.on('bid', (bid, user) => {
+        socket.on('bid', (bid, user, callback) => {
             var res = setBid(bid, user)
 
             if (res == null) {
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
                 io.emit('end-auction', getBid())
-                restartAuction()
+                restartAuction(10000)
             } else if (res) {
                 io.to('auction-room').emit('new-bid', bid, user)
             }
+
+            callback(res)
         })
 
         socket.on('autobuy', (user) => {
@@ -197,16 +221,17 @@ function socket(io) {
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
                 io.emit('end-auction', getBid())
-                restartAuction()
+                restartAuction(10000)
             }
         })
 
         // delay before letting others create a new auction again
-        function restartAuction() {
+        function restartAuction(delay) {
+            console.log("RESTARTING")
             timer = setInterval(function() {
                 deleteAuction()
                 clearInterval(timer)
-            }, 10000)
+            }, delay)
         }
     })
 }

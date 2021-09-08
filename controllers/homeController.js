@@ -8,17 +8,17 @@ const homeController = {
 	},
 
 	postLogin: function(req, res, next) {
-		if (req.body.email == null) {
+		if (req.body.host == null) {
 			res.redirect('/')
 		}
 
 		// IF USER IS HOST
-		else if (req.body.host) {
+		else if (req.body.host == "true") {
 			console.log('host ', req.body.email)
 			socket.emit('controller-host-request', (host) => {
 	    		console.log("HOSTTT")
 
-				if (req.body.email != host.email) {
+				if (host.email == null || req.body.email.toLowerCase() != host.email.toLowerCase()) {
 	    			res.redirect('/')
 				} else {    			
 					socket.emit('controller-auction-request', (auction) => {
@@ -42,7 +42,7 @@ const homeController = {
 			socket.emit('controller-user-request', (allowedUsers) => {
 				console.log(allowedUsers)
 
-				if (allowedUsers.includes(req.body.email)) {
+				if (allowedUsers.includes(req.body.email.toLowerCase())) {
 					socket.emit('controller-auction-request', (auction) => {
 						if (auction.start)
 							res.redirect('/')
