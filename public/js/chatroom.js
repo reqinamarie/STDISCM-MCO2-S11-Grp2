@@ -140,3 +140,11 @@ function endAuction() {
         }
     }, 1000)
 }
+
+$(document).ready(function() {
+    $("#message").keypress(function(e) {
+        if(e.which == 13) {
+            sendMessage()
+        }
+    });
+})
