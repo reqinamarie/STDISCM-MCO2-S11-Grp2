@@ -83,7 +83,12 @@ function socket(io) {
 
             if (!data.host) {
                 addUser(user);                
-            }      
+            } else {
+                var host = getHost()
+                host.socketId = socket.id
+
+                setHost(host)
+            }
 
             roomName = 'auction-room';
             
@@ -156,9 +161,6 @@ function socket(io) {
             io.emit('get-auction', getAuction())
 
             host.email = host.email.toLowerCase()
-            console.log(host)
-            host.socketId = socket.id
-            console.log(host)
             setHost(host)
 
             io.to(socket.id).emit('create-auction', true)
