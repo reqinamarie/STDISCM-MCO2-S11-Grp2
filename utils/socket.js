@@ -26,7 +26,7 @@ function socket(io) {
         })
 
         socket.on('entry-request', (email, callback) => {
-            callback(entryRequest(email));
+            callback(entryRequest(email.toLowerCase()));
         })
 
         socket.on('check-auction', (callback) => {
