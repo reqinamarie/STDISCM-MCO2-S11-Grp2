@@ -57,6 +57,9 @@ socket.on('typing', (user) => {
 
 //Displaying online users
 socket.on('online-users', (data) =>{
+    var disabled = parseInt(data) < 2
+    $(".start-btn").prop('disabled', disabled)
+
     console.log(data)
     $('#currPeople').text(data)
 })

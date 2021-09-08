@@ -102,7 +102,6 @@ function createRoom() {
     //if valid values but no photo
     if (!received && !countE) {
         console.log('not yet received')
-        changeToast(createErrorMsg)
         $('#errorMsg').text('Please upload an image.');
         return;
     }
