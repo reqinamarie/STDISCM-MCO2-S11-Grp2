@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 			socket.emit('bid', bid, user, (success) => {
 				if (!success)
-					$('#output').append('<p> -> <em>Your bid of PHP ' + bid + ' .</em></p>');
+					$('#output').append('<p> -> <em>Your bid of PHP ' + bid + ' is lower than the current highest bid.</em></p>');
 			})
 			$("#bid").val('')
 		}

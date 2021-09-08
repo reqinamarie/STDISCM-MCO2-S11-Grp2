@@ -193,7 +193,7 @@ function socket(io) {
 
         //  BIDDING
 
-        socket.on('bid', (bid, user) => {
+        socket.on('bid', (bid, user, callback) => {
             var res = setBid(bid, user)
 
             if (res == null) {
@@ -204,6 +204,8 @@ function socket(io) {
             } else if (res) {
                 io.to('auction-room').emit('new-bid', bid, user)
             }
+
+            callback(res)
         })
 
         socket.on('autobuy', (user) => {
