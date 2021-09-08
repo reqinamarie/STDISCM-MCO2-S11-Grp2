@@ -83,6 +83,9 @@ socket.on('online-users', (data) =>{
 // })
 
 socket.on('start-auction', (bidTime) => {
+    $('#output').append('<p style="color: #DC143C"> -> <em><strong>The auction has started. Bidding is open for ' + bidTime + 
+                        ' minutes.</strong></em></p>');
+
     $("#timer").css('color', '#DC143C')
     updateTime(bidTime * 60000, "timer", " left")    
     $(".bid").prop('disabled', false)

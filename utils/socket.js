@@ -79,7 +79,7 @@ function socket(io) {
         socket.on('joined-user', (data) =>{
             //Storing users connected in a room in memory
             var user = {};
-            user[socket.id] = data.email;      
+            user[socket.id] = data.email.toLowerCase();      
 
             if (!data.host) {
                 addUser(user);                
@@ -113,6 +113,14 @@ function socket(io) {
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
             if (roomName != 'home') {
+
+                // if the host is disconnected, end the auction
+                if (getHost().socketId == socket.id) {
+                    clearInterval(timer)
+                    io.emit('end-auction')
+                    restartAuction()
+                }
+
                 console.log(socket.id);
                 removeUser(socket.id);
         
@@ -146,6 +154,8 @@ function socket(io) {
             // emit to clients waiting for auction to open
             io.emit('get-auction', getAuction())
 
+            host.email = host.email.toLowerCase()
+            host.socketId = socket.id
             setHost(host)
 
             io.to(socket.id).emit('create-auction', true)
