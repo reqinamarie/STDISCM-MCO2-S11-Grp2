@@ -69,7 +69,7 @@ function socket(io) {
                     io.emit('end-auction', getBid())
                     clearInterval(timer)
 
-                    restartAuction()
+                    restartAuction(10000)
                 }
             }, 1000)
         }
@@ -121,11 +121,11 @@ function socket(io) {
 
                 // if the host is disconnected, end the auction
                 if (getHost().socketId == socket.id) {
-                    console.log(getHost().socketId, socket.id, "disconnected")
                     clearHost()
+                    console.log(getHost().socketId, socket.id, "disconnected")
                     clearInterval(timer)
                     io.emit('end-auction')
-                    restartAuction()
+                    restartAuction(0)
                 }
 
                 console.log(socket.id);
@@ -200,7 +200,7 @@ function socket(io) {
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
                 io.emit('end-auction', getBid())
-                restartAuction()
+                restartAuction(10000)
             } else if (res) {
                 io.to('auction-room').emit('new-bid', bid, user)
             }
@@ -215,17 +215,17 @@ function socket(io) {
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
                 io.emit('end-auction', getBid())
-                restartAuction()
+                restartAuction(10000)
             }
         })
 
         // delay before letting others create a new auction again
-        function restartAuction() {
+        function restartAuction(delay) {
             console.log("RESTARTING")
             timer = setInterval(function() {
                 deleteAuction()
                 clearInterval(timer)
-            }, 10000)
+            }, delay)
         }
     })
 }
