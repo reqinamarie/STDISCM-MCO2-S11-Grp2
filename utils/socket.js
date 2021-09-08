@@ -156,7 +156,9 @@ function socket(io) {
             io.emit('get-auction', getAuction())
 
             host.email = host.email.toLowerCase()
+            console.log(host)
             host.socketId = socket.id
+            console.log(host)
             setHost(host)
 
             io.to(socket.id).emit('create-auction', true)
