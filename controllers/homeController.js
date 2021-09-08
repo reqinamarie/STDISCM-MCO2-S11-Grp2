@@ -8,7 +8,7 @@ const homeController = {
 	},
 
 	postLogin: function(req, res, next) {
-		if (req.body.email == null) {
+		if (req.body.host == null) {
 			res.redirect('/')
 		}
 
@@ -18,7 +18,7 @@ const homeController = {
 			socket.emit('controller-host-request', (host) => {
 	    		console.log("HOSTTT")
 
-				if (req.body.email.toLowerCase() != host.email.toLowerCase()) {
+				if (host.email == null || req.body.email.toLowerCase() != host.email.toLowerCase()) {
 	    			res.redirect('/')
 				} else {    			
 					socket.emit('controller-auction-request', (auction) => {

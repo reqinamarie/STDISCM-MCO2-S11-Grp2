@@ -16,14 +16,21 @@ socket.on('autobuy', (bid, user) => {
     $('#output').append('<p> -> <em><strong>' + name + '  won the auction.</strong></em></p>');
 })
 
-$(document).ready(function() {
+$(document).ready(function() {	
+	$("input").on('focusout', function() {
+		if (this.checkValidity())
+			$(this).css('border-color', 'darkgrey')
+		else
+			$(this).css('border-color', 'red')
+	})
+
 	$("#bidBtn").on('click', function() {
 		if (document.getElementById('bid').checkValidity()) {
 			var bid = $("#bid").val()
 
 			socket.emit('bid', bid, user, (success) => {
 				if (!success)
-					$('#output').append('<p style="color: darkgrey"> -> <em>Your bid of PHP ' + bid + ' is lower than the current highest bid.</em></p>');
+					$('#output').append('<p style="color: darkgrey"> -> <em>Your bid of PHP ' + bid + ' is not higher than the current bid.</em></p>');
 			})
 			$("#bid").val('')
 		}
