@@ -2,7 +2,7 @@ socket.on('new-bid', (bid, user) => {
 	var name = user.fName + " " + user.lName, 
 		email = "(" + user.email + ")"
 
-    $('#output').append('<p> -> <em>' + name + ' ' + email + ' bid PHP ' + bid + '.</em></p>');
+    $('#output').append('<p> -> <em>' + name + ' ' + email + ' bid <b>PHP ' + bid + '</b>.</em></p>');
     $('#currBid').text(bid)
     $('#currBidder').text(user.email)
 })
@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 			socket.emit('bid', bid, user, (success) => {
 				if (!success)
-					$('#output').append('<p> -> <em>Your bid of PHP ' + bid + ' is lower than the current highest bid.</em></p>');
+					$('#output').append('<p style="color: darkgrey"> -> <em>Your bid of PHP ' + bid + ' is lower than the current highest bid.</em></p>');
 			})
 			$("#bid").val('')
 		}
