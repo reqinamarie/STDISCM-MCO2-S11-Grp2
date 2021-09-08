@@ -25,7 +25,7 @@
 </head>
 <body class="d-flex align-items-center justify-content-center vh-100">
     <div class="card container-md d-flex flex-column " style="height: 95vh">
-        <center><h2 class="room-message my-2"> Online Auction </h2>  <b id="timer">Press "Begin Auction" button to start.</b></center> 
+        <center><h2 class="room-message my-2"> Online Auction </h2>  <b id="timer">Press "Begin Auction" button to start. There must be at least two bidders to start.</b></center> 
         <div class="window row p-3 mb-2 bg-light text-dark flex-fill d-flex flex-row">
             {{> chatUI}}
 
@@ -41,7 +41,7 @@
                                 {{> itemCard}}
                                 <br>
                             <div class=" btn-group special center w-100">
-                                <button type="button" class="btn btn-warning w-100" id="startTime" onclick="startBid()">Begin Auction</button>
+                                <button type="button" class="btn btn-warning w-100 start-btn" id="startTime" onclick="startBid()" disabled>Begin Auction</button>
                             </div>
                         </div>
                     </div>
