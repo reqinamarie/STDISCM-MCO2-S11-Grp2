@@ -56,14 +56,14 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Item Name</span>
                       </div>
-                      <input type="text" class="form-control" id="itemName" placeholder="Item Name" aria-label="Item Name" aria-describedby="basic-addon1">
+                      <input type="text" class="form-control" id="itemName" placeholder="Item Name" aria-label="Item Name" aria-describedby="basic-addon1" required>
                     </div>
 
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text">Item <br>Description</span>
                       </div>
-                      <textarea class="form-control" rows='4' aria-label="With textarea" id="itemDesc"></textarea>
+                      <textarea class="form-control" rows='4' aria-label="With textarea" id="itemDesc" required></textarea>
                     </div>
                   </div>
 
@@ -101,7 +101,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Starting</span>
                       </div>
-                      <input id="startPrice" type="number" class="form-control" placeholder="Starting Price" aria-label="Starting Price" aria-describedby="basic-addon1" min=1>
+                      <input id="startPrice" type="number" class="form-control" placeholder="Starting Price" aria-label="Starting Price" aria-describedby="basic-addon1" min=1 required>
 
                     </div>
 
@@ -110,7 +110,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Autobuy</span>
                       </div>
-                      <input id="buyPrice" type="number" class="form-control" placeholder="Autobuy Price" aria-label="Autobuy Price" aria-describedby="basic-addon1"  min=1>
+                      <input id="buyPrice" type="number" class="form-control" placeholder="Autobuy Price" aria-label="Autobuy Price" aria-describedby="basic-addon1"  min=2 required>
                     </div>
                 </div>
 
@@ -120,16 +120,16 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Max Bidders</span>
                       </div>
-                      <input id="maxBidders" type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=2 min=2>
+                      <input id="maxBidders" type="number" class="form-control" placeholder="Max Bidders" aria-label="Max Bidders" aria-describedby="basic-addon1" value=2 min=2 required>
 
                     </div>
 
                     <div class="input-group ">
 
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Bidding Timer</span>
+                        <span class="input-group-text" id="basic-addon1">Bidding Time (mins)</span>
                       </div>
-                      <input id="bidTime" type="number" class="form-control" placeholder="Bidding Time" aria-label="Bidding Time" aria-describedby="basic-addon1" value=5 min=5 max=30>
+                      <input id="bidTime" type="number" class="form-control" placeholder="Bidding Time" aria-label="Bidding Time" aria-describedby="basic-addon1" value=5 min=5 max=30 required>
                     </div>
                 </div>
                 <div id="errorMsg" style="margin-top:10px; text-align: center; color: red; font-size: 15px;"></div>

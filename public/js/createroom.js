@@ -44,6 +44,12 @@ $(document).ready(function() {
         else
             $(this).css('border-color', 'red')
     })
+
+    $("#startPrice").on('change', function() {
+        var new_min = Math.max(parseInt($("#startPrice").val()) + 1, 1)
+
+        $("#buyPrice").prop('min', new_min)
+    })
 })
 
 function changeToast(message) {
@@ -64,44 +70,21 @@ function createRoom() {
     var countE = false;
     console.log("createroom() entered");
 
-    //invalid values
-    if (document.getElementById("itemName").value.length == 0) {
-        $('#itemName').css('border-color', 'red');    
+    if (!document.getElementById("createRoomForm").checkValidity())
         countE = true;
-    }
-    if (document.getElementById("itemDesc").value.length == 0) {
-        $('#itemDesc').css('border-color', 'red'); 
+
+    if ($("#startPrice").val() >= $("#buyPrice").val())
         countE = true;
-    }
-    if (document.getElementById("startPrice").value.length == 0 || 
-        document.getElementById("startPrice").value < 0) {
-        $('#startPrice').css('border-color', 'red');    
-        countE = true;
-    }
-    if (document.getElementById("buyPrice").value.length == 0 ||
-        document.getElementById("startPrice").value >=  document.getElementById("buyPrice").value) {
-        $('#buyPrice').css('border-color', 'red'); 
-        countE = true;
-    }
-    if (document.getElementById("maxBidders").value.length == 0 ||
-        document.getElementById("maxBidders").value < 2) {
-        $('#maxBidders').css('border-color', 'red'); 
-        countE = true;
-    }
-    if (document.getElementById("bidTime").value.length == 0 ||
-        document.getElementById("bidTime").value < 2) {
-        $('#bidTime').css('border-color', 'red'); 
-        countE = true;
-    }
 
     //if has invalid values
     if(countE) {
         console.log('countE is true');
         $('#errorMsg').text('The highlighted boxes require valid inputs.');
+        return;
     }
 
-    //if valid values but no photo
-    if (!received && !countE) {
+    //if no photo
+    if (!received) {
         console.log('not yet received')
         $('#errorMsg').text('Please upload an image.');
         return;
@@ -135,8 +118,6 @@ function createRoom() {
 
         $('#errorMsg').text('');
     }
-
-
 }
 
 socket.on('image-received', () => {
