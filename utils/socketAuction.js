@@ -51,7 +51,7 @@ function setBid(bid, user) {
 		return null;
 	}
 	
-	if ((bid >= auction.startPrice && bids.length > 0) || bid > getBid().bid) {
+	if ((bid >= auction.startPrice && bids.length == 0) || bid > getBid().bid) {
 		console.log(bid, user, "success")
 		bids.push(userbid)
 
