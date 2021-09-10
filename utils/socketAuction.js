@@ -53,7 +53,7 @@ function setBid(bid, user) {
 		return null;
 	}
 	
-	if (bid > currBid.at(-1).bid) {
+	if (currBid.length == 0 || bid > currBid.at(-1).bid) {
 		console.log(bid, user, "success")
 		currBid.push(userbid)
 
