@@ -6,6 +6,9 @@ const homeController = {
 	home: function(req,res) {
 		res.render('homepage')
 	},
+	loaderio: function(req,res) {
+		res.render('loaderio-074fbd34ebed28cf3cf10a9f13374a16')
+	},
 
 	postLogin: function(req, res, next) {
 		if (req.body.host == null) {
