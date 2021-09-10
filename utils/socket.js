@@ -42,6 +42,7 @@ function socket(io) {
         //  HOST CHATROOM
 
         socket.on('start-auction', () => {
+            console.log("STARTED BY " + socket.id)
             if (socket.id == getHost().socketId) {                
                 startAuction()
                 var auction = getAuction();
