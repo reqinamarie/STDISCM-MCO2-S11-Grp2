@@ -42,12 +42,14 @@ function socket(io) {
         //  HOST CHATROOM
 
         socket.on('start-auction', () => {
-            startAuction()
-            var auction = getAuction();
+            if (socket.id == getHost().socketId) {                
+                startAuction()
+                var auction = getAuction();
 
-            io.emit('get-auction', auction)
-            io.to('auction-room').emit('start-auction', auction.bidTime)
-            updateTimer()
+                io.emit('get-auction', auction)
+                io.to('auction-room').emit('start-auction', auction.bidTime)
+                updateTimer()
+            }
         })
 
         function updateTimer() {
