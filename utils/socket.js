@@ -43,7 +43,7 @@ function socket(io) {
 
         socket.on('start-auction', (callback) => {
             console.log("STARTED BY " + socket.id)
-            if (socket.id == getHost().socketId && getUserCount() >= 2 && getAuction().start() == false) {                
+            if (socket.id == getHost().socketId && getUserCount() >= 2 && getAuction().start == false) {                
                 startAuction()
                 callback(true)
                 var auction = getAuction();
