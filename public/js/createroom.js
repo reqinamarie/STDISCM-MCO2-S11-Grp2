@@ -97,10 +97,10 @@ function createRoom() {
 
         item = $('#itemName').val();
         desc = $('#itemDesc').val();
-        startPrice = $("#startPrice").val();
-        buyPrice = $('#buyPrice').val();
-        maxBidders = $('#maxBidders').val();
-        bidTime = $('#bidTime').val();
+        startPrice = parseFloat($("#startPrice").val());
+        buyPrice = parseFloat($('#buyPrice').val());
+        maxBidders = parseInt($('#maxBidders').val());
+        bidTime = parseInt($('#bidTime').val());
 
         socket.emit('createchat', {
             item: item,
