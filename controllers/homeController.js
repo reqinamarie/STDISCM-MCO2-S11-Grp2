@@ -15,68 +15,61 @@ const homeController = {
 			res.redirect('/')
 		}
 
-		// IF USER IS HOST
-		else if (req.body.host == "true") {
-			console.log('host ', req.body.email)
-			socket.emit('controller-host-request', (host) => {
-	    		console.log("HOSTTT")
-
-				if (host.email == null || req.body.email.toLowerCase() != host.email.toLowerCase()) {
-	    			res.redirect('/')
-				} else {    			
-					socket.emit('controller-auction-request', (auction) => {
-						console.log("REDIRECTING")
-						auction.fName = req.body.fName 
-						auction.lName = req.body.lName
-						auction.email = req.body.email
-						auction.host = true
-
-						res.render('chatroom_host', auction)
-
-					})
-				}
-
-	    	})
-		}
-
-		// IF USER IS BIDDER
 		else {
-			console.log('bidder ', req.body.email)
-			socket.emit('controller-user-request', (allowedUsers) => {
-				console.log(allowedUsers)
+			socket.emit('controller-auction-request', (auction) => {
 
-				if (allowedUsers.includes(req.body.email.toLowerCase())) {
-					socket.emit('controller-auction-request', (auction) => {
-						if (auction.start)
-							res.redirect('/')
-						else {
-							console.log("REDIRECTINGGG")
-							auction.fName = req.body.fName 
-							auction.lName = req.body.lName
-							auction.email = req.body.email
-
-							res.render('chatroom', auction)
-						}
-					})
-				} else {
+				// if auction has already started or there is no auction yet, block anyone from (re-)joining
+				if (auction.start == true || auction.start == null)
 					res.redirect('/')
+
+				else {
+					//	if client is the host
+					if (req.body.host == "true") {
+						socket.emit('controller-host-request', (host) => {
+
+							//	if the emails don't match, redirect to homepage
+							if (req.body.email.toLowerCase() != host.email.toLowerCase())
+								res.redirect('/')
+
+							else {
+								auction.fName = req.body.fName 
+								auction.lName = req.body.lName
+								auction.email = req.body.email
+								auction.host = true
+
+								res.render('chatroom_host', auction)
+							}
+						})
+					}
+
+					//	if client is a bidder
+					else {
+						socket.emit('controller-user-request', (allowedUsers) => {
+
+							//	if client is part of allowed users, redirect to chatroom
+							if (allowedUsers.includes(req.body.email.toLowerCase())) {
+								auction.fName = req.body.fName 
+								auction.lName = req.body.lName
+								auction.email = req.body.email
+								auction.host = false
+
+								res.render('chatroom', auction)
+							}
+
+							//	else, redirect to home
+							else 
+								res.redirect('/')
+						})
+					}
+
 				}
+
 			})
 		}
-		
 	},
 
     newRoom: function(req, res) {
     	res.render('createRoom', req.body);
-    },
-
-    getChatroomHost: function(req,res) {
-		if (req.body.email == null) {
-			res.redirect('/')
-			return;
-		}
-
-    	
     },
 
     redirectHome: function(req, res) {
