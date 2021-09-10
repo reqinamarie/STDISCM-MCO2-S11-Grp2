@@ -152,6 +152,7 @@ function socket(io) {
                 if (hasStarted()) {
                     var rollback = rollbackBid(getPermittedUsers())
                     console.log("rollback " + rollback)
+                    console.log("LEFT USERS " + getUserCount())
 
                     if (rollback == null) {
                         io.to('auction-room').emit('rollback', null)
@@ -165,8 +166,11 @@ function socket(io) {
                         }
                     }
 
-                    if (getUserCount() == 0)
+                    if (getUserCount() == 0) {
+                        clearInterval(timer)
                         io.emit('end-auction', null)
+                        restartAuction(10000)
+                    }
                 }
             }
         })
