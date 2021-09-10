@@ -52,6 +52,7 @@ function socket(io) {
                 io.to('auction-room').emit('start-auction', auction.bidTime)
                 updateTimer()
             } else {
+                io.to(socket.id).emit('fail-start-auction')
                 callback(false)
             }
         })
