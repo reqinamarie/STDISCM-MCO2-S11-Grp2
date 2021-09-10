@@ -151,6 +151,7 @@ function socket(io) {
 
                 if (hasStarted()) {
                     var rollback = rollbackBid(getPermittedUsers())
+                    console.log("rollback " + rollback)
 
                     if (rollback == null) {
                         io.to('auction-room').emit('rollback', null)

@@ -18,7 +18,7 @@ socket.on('autobuy', (bid, user) => {
 
 socket.on('disconnected', (email) => {
 
-	$("#output").append('<p> -> <em> User' + email + ' left the chatroom.</em></p>')
+	$("#output").append('<p> -> <em> ' + email + ' left the chatroom.</em></p>')
 })
 
 socket.on('rollback', (bid) => {
