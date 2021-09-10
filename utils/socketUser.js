@@ -34,7 +34,7 @@ function removeUser(socketId) {
 
             var i = permittedUsers.indexOf(user[socketId]);
             if (i > -1) {
-                email = permittedUsers.get(i)
+                email = permittedUsers[i]
                 permittedUsers.splice(i, 1)
             }
         }
