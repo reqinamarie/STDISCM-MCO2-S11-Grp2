@@ -93,9 +93,22 @@ socket.on('start-auction', (bidTime) => {
 
 
 socket.on('end-auction', (data) => {
-    if (data == null) {
+    if (data.equals('host disconnected')) {
         $(".modal-msg").text("Host disconnected. Redirecting everyone to homepage in...")
         endAuction()
+        return;
+    }
+
+    else if (data == null) {        
+        $("#timer").text("Auction ended.")
+
+        var t = setTimeout(function (){
+            $("#winner-msg").text('')
+            endAuction()
+
+            clearInterval(t)
+        }, 5000);
+
         return;
     }
 
