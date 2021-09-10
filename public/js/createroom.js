@@ -70,11 +70,10 @@ function createRoom() {
     var countE = false;
     console.log("createroom() entered");
 
-    if (!document.getElementById("createRoomForm").checkValidity())
+    if (!document.getElementById("createRoomForm").checkValidity()) {
+        console.log("Other inputs")
         countE = true;
-
-    if ($("#startPrice").val() >= $("#buyPrice").val())
-        countE = true;
+    }
 
     //if has invalid values
     if(countE) {
