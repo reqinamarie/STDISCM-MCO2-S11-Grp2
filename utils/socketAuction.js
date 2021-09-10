@@ -3,9 +3,7 @@ var bids = []
 
 function newAuction(data) {
 	auction = data;
-	bids = [
-		{bid: auction.startPrice-1, user: null}
-	]
+	bids.push({bid: auction.startPrice-1, user: null})
 }
 
 function deleteAuction() {
