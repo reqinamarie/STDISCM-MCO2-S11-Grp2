@@ -163,6 +163,9 @@ function socket(io) {
                             restartAuction(10000)
                         }
                     }
+
+                    if (getUserCount() == 0)
+                        io.emit('end-auction', null)
                 }
             }
         })

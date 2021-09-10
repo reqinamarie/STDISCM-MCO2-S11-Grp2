@@ -31,7 +31,7 @@ socket.on('rollback', (bid) => {
 	var name = bid.user.fName + " " + bid.user.lName, 
 		email = " (" + bid.user.email + ")"
 
-	$("#output").append('<p style="color: #DC143C"> -> <em>The top bid is rolled back to PHP ' + bid.bid + ' by ' + name + email '.</em></p>')
+	$("#output").append('<p style="color: #DC143C"> -> <em>The top bid is rolled back to PHP ' + bid.bid + ' by ' + name + email + '.</em></p>')
 })
 
 $(document).ready(function() {	
