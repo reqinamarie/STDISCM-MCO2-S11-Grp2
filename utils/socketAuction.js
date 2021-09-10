@@ -69,7 +69,7 @@ function getBid() {
 function rollbackBid(users) {
 	var changed = false
 
-	while (bids.length > 0 && users.length == 0 && !users.includes(getBid().user.email)) {
+	while (bids.length > 0 && users.length > 0 && !users.includes(getBid().user.email)) {
 		bids.pop()
 		changed = true
 	}
