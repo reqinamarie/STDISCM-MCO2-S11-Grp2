@@ -51,7 +51,7 @@ function setBid(bid, user) {
 		return null;
 	}
 	
-	if (bid > auction.startPrice && bid > bids.at(-1).bid) {
+	if (bid >= auction.startPrice && bid > getBid().bid) {
 		console.log(bid, user, "success")
 		bids.push(userbid)
 
@@ -63,13 +63,14 @@ function setBid(bid, user) {
 }
 
 function getBid() {
-	return bids.at(-1)
+
+	return bids[bids.length-1]
 }
 
 function rollbackBid(users) {
 	var changed = false
 
-	while (bids.length > 0 && users.length == 0 && !users.includes(bids.at(-1).user.email)) {
+	while (bids.length > 0 && users.length == 0 && !users.includes(getBid().user.email)) {
 		bids.pop()
 		changed = true
 	}
