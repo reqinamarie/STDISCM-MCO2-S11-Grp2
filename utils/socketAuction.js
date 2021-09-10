@@ -3,9 +3,9 @@ var bids = []
 
 function newAuction(data) {
 	auction = data;
-	currBid = {
-		bid: auction.startPrice-1
-	}
+	bids = [
+		{bid: auction.startPrice-1, user: null}
+	]
 }
 
 function deleteAuction() {
@@ -47,15 +47,15 @@ function setBid(bid, user) {
 
 	if (bid >= parseInt(auction.buyPrice)) {
 		console.log('autobuy')
-		currBid.push(userbid)
+		bids.push(userbid)
 		
 		auction.start = null
 		return null;
 	}
 	
-	if (currBid.length == 0 || bid > currBid.at(-1).bid) {
+	if (bids.length == 0 || bid > bids.at(-1).bid) {
 		console.log(bid, user, "success")
-		currBid.push(userbid)
+		bids.push(userbid)
 
 		return true
 	} else {
@@ -65,18 +65,18 @@ function setBid(bid, user) {
 }
 
 function getBid() {
-	return currBid.at(-1)
+	return bids.at(-1)
 }
 
 function rollbackBid(users) {
 	var changed = false
 
-	while (currBid.length > 0 && users.length == 0 && !users.includes(currBid.at(-1).user.email)) {
-		currBid.pop()
+	while (bids.length > 0 && users.length == 0 && !users.includes(bids.at(-1).user.email)) {
+		bids.pop()
 		changed = true
 	}
 
-	if (currBid.length == 0)
+	if (bids.length == 0)
 		return null
 	else
 		return changed
