@@ -1,6 +1,6 @@
 const {getUsers, addUser, removeUser, getUserCount, entryRequest, getPermittedUsers, clearPermittedUsers, setHost, getHost, clearHost} = require('./socketUser');
 
-const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime, setBid, getBid} = require('./socketAuction');
+const {newAuction, deleteAuction, getAuction, startAuction, getMaxBidders, getBidTime, setBid, getBid, hasStarted, rollbackBid} = require('./socketAuction');
 
 //Socket connection
 function socket(io) {
@@ -143,10 +143,21 @@ function socket(io) {
                 }
 
                 console.log(socket.id);
-                removeUser(socket.id);
+                var user = removeUser(socket.id);
         
                 //Send online users count to both home and auction chatroom
                 io.emit('online-users', getUserCount())
+                io.to('auction-room').emit('disconnected', user)
+
+                if (hasStarted()) {
+                    var rollback = rollbackBid()
+
+                    if (rollback == null) {
+                        io.to('auction-room').emit('rollback', null)
+                    } else if (rollback) {
+                        io.to('auction-room').emit('rollback', getBid())
+                    }
+                }
             }
         })
 
