@@ -130,7 +130,7 @@ function socket(io) {
     
         //Remove user from memory when they disconnect
         socket.on('disconnecting', ()=>{
-            if (roomName != 'home') {
+            if (roomName == 'auction-room') {
 
                 // if the host is disconnected, end the auction
                 if (getHost().socketId == socket.id) {
