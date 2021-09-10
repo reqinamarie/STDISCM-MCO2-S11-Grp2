@@ -5,7 +5,7 @@ const homeController = require('../controllers/homeController')
 const app = express();
 
 app.get('/', homeController.home);
-app.get('/loaderio-074fbd34ebed28cf3cf10a9f13374a16', homeController.loaderio);
+app.get('/loaderio-074fbd34ebed28cf3cf10a9f13374a16/', homeController.loaderio);
 app.post('/chatroom', homeController.postLogin);
 app.post('/createRoom', homeController.newRoom);
 // app.get('/createRoom', homeController.newRoom);		//	delete after testing
