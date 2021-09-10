@@ -138,7 +138,7 @@ function socket(io) {
                     clearHost()
                     console.log(getHost().socketId, socket.id, "disconnected")
                     clearInterval(timer)
-                    io.emit('end-auction', null)
+                    io.emit('end-auction', 'host disconnected')
                     restartAuction(10000)
                 }
 
@@ -150,12 +150,18 @@ function socket(io) {
                 io.to('auction-room').emit('disconnected', user)
 
                 if (hasStarted()) {
-                    var rollback = rollbackBid()
+                    var rollback = rollbackBid(getPermittedUsers())
 
                     if (rollback == null) {
                         io.to('auction-room').emit('rollback', null)
                     } else if (rollback) {
                         io.to('auction-room').emit('rollback', getBid())
+
+                        if (getUserCount() == 1) {
+                            clearInterval(timer)
+                            io.emit('end-auction', getBid())
+                            restartAuction(10000)
+                        }
                     }
                 }
             }
@@ -226,6 +232,11 @@ function socket(io) {
                 clearInterval(timer)
                 io.emit('end-auction', getBid())
                 restartAuction(10000)
+            } else if (getUserCount() == 1) {
+                clearInterval(timer)
+                io.emit('end-auction', getBid())
+                restartAuction(10000)
+
             } else if (res) {
                 io.to('auction-room').emit('new-bid', bid, user)
             }

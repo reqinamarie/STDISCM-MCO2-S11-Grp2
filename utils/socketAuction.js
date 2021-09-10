@@ -1,5 +1,3 @@
-const getPermittedUsers = require('./socketUser').getPermittedUsers;
-
 var auction = {}
 var bids = []
 
@@ -70,11 +68,10 @@ function getBid() {
 	return currBid.at(-1)
 }
 
-function rollbackBid() {
-	var users = getPermittedUsers()
+function rollbackBid(users) {
 	var changed = false
 
-	while (currBid.length > 0 && !users.includes(currBid.at(-1).user.email)) {
+	while (currBid.length > 0 && users.length == 0 && !users.includes(currBid.at(-1).user.email)) {
 		currBid.pop()
 		changed = true
 	}
