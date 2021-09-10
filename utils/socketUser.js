@@ -49,7 +49,7 @@ function getUserCount() {
 function entryRequest(email) {
     console.log("BEFORE ENTRY: ", permittedUsers.length, " ", email)
 
-    if (permittedUsers.length < getMaxBidders()) {
+    if (permittedUsers.length < getMaxBidders() + 1) {
         // user already exists
         if (permittedUsers.indexOf(email) > -1) {
             return null;

@@ -81,13 +81,14 @@ function socket(io) {
             var user = {};
             user[socket.id] = data.email.toLowerCase();      
 
-            if (!data.host) {
+            if (!data.host) 
                 addUser(user);                
-            } else {
+            if (data.host) {
                 var host = getHost()
                 host.socketId = socket.id
 
                 setHost(host)
+                entryRequest(host.email)
             }
 
             roomName = 'auction-room';
