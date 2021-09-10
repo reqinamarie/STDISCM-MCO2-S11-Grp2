@@ -1,9 +1,9 @@
 var auction = {}
 var bids = []
+var minBid = 0
 
 function newAuction(data) {
 	auction = data;
-	bids.push({bid: auction.startPrice-1, user: null})
 }
 
 function deleteAuction() {
@@ -51,7 +51,7 @@ function setBid(bid, user) {
 		return null;
 	}
 	
-	if (bids.length == 0 || bid > bids.at(-1).bid) {
+	if (bid > auction.startPrice && bid > bids.at(-1).bid) {
 		console.log(bid, user, "success")
 		bids.push(userbid)
 
