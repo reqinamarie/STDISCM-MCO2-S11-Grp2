@@ -52,7 +52,7 @@ $(document).ready(function() {
 			var bid = $("#bid").val()
 
 			socket.emit('bid', bid, user, (success) => {
-				if (!success)
+				if (success == false)
 					$('#output').append('<p style="color: darkgrey"> -> <em>Your bid of PHP ' + bid + ' is not higher than the current bid.</em></p>');
 			})
 			$("#bid").val('')

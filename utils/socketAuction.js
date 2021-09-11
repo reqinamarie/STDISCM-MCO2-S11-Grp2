@@ -35,8 +35,10 @@ function hasStarted() {
 }
 
 function setBid(bid, user) {
+	bid = parseInt(bid)
+
 	userbid = {
-		bid: parseInt(bid),
+		bid: bid,
 		user: user
 	}
 
@@ -51,7 +53,7 @@ function setBid(bid, user) {
 		return null;
 	}
 	
-	if ((bid >= auction.startPrice && bids.length == 0) || bid > getBid().bid) {
+	if ((bid >= parseInt(auction.startPrice) && bids.length == 0) || bid > getBid().bid) {
 		console.log(bid, user, "success")
 		bids.push(userbid)
 

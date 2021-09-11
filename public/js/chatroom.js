@@ -108,7 +108,7 @@ socket.on('end-auction', (data) => {
             endAuction()
 
             clearInterval(t)
-        }, 5000);
+        }, 3000);
 
         return;
     }
@@ -122,7 +122,7 @@ socket.on('end-auction', (data) => {
         endAuction()
 
         clearInterval(t)
-    }, 5000);
+    }, 3000);
 
 })
 
@@ -149,7 +149,7 @@ function endAuction() {
 
         updateTime(time, "end-timer", "")
 
-        if (time < 0) {
+        if (time == 0) {
             document.location.href="/";
         }
     }, 1000)
