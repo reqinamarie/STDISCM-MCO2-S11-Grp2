@@ -93,7 +93,8 @@ socket.on('start-auction', (bidTime) => {
 
 
 socket.on('end-auction', (data) => {
-    if (data.equals('host disconnected')) {
+    console.log("ENDED: " + data);
+    if (typeof data == "string" && data.equals('host disconnected')) {
         $(".modal-msg").text("Host disconnected. Redirecting everyone to homepage in...")
         endAuction()
         return;
