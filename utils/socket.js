@@ -255,7 +255,7 @@ function socket(io) {
         socket.on('autobuy', (user) => {
             bid = getAuction().buyPrice;
 
-            if (setBid(bid, user)) {
+            if (setBid(bid, user) == null) {
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
                 io.to('auction-room').emit('end-auction', getBid())
