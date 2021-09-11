@@ -73,7 +73,7 @@ function socket(io) {
                 }
 
                 if (time <= 0) {
-                    io.emit('end-auction', getBid())
+                    io.to('auction-room').emit('end-auction', getBid())
                     clearInterval(timer)
 
                     restartAuction(10000)
@@ -138,7 +138,7 @@ function socket(io) {
                     clearHost()
                     console.log(getHost().socketId, socket.id, "disconnected")
                     clearInterval(timer)
-                    io.emit('end-auction', 'host disconnected')
+                    io.to('auction-room').emit('end-auction', 'host disconnected')
                     restartAuction(10000)
                 }
 
@@ -161,14 +161,14 @@ function socket(io) {
 
                         if (getUserCount() == 1) {
                             clearInterval(timer)
-                            io.emit('end-auction', getBid())
+                            io.to('auction-room').emit('end-auction', getBid())
                             restartAuction(10000)
                         }
                     }
 
                     if (getUserCount() == 0) {
                         clearInterval(timer)
-                        io.emit('end-auction', null)
+                        io.to('auction-room').emit('end-auction', null)
                         restartAuction(10000)
                     }
                 }
@@ -238,11 +238,11 @@ function socket(io) {
             if (res == null) {
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
-                io.emit('end-auction', getBid())
+                io.to('auction-room').emit('end-auction', getBid())
                 restartAuction(10000)
             } else if (getUserCount() == 1) {
                 clearInterval(timer)
-                io.emit('end-auction', getBid())
+                io.to('auction-room').emit('end-auction', getBid())
                 restartAuction(10000)
 
             } else if (res) {
@@ -258,7 +258,7 @@ function socket(io) {
             if (setBid(bid, user)) {
                 io.to('auction-room').emit('autobuy', bid, user)
                 clearInterval(timer)
-                io.emit('end-auction', getBid())
+                io.to('auction-room').emit('end-auction', getBid())
                 restartAuction(10000)
             }
         })
@@ -269,6 +269,7 @@ function socket(io) {
             timer = setInterval(function() {
                 deleteAuction()
                 clearInterval(timer)
+                io.to('home').emit('clear-auction')
             }, delay)
         }
     })

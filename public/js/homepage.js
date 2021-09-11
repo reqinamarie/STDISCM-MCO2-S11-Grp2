@@ -21,7 +21,7 @@ socket.on('get-auction', (data) => {
 		ongoingAuction(data)
 })
 
-socket.on('end-auction', () => {
+socket.on('clear-auction', () => {
 	endAuction()    
 })
 
